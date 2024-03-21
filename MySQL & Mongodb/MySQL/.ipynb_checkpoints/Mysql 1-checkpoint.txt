@@ -1,0 +1,333 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 10
+Server version: 8.0.35 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| db                 |
+| information_schema |
+| mysql              |
+| performance_schema |
+| resturant          |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+8 rows in set (0.01 sec)
+
+mysql> create database(DDMl);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(DDMl)' at line 1
+mysql> create databases(DDMl);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'databases(DDMl)' at line 1
+mysql> CREATE DATABASE(DDML);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(DDML)' at line 1
+mysql> create databases DDMl;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'databases DDMl' at line 1
+mysql> create databases ddml;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'databases ddml' at line 1
+mysql> create database ddml;
+Query OK, 1 row affected (0.07 sec)
+
+mysql> create database DDML;
+ERROR 1007 (HY000): Can't create database 'ddml'; database exists
+mysql> drop database ddml;
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> create database DDML;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| db                 |
+| ddml               |
+| information_schema |
+| mysql              |
+| performance_schema |
+| resturant          |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+9 rows in set (0.01 sec)
+
+mysql> use ddml;
+Database changed
+mysql> create table countries(country_id int, country_name varchar(255), region_id int);
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> show table;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> show tables;
++----------------+
+| Tables_in_ddml |
++----------------+
+| countries      |
++----------------+
+1 row in set (0.03 sec)
+
+mysql> dsec countries;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'dsec countries' at line 1
+mysql> desc countries;
++--------------+--------------+------+-----+---------+-------+
+| Field        | Type         | Null | Key | Default | Extra |
++--------------+--------------+------+-----+---------+-------+
+| country_id   | int          | YES  |     | NULL    |       |
+| country_name | varchar(255) | YES  |     | NULL    |       |
+| region_id    | int          | YES  |     | NULL    |       |
++--------------+--------------+------+-----+---------+-------+
+3 rows in set (0.02 sec)
+
+mysql> drop table countries;
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> show tables;
+Empty set (0.00 sec)
+
+mysql> create table countries(country_id int, country_name varchar(40) ^X^Con_id decimal(10,0));
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| db                 |
+| ddml               |
+| information_schema |
+| mysql              |
+| performance_schema |
+| resturant          |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+9 rows in set (0.00 sec)
+
+mysql> use ddml;
+Database changed
+mysql> show tables;
+Empty set (0.00 sec)
+
+mysql> create table countries(country_id varchar(2), country_name varchar(40), region_id deciaml(10,0);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'deciaml(10,0)' at line 1
+mysql> create table countries(country_id varchar(2), country_name varchar(40), region_id deciaml(10,0));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'deciaml(10,0))' at line 1
+mysql> create table Countries(Country_Id varchar(2), Country_Name varchar(40), Region_Id decimal(10,0));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> desc countries;
++--------------+---------------+------+-----+---------+-------+
+| Field        | Type          | Null | Key | Default | Extra |
++--------------+---------------+------+-----+---------+-------+
+| Country_Id   | varchar(2)    | YES  |     | NULL    |       |
+| Country_Name | varchar(40)   | YES  |     | NULL    |       |
+| Region_Id    | decimal(10,0) | YES  |     | NULL    |       |
++--------------+---------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> create table IF NOT EXISTS Countries(Country_Id varchar(2), Country_Name varchar(40), Region_Id decimal(10,0));
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+
+mysql> show tables;
++----------------+
+| Tables_in_ddml |
++----------------+
+| countries      |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> desc countries;
++--------------+---------------+------+-----+---------+-------+
+| Field        | Type          | Null | Key | Default | Extra |
++--------------+---------------+------+-----+---------+-------+
+| Country_Id   | varchar(2)    | YES  |     | NULL    |       |
+| Country_Name | varchar(40)   | YES  |     | NULL    |       |
+| Region_Id    | decimal(10,0) | YES  |     | NULL    |       |
++--------------+---------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> create table dup_countries like countries;
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> desc dup_countries;
++--------------+---------------+------+-----+---------+-------+
+| Field        | Type          | Null | Key | Default | Extra |
++--------------+---------------+------+-----+---------+-------+
+| Country_Id   | varchar(2)    | YES  |     | NULL    |       |
+| Country_Name | varchar(40)   | YES  |     | NULL    |       |
+| Region_Id    | decimal(10,0) | YES  |     | NULL    |       |
++--------------+---------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> create table if not exists dup_countries as select * from countries;
+Query OK, 0 rows affected, 1 warning (0.00 sec)
+
+mysql> desc dup_countries;
++--------------+---------------+------+-----+---------+-------+
+| Field        | Type          | Null | Key | Default | Extra |
++--------------+---------------+------+-----+---------+-------+
+| Country_Id   | varchar(2)    | YES  |     | NULL    |       |
+| Country_Name | varchar(40)   | YES  |     | NULL    |       |
+| Region_Id    | decimal(10,0) | YES  |     | NULL    |       |
++--------------+---------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> show tables;
++----------------+
+| Tables_in_ddml |
++----------------+
+| countries      |
+| dup_countries  |
++----------------+
+2 rows in set (0.00 sec)
+
+mysql> create table if not exists Countries(Country_Id varchar(2) not null, Country_Name varchar(40) not null, Region_Id decimal(10,0) not null);
+Query OK, 0 rows affected, 1 warning (0.00 sec)
+
+mysql> desc countries;
++--------------+---------------+------+-----+---------+-------+
+| Field        | Type          | Null | Key | Default | Extra |
++--------------+---------------+------+-----+---------+-------+
+| Country_Id   | varchar(2)    | YES  |     | NULL    |       |
+| Country_Name | varchar(40)   | YES  |     | NULL    |       |
+| Region_Id    | decimal(10,0) | YES  |     | NULL    |       |
++--------------+---------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> create table Countries(Country_Id varchar(2) not null, Country_Name varchar(40) not null, Region_Id decimal(10,0) not null);
+ERROR 1050 (42S01): Table 'countries' already exists
+mysql> create table Countrie(Country_Id varchar(2) not null, Country_Name varchar(40) not null, Region_Id decimal(10,0) not null);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> desc countrie;
++--------------+---------------+------+-----+---------+-------+
+| Field        | Type          | Null | Key | Default | Extra |
++--------------+---------------+------+-----+---------+-------+
+| Country_Id   | varchar(2)    | NO   |     | NULL    |       |
+| Country_Name | varchar(40)   | NO   |     | NULL    |       |
+| Region_Id    | decimal(10,0) | NO   |     | NULL    |       |
++--------------+---------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> create table jobs(Job_Id varchar(2), Job_Title varchar(40), Min_Salary int, Max_salary int));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+mysql> create table jobs(Job_Id varchar(2), Job_Title varchar(40), Min_Salary int, Max_salary int);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> drop table jobs;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> create table jobs(Job_Id varchar(10) not null, Job_Title varchar(40) not null, Min_Salary decimal(6,0), Max_Salary decimal(6,0) check(Max_Salary<=25000));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> desc jobs;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| Job_Id     | varchar(10)  | NO   |     | NULL    |       |
+| Job_Title  | varchar(40)  | NO   |     | NULL    |       |
+| Min_Salary | decimal(6,0) | YES  |     | NULL    |       |
+| Max_Salary | decimal(6,0) | YES  |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> create table Country(Country_Id varchar(2), Country_Name varchar(40) check(Country_Name in('ITLY',"INDIA","CHINA")), Region_Id decimal(10,0));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> desc country;
++--------------+---------------+------+-----+---------+-------+
+| Field        | Type          | Null | Key | Default | Extra |
++--------------+---------------+------+-----+---------+-------+
+| Country_Id   | varchar(2)    | YES  |     | NULL    |       |
+| Country_Name | varchar(40)   | YES  |     | NULL    |       |
+| Region_Id    | decimal(10,0) | YES  |     | NULL    |       |
++--------------+---------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> create table job_history( Employee_Id decimal(6,0) not null, Start_Date date not null, End_Datedate not null,check(End_Date like '__/__/____'), Job_Id varchar(10) not null, Department_Id decimal(4,0) not null);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'not null,check(End_Date like '__/__/____'), Job_Id varchar(10) not null, Departm' at line 1
+mysql> create table job_history( Employee_Id decimal(6,0) not null, Start_Date date not null, End_Datedate not null check(End_Date like '__/__/____'), Job_Id varchar(10) not null, Department_Id decimal(4,0) not null);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'not null check(End_Date like '__/__/____'), Job_Id varchar(10) not null, Departm' at line 1
+mysql> create table job_history( Employee_Id decimal(6,0) not null, Start_Date date not null, End_Datedate not null check (End_Date like '__/__/____'), Job_Id varchar(10) not null, Department_Id decimal(4,0) not null);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'not null check (End_Date like '__/__/____'), Job_Id varchar(10) not null, Depart' at line 1
+mysql> create table job_history(Employee_Id decimal(6,0) not null, Start_Date date not null, End_Date date not null check(End_Date like '__/__/____'), Job_Id varchar(10) not null, Department_Id decimal(4,0) not null);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> desc job_history
+    -> ;
++---------------+--------------+------+-----+---------+-------+
+| Field         | Type         | Null | Key | Default | Extra |
++---------------+--------------+------+-----+---------+-------+
+| Employee_Id   | decimal(6,0) | NO   |     | NULL    |       |
+| Start_Date    | date         | NO   |     | NULL    |       |
+| End_Date      | date         | NO   |     | NULL    |       |
+| Job_Id        | varchar(10)  | NO   |     | NULL    |       |
+| Department_Id | decimal(4,0) | NO   |     | NULL    |       |
++---------------+--------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> create table Country_1(Country_Id varchar(2) primary key, Country_Name varchar(40) check(Country_Name in('ITLY',"INDIA","CHINA")), Region_Id decimal(10,0));
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> drop Country_1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Country_1' at line 1
+mysql> drop table Country_1;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> create table Country_1(Country_Id varchar(2) not null, Country_Name varchar(40) not null, Region_Id decimal(10,0) not null, unique(Country_Id));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> desc country_1
+    -> ;
++--------------+---------------+------+-----+---------+-------+
+| Field        | Type          | Null | Key | Default | Extra |
++--------------+---------------+------+-----+---------+-------+
+| Country_Id   | varchar(2)    | NO   | PRI | NULL    |       |
+| Country_Name | varchar(40)   | NO   |     | NULL    |       |
+| Region_Id    | decimal(10,0) | NO   |     | NULL    |       |
++--------------+---------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> create table job(Job_Id varchar(10) not null unique, Job_Title varchar(40) default ' ', Min_Salary decimal(6,0) default 8000, Max_Salary decimal(6,0) default null);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> desc job;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| Job_Id     | varchar(10)  | NO   | PRI | NULL    |       |
+| Job_Title  | varchar(40)  | YES  |     |         |       |
+| Min_Salary | decimal(6,0) | YES  |     | 8000    |       |
+| Max_Salary | decimal(6,0) | YES  |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> drop table job;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> create table job(Job_Id varchar(10) not null unique, Job_Title varchar(40) not null default ' ', Min_Salary decimal(6,0) default 8000, Max_Salary decimal(6,0) default null);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> desc job;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| Job_Id     | varchar(10)  | NO   | PRI | NULL    |       |
+| Job_Title  | varchar(40)  | NO   |     |         |       |
+| Min_Salary | decimal(6,0) | YES  |     | 8000    |       |
+| Max_Salary | decimal(6,0) | YES  |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql>
+                                                                                                                                                                                                                 
