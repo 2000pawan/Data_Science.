@@ -1,0 +1,642 @@
+mysql> create table salesman(salesman_id decimal(10,2),names char(40),city char(40),commission decimal(10,2));
+Query OK, 0 rows affected (0.13 sec)
+
+mysql> show tables;
++--------------+
+| Tables_in_db |
++--------------+
+| booktable    |
+| issuetable   |
+| salesman     |
++--------------+
+3 rows in set (0.00 sec)
+
+mysql> insert into salesman values((5001,'James Hoog','New York',0.15),(5002,'Nail Knite','Paris',0.13),(5005,'Pit ALex','London',0.11),(5006,'MC,Lyon','Paris',0.14),(5007,'Paul Adam','Rome',0.13),(5003,'Lauson Hen','San Jose',0.12));
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into salesman values((5001,'James Hoog','New York',0.15));
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> show table salesman;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'salesman' at line 1
+mysql> select * from salesman;
+Empty set (0.00 sec)
+
+mysql> INSERT INTO agents
+    -> VALUES ("A001","Jodi","London",.12,"075-1248798");
+ERROR 1146 (42S02): Table 'db.agents' doesn't exist
+mysql> INSERT INTO agents
+    -> VALUES (5001,"Jodi","London",0.15);
+ERROR 1146 (42S02): Table 'db.agents' doesn't exist
+mysql> INSERT INTO salesman
+    -> VALUES (5001,"Jodi","London",0.15);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> INSERT INTO agents
+    -> insert into salesman values (5001,'James Hoog','New York',0.15),(5002,'Nail Knite','Paris',0.13),(5005,'Pit ALex','London',0.11),(5006,'MC,Lyon','Paris',0.14),(5007,'Paul Adam','Rome',0.13),(5003,'Lauson Hen','San Jose',0.12);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'insert into salesman values (5001,'James Hoog','New York',0.15),(5002,'Nail Knit' at line 2
+mysql> insert into salesman values ((5001,'James Hoog','New York',0.15),(5002,'Nail Knite','Paris',0.1
+3),(5005,'Pit ALex','London',0.11),(5006,'MC,Lyon','Paris',0.14),(5007,'Paul Adam','Rome',0.13),(5003,
+'Lauson Hen','San Jose',0.12));
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into salesman
+    -> values (5001,'James Hoog','New York',0.15);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into salesman
+    -> values (5002,'Nail Knite','Paris',0.13);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into salesman values (5005,'Pit Alex','London',0.11);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into salesman values (5006,'MC Lyon','Paris',0.14);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into salesman values (5007,'Paul Adam','Rome',0.13);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into salesman values (5003,'Pawan Yadav','India',0.12);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from salesman;
++-------------+-------------+----------+------------+
+| salesman_id | names       | city     | commission |
++-------------+-------------+----------+------------+
+|     5001.00 | Jodi        | London   |       0.15 |
+|     5001.00 | James Hoog  | New York |       0.15 |
+|     5002.00 | Nail Knite  | Paris    |       0.13 |
+|     5005.00 | Pit Alex    | London   |       0.11 |
+|     5006.00 | MC Lyon     | Paris    |       0.14 |
+|     5007.00 | Paul Adam   | Rome     |       0.13 |
+|     5003.00 | Pawan Yadav | India    |       0.12 |
++-------------+-------------+----------+------------+
+7 rows in set (0.00 sec)
+
+mysql> select 'This is SQL Exercise,Practice and Solution';
++--------------------------------------------+
+| This is SQL Exercise,Practice and Solution |
++--------------------------------------------+
+| This is SQL Exercise,Practice and Solution |
++--------------------------------------------+
+1 row in set (0.05 sec)
+
+mysql> select ,,;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',,' at line 1
+mysql> select 5,10,15;
++---+----+----+
+| 5 | 10 | 15 |
++---+----+----+
+| 5 | 10 | 15 |
++---+----+----+
+1 row in set (0.01 sec)
+
+mysql> select 10+15;
++-------+
+| 10+15 |
++-------+
+|    25 |
++-------+
+1 row in set (0.01 sec)
+
+mysql> select 10+15-5*2;
++-----------+
+| 10+15-5*2 |
++-----------+
+|        15 |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> select name,commission from salesman;
+ERROR 1054 (42S22): Unknown column 'name' in 'field list'
+mysql> select * from salesman;
++-------------+-------------+----------+------------+
+| salesman_id | names       | city     | commission |
++-------------+-------------+----------+------------+
+|     5001.00 | Jodi        | London   |       0.15 |
+|     5001.00 | James Hoog  | New York |       0.15 |
+|     5002.00 | Nail Knite  | Paris    |       0.13 |
+|     5005.00 | Pit Alex    | London   |       0.11 |
+|     5006.00 | MC Lyon     | Paris    |       0.14 |
+|     5007.00 | Paul Adam   | Rome     |       0.13 |
+|     5003.00 | Pawan Yadav | India    |       0.12 |
++-------------+-------------+----------+------------+
+7 rows in set (0.02 sec)
+
+mysql> select names,commission from salesman;
++-------------+------------+
+| names       | commission |
++-------------+------------+
+| Jodi        |       0.15 |
+| James Hoog  |       0.15 |
+| Nail Knite  |       0.13 |
+| Pit Alex    |       0.11 |
+| MC Lyon     |       0.14 |
+| Paul Adam   |       0.13 |
+| Pawan Yadav |       0.12 |
++-------------+------------+
+7 rows in set (0.01 sec)
+
+mysql> select city,names,commmission from salesman;
+ERROR 1054 (42S22): Unknown column 'commmission' in 'field list'
+mysql> select city,names,commission from salesman;
++----------+-------------+------------+
+| city     | names       | commission |
++----------+-------------+------------+
+| London   | Jodi        |       0.15 |
+| New York | James Hoog  |       0.15 |
+| Paris    | Nail Knite  |       0.13 |
+| London   | Pit Alex    |       0.11 |
+| Paris    | MC Lyon     |       0.14 |
+| Rome     | Paul Adam   |       0.13 |
+| India    | Pawan Yadav |       0.12 |
++----------+-------------+------------+
+7 rows in set (0.00 sec)
+
+mysql> select distinct salesman_id from orders;
+ERROR 1146 (42S02): Table 'db.orders' doesn't exist
+mysql> select distinct salesman_id from salesman;
++-------------+
+| salesman_id |
++-------------+
+|     5001.00 |
+|     5002.00 |
+|     5005.00 |
+|     5006.00 |
+|     5007.00 |
+|     5003.00 |
++-------------+
+6 rows in set (0.02 sec)
+
+mysql> select name,city from salesman where city='Paris';
+ERROR 1054 (42S22): Unknown column 'name' in 'field list'
+mysql> select names,city from salesman where city='Paris';
++------------+-------+
+| names      | city  |
++------------+-------+
+| Nail Knite | Paris |
+| MC Lyon    | Paris |
++------------+-------+
+2 rows in set (0.01 sec)
+
+mysql> select names,salesman_id,city,commission from salesman where commission=0.15;
++------------+-------------+----------+------------+
+| names      | salesman_id | city     | commission |
++------------+-------------+----------+------------+
+| Jodi       |     5001.00 | London   |       0.15 |
+| James Hoog |     5001.00 | New York |       0.15 |
++------------+-------------+----------+------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from salesman where salesman_id=5001;
++-------------+------------+----------+------------+
+| salesman_id | names      | city     | commission |
++-------------+------------+----------+------------+
+|     5001.00 | Jodi       | London   |       0.15 |
+|     5001.00 | James Hoog | New York |       0.15 |
++-------------+------------+----------+------------+
+2 rows in set (0.01 sec)
+
+mysql> select * from salesman where city='London';
++-------------+----------+--------+------------+
+| salesman_id | names    | city   | commission |
++-------------+----------+--------+------------+
+|     5001.00 | Jodi     | London |       0.15 |
+|     5005.00 | Pit Alex | London |       0.11 |
++-------------+----------+--------+------------+
+2 rows in set (0.00 sec)
+
+mysql> select names,city from salesman where commission=0.13;
++------------+-------+
+| names      | city  |
++------------+-------+
+| Nail Knite | Paris |
+| Paul Adam  | Rome  |
++------------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select * from salesman where commission>=0.11;
++-------------+-------------+----------+------------+
+| salesman_id | names       | city     | commission |
++-------------+-------------+----------+------------+
+|     5001.00 | Jodi        | London   |       0.15 |
+|     5001.00 | James Hoog  | New York |       0.15 |
+|     5002.00 | Nail Knite  | Paris    |       0.13 |
+|     5005.00 | Pit Alex    | London   |       0.11 |
+|     5006.00 | MC Lyon     | Paris    |       0.14 |
+|     5007.00 | Paul Adam   | Rome     |       0.13 |
+|     5003.00 | Pawan Yadav | India    |       0.12 |
++-------------+-------------+----------+------------+
+7 rows in set (0.01 sec)
+
+mysql> select * from salesman where commission>=0.11 and salesman_id >5001;
++-------------+-------------+--------+------------+
+| salesman_id | names       | city   | commission |
++-------------+-------------+--------+------------+
+|     5002.00 | Nail Knite  | Paris  |       0.13 |
+|     5005.00 | Pit Alex    | London |       0.11 |
+|     5006.00 | MC Lyon     | Paris  |       0.14 |
+|     5007.00 | Paul Adam   | Rome   |       0.13 |
+|     5003.00 | Pawan Yadav | India  |       0.12 |
++-------------+-------------+--------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from salesman where commission>=0.11 and commission<=0.14 and salesman_id >5001;
++-------------+-------------+--------+------------+
+| salesman_id | names       | city   | commission |
++-------------+-------------+--------+------------+
+|     5002.00 | Nail Knite  | Paris  |       0.13 |
+|     5005.00 | Pit Alex    | London |       0.11 |
+|     5006.00 | MC Lyon     | Paris  |       0.14 |
+|     5007.00 | Paul Adam   | Rome   |       0.13 |
+|     5003.00 | Pawan Yadav | India  |       0.12 |
++-------------+-------------+--------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from salesman where commission >0.12 and names in ('Jodi','Pawan Yadav');
++-------------+-------+--------+------------+
+| salesman_id | names | city   | commission |
++-------------+-------+--------+------------+
+|     5001.00 | Jodi  | London |       0.15 |
++-------------+-------+--------+------------+
+1 row in set (0.01 sec)
+
+mysql> select * from salesman where names like 'Pawan %';
++-------------+-------------+-------+------------+
+| salesman_id | names       | city  | commission |
++-------------+-------------+-------+------------+
+|     5003.00 | Pawan Yadav | India |       0.12 |
++-------------+-------------+-------+------------+
+1 row in set (0.01 sec)
+
+mysql> select * from salesman where (city = 'London' and commission=0.12)
+    -> union (select * from salesman where (city = 'Paris' and commission = 0.14));
++-------------+---------+-------+------------+
+| salesman_id | names   | city  | commission |
++-------------+---------+-------+------------+
+|     5006.00 | MC Lyon | Paris |       0.14 |
++-------------+---------+-------+------------+
+1 row in set (0.02 sec)
+
+mysql> select * from salesman where (city = 'London' and commission=0.11)
+    -> union (select * from salesman where (city = 'Paris' and commission = 0.14));
++-------------+----------+--------+------------+
+| salesman_id | names    | city   | commission |
++-------------+----------+--------+------------+
+|     5005.00 | Pit Alex | London |       0.11 |
+|     5006.00 | MC Lyon  | Paris  |       0.14 |
++-------------+----------+--------+------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from salesman where salesman_id = 5001 and city not in ('India','London');
++-------------+------------+----------+------------+
+| salesman_id | names      | city     | commission |
++-------------+------------+----------+------------+
+|     5001.00 | James Hoog | New York |       0.15 |
++-------------+------------+----------+------------+
+1 row in set (0.00 sec)
+
+mysql> select * from salesman where (city='Paris' and commission>0.11) union (select * from salesman where (city='London' and commission>=0.11));
++-------------+------------+--------+------------+
+| salesman_id | names      | city   | commission |
++-------------+------------+--------+------------+
+|     5002.00 | Nail Knite | Paris  |       0.13 |
+|     5006.00 | MC Lyon    | Paris  |       0.14 |
+|     5001.00 | Jodi       | London |       0.15 |
+|     5005.00 | Pit Alex   | London |       0.11 |
++-------------+------------+--------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from salesman where city='Paris';
++-------------+------------+-------+------------+
+| salesman_id | names      | city  | commission |
++-------------+------------+-------+------------+
+|     5002.00 | Nail Knite | Paris |       0.13 |
+|     5006.00 | MC Lyon    | Paris |       0.14 |
++-------------+------------+-------+------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from salesman where names not like 'J%' order by city desc, names;
++-------------+-------------+--------+------------+
+| salesman_id | names       | city   | commission |
++-------------+-------------+--------+------------+
+|     5007.00 | Paul Adam   | Rome   |       0.13 |
+|     5006.00 | MC Lyon     | Paris  |       0.14 |
+|     5002.00 | Nail Knite  | Paris  |       0.13 |
+|     5005.00 | Pit Alex    | London |       0.11 |
+|     5003.00 | Pawan Yadav | India  |       0.12 |
++-------------+-------------+--------+------------+
+5 rows in set (0.01 sec)
+
+mysql> select * from salesman where names not like 'J%' order by city asce, names;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'asce, names' at line 1
+mysql> select * froom salesman where commission=0.11 order by case when city in ('Paris','London') the
+n 1 else 0 end asc, city,names;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'froom salesman where commission=0.11 order by case when city in ('Paris','London' at line 1
+mysql> select * from salesman where commission=0.11 order by case when city in ('Paris','London') then
+ 1 else 0 end asc, city,names;
++-------------+----------+--------+------------+
+| salesman_id | names    | city   | commission |
++-------------+----------+--------+------------+
+|     5005.00 | Pit Alex | London |       0.11 |
++-------------+----------+--------+------------+
+1 row in set (0.00 sec)
+
+mysql> select * from salesman where commission between 0.11 and 0.13;
++-------------+-------------+--------+------------+
+| salesman_id | names       | city   | commission |
++-------------+-------------+--------+------------+
+|     5002.00 | Nail Knite  | Paris  |       0.13 |
+|     5005.00 | Pit Alex    | London |       0.11 |
+|     5007.00 | Paul Adam   | Rome   |       0.13 |
+|     5003.00 | Pawan Yadav | India  |       0.12 |
++-------------+-------------+--------+------------+
+4 rows in set (0.01 sec)
+
+mysql> select avg(commission) from salesman where commission =0.13;
++-----------------+
+| avg(commission) |
++-----------------+
+|        0.130000 |
++-----------------+
+1 row in set (0.01 sec)
+
+mysql> select avg(commission) from salesman where city = 'Paris';
++-----------------+
+| avg(commission) |
++-----------------+
+|        0.135000 |
++-----------------+
+1 row in set (0.01 sec)
+
+mysql> select names as 'person_name', city as 'capital' from salesman;
++-------------+----------+
+| person_name | capital  |
++-------------+----------+
+| Jodi        | London   |
+| James Hoog  | New York |
+| Nail Knite  | Paris    |
+| Pit Alex    | London   |
+| MC Lyon     | Paris    |
+| Paul Adam   | Rome     |
+| Pawan Yadav | India    |
++-------------+----------+
+7 rows in set (0.01 sec)
+
+mysql> select names,city from salesman where commission>=0.13 order by city desc,names;
++------------+----------+
+| names      | city     |
++------------+----------+
+| Paul Adam  | Rome     |
+| MC Lyon    | Paris    |
+| Nail Knite | Paris    |
+| James Hoog | New York |
+| Jodi       | London   |
++------------+----------+
+5 rows in set (0.00 sec)
+
+mysql> select avg(commission) , names from salesman group by names;
++-----------------+-------------+
+| avg(commission) | names       |
++-----------------+-------------+
+|        0.150000 | Jodi        |
+|        0.150000 | James Hoog  |
+|        0.130000 | Nail Knite  |
+|        0.110000 | Pit Alex    |
+|        0.140000 | MC Lyon     |
+|        0.130000 | Paul Adam   |
+|        0.120000 | Pawan Yadav |
++-----------------+-------------+
+7 rows in set (0.00 sec)
+
+mysql> select names,city from salesman where commission = (select min(commission) from salesman);
++----------+--------+
+| names    | city   |
++----------+--------+
+| Pit Alex | London |
++----------+--------+
+1 row in set (0.00 sec)
+
+mysql> select names,city from salesman where commission = (select max(commission) from salesman);
++------------+----------+
+| names      | city     |
++------------+----------+
+| Jodi       | London   |
+| James Hoog | New York |
++------------+----------+
+2 rows in set (0.00 sec)
+
+mysql> select distinct names from salesman;
++-------------+
+| names       |
++-------------+
+| Jodi        |
+| James Hoog  |
+| Nail Knite  |
+| Pit Alex    |
+| MC Lyon     |
+| Paul Adam   |
+| Pawan Yadav |
++-------------+
+7 rows in set (0.01 sec)
+
+mysql> select distinct city from salesman;
++----------+
+| city     |
++----------+
+| London   |
+| New York |
+| Paris    |
+| Rome     |
+| India    |
++----------+
+5 rows in set (0.00 sec)
+
+mysql> select * from salesman where city = 'India';
++-------------+-------------+-------+------------+
+| salesman_id | names       | city  | commission |
++-------------+-------------+-------+------------+
+|     5003.00 | Pawan Yadav | India |       0.12 |
++-------------+-------------+-------+------------+
+1 row in set (0.01 sec)
+
+mysql> select * from salesman where salesman_id =5001;
++-------------+------------+----------+------------+
+| salesman_id | names      | city     | commission |
++-------------+------------+----------+------------+
+|     5001.00 | Jodi       | London   |       0.15 |
+|     5001.00 | James Hoog | New York |       0.15 |
++-------------+------------+----------+------------+
+2 rows in set (0.00 sec)
+
+mysql> create table customer(id int,name char(40),city char(40),grade decimal(10,2),salesman_id int);
+Query OK, 0 rows affected (0.13 sec)
+
+mysql> insert into customer values (3002,'Pawan Yadav0','Noida',84,5001);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into customer values (3007,'Panakaj Yadav','Noida',87,5001);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> update customer set name='Pawan Yadav' where id=3002;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> insert into customer values (3005,'Ayush','Shimla',87,5002);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> update customer set name='Pawan Yadav' where id=3001;
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> drop customer;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'customer' at line 1
+mysql> drop table customer;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> create table customer(id int,name char(40),city char(40),grade decimal(10,2),salesman_id int);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into customer values (3002,'Pawan Yadav','Noida',84,5001);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into customer values (3007,'Pankaj Yadav','Noida',87,5001);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into customer values (3005,'Ayush','Shimla',87,5002);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into customer values (3008,'Aman','Delhi',90,5002);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into customer values (3004,'Amit','Solan',90,5006);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into customer values (3009,'Ravi','Leh',84,5003);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into customer values (3003,'Raman','New Delhi',87,5007);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into customer values (3001,'Man','GR.Noida',5005);
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into customer values (3001,'Man','GR.Noida', ,5005);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',5005)' at line 1
+mysql> insert into customer values (3001,'Man','GR.Noida', 0,5005);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> show table customer;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'customer' at line 1
+mysql> select * from customer;
++------+--------------+-----------+-------+-------------+
+| id   | name         | city      | grade | salesman_id |
++------+--------------+-----------+-------+-------------+
+| 3002 | Pawan Yadav  | Noida     | 84.00 |        5001 |
+| 3007 | Pankaj Yadav | Noida     | 87.00 |        5001 |
+| 3005 | Ayush        | Shimla    | 87.00 |        5002 |
+| 3008 | Aman         | Delhi     | 90.00 |        5002 |
+| 3004 | Amit         | Solan     | 90.00 |        5006 |
+| 3009 | Ravi         | Leh       | 84.00 |        5003 |
+| 3003 | Raman        | New Delhi | 87.00 |        5007 |
+| 3001 | Man          | GR.Noida  |  0.00 |        5005 |
++------+--------------+-----------+-------+-------------+
+8 rows in set (0.01 sec)
+
+mysql> sql.txt
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'sql.txt' at line 1
+mysql> help;
+
+For information about MySQL products and services, visit:
+   http://www.mysql.com/
+For developer information, including the MySQL Reference Manual, visit:
+   http://dev.mysql.com/
+To buy MySQL Enterprise support, training, or other products, visit:
+   https://shop.mysql.com/
+
+List of all MySQL commands:
+Note that all text commands must be first on line and end with ';'
+?         (\?) Synonym for `help'.
+clear     (\c) Clear the current input statement.
+connect   (\r) Reconnect to the server. Optional arguments are db and host.
+delimiter (\d) Set statement delimiter.
+ego       (\G) Send command to mysql server, display result vertically.
+exit      (\q) Exit mysql. Same as quit.
+go        (\g) Send command to mysql server.
+help      (\h) Display this help.
+notee     (\t) Don't write into outfile.
+print     (\p) Print current command.
+prompt    (\R) Change your mysql prompt.
+quit      (\q) Quit mysql.
+rehash    (\#) Rebuild completion hash.
+source    (\.) Execute an SQL script file. Takes a file name as an argument.
+status    (\s) Get status information from the server.
+system    (\!) Execute a system shell command.
+tee       (\T) Set outfile [to_outfile]. Append everything into given outfile.
+use       (\u) Use another database. Takes database name as argument.
+charset   (\C) Switch to another charset. Might be needed for processing binlog with multi-byte charsets.
+warnings  (\W) Show warnings after every statement.
+nowarning (\w) Don't show warnings after every statement.
+resetconnection(\x) Clean session context.
+query_attributes Sets string parameters (name1 value1 name2 value2 ...) for the next query to pick up.
+ssl_session_data_print Serializes the current SSL session data to stdout or file
+
+For server side help, type 'help contents'
+
+mysql> print
+--------------
+
+--------------
+
+mysql> INSERT INTO agents
+    -> VALUES ("A001","Jodi","London",.12,"075-1248798");
+ERROR 1146 (42S02): Table 'db.agents' doesn't exist
+mysql> select * into mysql.txt
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.txt' at line 1
+mysql> -u root -p db -B -e 'select * from salesman';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-u root -p db -B -e 'select * from salesman'' at line 1
+mysql> ?
+
+For information about MySQL products and services, visit:
+   http://www.mysql.com/
+For developer information, including the MySQL Reference Manual, visit:
+   http://dev.mysql.com/
+To buy MySQL Enterprise support, training, or other products, visit:
+   https://shop.mysql.com/
+
+List of all MySQL commands:
+Note that all text commands must be first on line and end with ';'
+?         (\?) Synonym for `help'.
+clear     (\c) Clear the current input statement.
+connect   (\r) Reconnect to the server. Optional arguments are db and host.
+delimiter (\d) Set statement delimiter.
+ego       (\G) Send command to mysql server, display result vertically.
+exit      (\q) Exit mysql. Same as quit.
+go        (\g) Send command to mysql server.
+help      (\h) Display this help.
+notee     (\t) Don't write into outfile.
+print     (\p) Print current command.
+prompt    (\R) Change your mysql prompt.
+quit      (\q) Quit mysql.
+rehash    (\#) Rebuild completion hash.
+source    (\.) Execute an SQL script file. Takes a file name as an argument.
+status    (\s) Get status information from the server.
+system    (\!) Execute a system shell command.
+tee       (\T) Set outfile [to_outfile]. Append everything into given outfile.
+use       (\u) Use another database. Takes database name as argument.
+charset   (\C) Switch to another charset. Might be needed for processing binlog with multi-byte charsets.
+warnings  (\W) Show warnings after every statement.
+nowarning (\w) Don't show warnings after every statement.
+resetconnection(\x) Clean session context.
+query_attributes Sets string parameters (name1 value1 name2 value2 ...) for the next query to pick up.
+ssl_session_data_print Serializes the current SSL session data to stdout or file
+
+For server side help, type 'help contents'
+
+mysql> tee;
+No previous outfile available, you must give a filename!
+mysql> mysql.txt;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mysql.txt' at line 1
+mysql> ^C
+mysql> ^C
+mysql> ^C
+mysql>
