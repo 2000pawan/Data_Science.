@@ -1,0 +1,363 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.35 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use db
+Database changed
+mysql> show tables;
++--------------+
+| Tables_in_db |
++--------------+
+| booktable    |
+| customer     |
+| issuetable   |
+| salesman     |
++--------------+
+4 rows in set (0.15 sec)
+
+mysql> select * from customer;
++------+--------------+-----------+-------+-------------+
+| id   | name         | city      | grade | salesman_id |
++------+--------------+-----------+-------+-------------+
+| 3002 | Pawan Yadav  | Noida     | 84.00 |        5001 |
+| 3007 | Pankaj Yadav | Noida     | 87.00 |        5001 |
+| 3005 | Ayush        | Shimla    | 87.00 |        5002 |
+| 3008 | Aman         | Delhi     | 90.00 |        5002 |
+| 3004 | Amit         | Solan     | 90.00 |        5006 |
+| 3009 | Ravi         | Leh       | 84.00 |        5003 |
+| 3003 | Raman        | New Delhi | 87.00 |        5007 |
+| 3001 | Man          | GR.Noida  |  0.00 |        5005 |
++------+--------------+-----------+-------+-------------+
+8 rows in set (0.05 sec)
+
+mysql> select * from customer where grade>80;
++------+--------------+-----------+-------+-------------+
+| id   | name         | city      | grade | salesman_id |
++------+--------------+-----------+-------+-------------+
+| 3002 | Pawan Yadav  | Noida     | 84.00 |        5001 |
+| 3007 | Pankaj Yadav | Noida     | 87.00 |        5001 |
+| 3005 | Ayush        | Shimla    | 87.00 |        5002 |
+| 3008 | Aman         | Delhi     | 90.00 |        5002 |
+| 3004 | Amit         | Solan     | 90.00 |        5006 |
+| 3009 | Ravi         | Leh       | 84.00 |        5003 |
+| 3003 | Raman        | New Delhi | 87.00 |        5007 |
++------+--------------+-----------+-------+-------------+
+7 rows in set (0.01 sec)
+
+mysql> select * from customer where city = 'Noida' and grade>80;
++------+--------------+-------+-------+-------------+
+| id   | name         | city  | grade | salesman_id |
++------+--------------+-------+-------+-------------+
+| 3002 | Pawan Yadav  | Noida | 84.00 |        5001 |
+| 3007 | Pankaj Yadav | Noida | 87.00 |        5001 |
++------+--------------+-------+-------+-------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from customer where city = 'Noida' and grade>85;
++------+--------------+-------+-------+-------------+
+| id   | name         | city  | grade | salesman_id |
++------+--------------+-------+-------+-------------+
+| 3007 | Pankaj Yadav | Noida | 87.00 |        5001 |
++------+--------------+-------+-------+-------------+
+1 row in set (0.00 sec)
+
+mysql> select * from customer where city = 'Noida' or grade>85;
++------+--------------+-----------+-------+-------------+
+| id   | name         | city      | grade | salesman_id |
++------+--------------+-----------+-------+-------------+
+| 3002 | Pawan Yadav  | Noida     | 84.00 |        5001 |
+| 3007 | Pankaj Yadav | Noida     | 87.00 |        5001 |
+| 3005 | Ayush        | Shimla    | 87.00 |        5002 |
+| 3008 | Aman         | Delhi     | 90.00 |        5002 |
+| 3004 | Amit         | Solan     | 90.00 |        5006 |
+| 3003 | Raman        | New Delhi | 87.00 |        5007 |
++------+--------------+-----------+-------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from customer where city = 'Noida' or grade !>85;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '!>85' at line 1
+mysql> select * from customer where city = 'Noida' or grade <85;
++------+--------------+----------+-------+-------------+
+| id   | name         | city     | grade | salesman_id |
++------+--------------+----------+-------+-------------+
+| 3002 | Pawan Yadav  | Noida    | 84.00 |        5001 |
+| 3007 | Pankaj Yadav | Noida    | 87.00 |        5001 |
+| 3009 | Ravi         | Leh      | 84.00 |        5003 |
+| 3001 | Man          | GR.Noida |  0.00 |        5005 |
++------+--------------+----------+-------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from customer where city = 'Noida' or not grade >85;
++------+--------------+----------+-------+-------------+
+| id   | name         | city     | grade | salesman_id |
++------+--------------+----------+-------+-------------+
+| 3002 | Pawan Yadav  | Noida    | 84.00 |        5001 |
+| 3007 | Pankaj Yadav | Noida    | 87.00 |        5001 |
+| 3009 | Ravi         | Leh      | 84.00 |        5003 |
+| 3001 | Man          | GR.Noida |  0.00 |        5005 |
++------+--------------+----------+-------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from customer where not(city = 'Noida' or grade > 85);
++------+------+----------+-------+-------------+
+| id   | name | city     | grade | salesman_id |
++------+------+----------+-------+-------------+
+| 3009 | Ravi | Leh      | 84.00 |        5003 |
+| 3001 | Man  | GR.Noida |  0.00 |        5005 |
++------+------+----------+-------+-------------+
+2 rows in set (0.00 sec)
+
+mysql> create table orders(ord_no int,purch_amt decimal(10,2),ord_date date,customer_id int,salesman_i
+d int);
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> insert into values(70001,150.5,05-10-2012,3005,5002);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'values(70001,150.5,05-10-2012,3005,5002)' at line 1
+mysql> insert into values(70001, 150.5, '2012-10-05', 3005, 5002);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'values(70001, 150.5, '2012-10-05', 3005, 5002)' at line 1
+mysql> INSERT INTO your_table_name (column1, column2, column3, column4, column5)
+    -> VALUES (70001, 150.5, '2012-10-05', 3005, 5002);
+ERROR 1146 (42S02): Table 'db.your_table_name' doesn't exist
+mysql> INSERT INTO your_table_name (column1, column2, column3, column4, column5)
+    -> insert into values(70001, 150.5, '2012-10-05', 3005, 5002);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'insert into values(70001, 150.5, '2012-10-05', 3005, 5002)' at line 2
+mysql> INSERT INTO orders (ord_no,purch_amt,ord_date,customer_id,salesman_id)
+    -> VALUES (70001, 150.5, '2012-10-05', 3005, 5002);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO orders (ord_no,purch_amt,ord_date,customer_id,salesman_id) values(70009,270.65,'201
+2-09-10',3001,5005),(70002,65.26,'2012-10-05',3002,5001),(70004,110.5,'2012-08-17',3009,5003);
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO orders (ord_no,purch_amt,ord_date,customer_id,salesman_id) values(70007,948.5,'2012
+-09-10',3005,5002),(70005,2400.6,'2012-07-27',3007,5001),(70008,5760,'2012-09-10',3002,5001),(70010,1983.43,'2012-10-10',3004,5006),(70003,2480.4,'2012-10-10',3009,5003),(70012,250.45,'2012-06-27',3008,5002),(70011,75.29,'2012-08-17',3003,5007),(70013,3045.6,'2012-04-25',3002,5001);
+Query OK, 8 rows affected (0.01 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+mysql> select * from orders;
++--------+-----------+------------+-------------+-------------+
+| ord_no | purch_amt | ord_date   | customer_id | salesman_id |
++--------+-----------+------------+-------------+-------------+
+|  70001 |    150.50 | 2012-10-05 |        3005 |        5002 |
+|  70009 |    270.65 | 2012-09-10 |        3001 |        5005 |
+|  70002 |     65.26 | 2012-10-05 |        3002 |        5001 |
+|  70004 |    110.50 | 2012-08-17 |        3009 |        5003 |
+|  70007 |    948.50 | 2012-09-10 |        3005 |        5002 |
+|  70005 |   2400.60 | 2012-07-27 |        3007 |        5001 |
+|  70008 |   5760.00 | 2012-09-10 |        3002 |        5001 |
+|  70010 |   1983.43 | 2012-10-10 |        3004 |        5006 |
+|  70003 |   2480.40 | 2012-10-10 |        3009 |        5003 |
+|  70012 |    250.45 | 2012-06-27 |        3008 |        5002 |
+|  70011 |     75.29 | 2012-08-17 |        3003 |        5007 |
+|  70013 |   3045.60 | 2012-04-25 |        3002 |        5001 |
++--------+-----------+------------+-------------+-------------+
+12 rows in set (0.01 sec)
+
+mysql> select * from orders where ord_date = '2012-09-10' and salesman_id > 5005;
+Empty set (0.03 sec)
+
+mysql> select * from orders where not((ord_date = '2012-09-10' and salesman_id > 5005) or purch_amt>1000.0);
++--------+-----------+------------+-------------+-------------+
+| ord_no | purch_amt | ord_date   | customer_id | salesman_id |
++--------+-----------+------------+-------------+-------------+
+|  70001 |    150.50 | 2012-10-05 |        3005 |        5002 |
+|  70009 |    270.65 | 2012-09-10 |        3001 |        5005 |
+|  70002 |     65.26 | 2012-10-05 |        3002 |        5001 |
+|  70004 |    110.50 | 2012-08-17 |        3009 |        5003 |
+|  70007 |    948.50 | 2012-09-10 |        3005 |        5002 |
+|  70012 |    250.45 | 2012-06-27 |        3008 |        5002 |
+|  70011 |     75.29 | 2012-08-17 |        3003 |        5007 |
++--------+-----------+------------+-------------+-------------+
+7 rows in set (0.04 sec)
+
+mysql> select * from salesman where commission between(0.10 and 0.12);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> select * from salesman where (commission > 0.10 and commission < 0.12);
++-------------+----------+--------+------------+
+| salesman_id | names    | city   | commission |
++-------------+----------+--------+------------+
+|     5005.00 | Pit Alex | London |       0.11 |
++-------------+----------+--------+------------+
+1 row in set (0.04 sec)
+
+mysql> select * from orders where (purch_amt <200 or ord_date = '2012-02-10' or customer_id <3009);
++--------+-----------+------------+-------------+-------------+
+| ord_no | purch_amt | ord_date   | customer_id | salesman_id |
++--------+-----------+------------+-------------+-------------+
+|  70001 |    150.50 | 2012-10-05 |        3005 |        5002 |
+|  70009 |    270.65 | 2012-09-10 |        3001 |        5005 |
+|  70002 |     65.26 | 2012-10-05 |        3002 |        5001 |
+|  70004 |    110.50 | 2012-08-17 |        3009 |        5003 |
+|  70007 |    948.50 | 2012-09-10 |        3005 |        5002 |
+|  70005 |   2400.60 | 2012-07-27 |        3007 |        5001 |
+|  70008 |   5760.00 | 2012-09-10 |        3002 |        5001 |
+|  70010 |   1983.43 | 2012-10-10 |        3004 |        5006 |
+|  70012 |    250.45 | 2012-06-27 |        3008 |        5002 |
+|  70011 |     75.29 | 2012-08-17 |        3003 |        5007 |
+|  70013 |   3045.60 | 2012-04-25 |        3002 |        5001 |
++--------+-----------+------------+-------------+-------------+
+11 rows in set (0.00 sec)
+
+mysql> select * from orders where (purch_amt <200 or not (ord_date = '2012-02-10' and customer_id <300
+9));
++--------+-----------+------------+-------------+-------------+
+| ord_no | purch_amt | ord_date   | customer_id | salesman_id |
++--------+-----------+------------+-------------+-------------+
+|  70001 |    150.50 | 2012-10-05 |        3005 |        5002 |
+|  70009 |    270.65 | 2012-09-10 |        3001 |        5005 |
+|  70002 |     65.26 | 2012-10-05 |        3002 |        5001 |
+|  70004 |    110.50 | 2012-08-17 |        3009 |        5003 |
+|  70007 |    948.50 | 2012-09-10 |        3005 |        5002 |
+|  70005 |   2400.60 | 2012-07-27 |        3007 |        5001 |
+|  70008 |   5760.00 | 2012-09-10 |        3002 |        5001 |
+|  70010 |   1983.43 | 2012-10-10 |        3004 |        5006 |
+|  70003 |   2480.40 | 2012-10-10 |        3009 |        5003 |
+|  70012 |    250.45 | 2012-06-27 |        3008 |        5002 |
+|  70011 |     75.29 | 2012-08-17 |        3003 |        5007 |
+|  70013 |   3045.60 | 2012-04-25 |        3002 |        5001 |
++--------+-----------+------------+-------------+-------------+
+12 rows in set (0.00 sec)
+
+mysql> SELECT * FROM  orders WHERE(purch_amt<200 OR NOT(ord_date>='2012-02-10' AND customer_id<3009));
+
++--------+-----------+------------+-------------+-------------+
+| ord_no | purch_amt | ord_date   | customer_id | salesman_id |
++--------+-----------+------------+-------------+-------------+
+|  70001 |    150.50 | 2012-10-05 |        3005 |        5002 |
+|  70002 |     65.26 | 2012-10-05 |        3002 |        5001 |
+|  70004 |    110.50 | 2012-08-17 |        3009 |        5003 |
+|  70003 |   2480.40 | 2012-10-10 |        3009 |        5003 |
+|  70011 |     75.29 | 2012-08-17 |        3003 |        5007 |
++--------+-----------+------------+-------------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from orders where (ord_date = '2012-08-17' or (customer_id > 3005 and purch_amt <1000));
++--------+-----------+------------+-------------+-------------+
+| ord_no | purch_amt | ord_date   | customer_id | salesman_id |
++--------+-----------+------------+-------------+-------------+
+|  70004 |    110.50 | 2012-08-17 |        3009 |        5003 |
+|  70012 |    250.45 | 2012-06-27 |        3008 |        5002 |
+|  70011 |     75.29 | 2012-08-17 |        3003 |        5007 |
++--------+-----------+------------+-------------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from orders where not ((ord_date = '2012-08-17' or customer_id > 3005) and purch_amt <
+1000);
++--------+-----------+------------+-------------+-------------+
+| ord_no | purch_amt | ord_date   | customer_id | salesman_id |
++--------+-----------+------------+-------------+-------------+
+|  70001 |    150.50 | 2012-10-05 |        3005 |        5002 |
+|  70009 |    270.65 | 2012-09-10 |        3001 |        5005 |
+|  70002 |     65.26 | 2012-10-05 |        3002 |        5001 |
+|  70007 |    948.50 | 2012-09-10 |        3005 |        5002 |
+|  70005 |   2400.60 | 2012-07-27 |        3007 |        5001 |
+|  70008 |   5760.00 | 2012-09-10 |        3002 |        5001 |
+|  70010 |   1983.43 | 2012-10-10 |        3004 |        5006 |
+|  70003 |   2480.40 | 2012-10-10 |        3009 |        5003 |
+|  70013 |   3045.60 | 2012-04-25 |        3002 |        5001 |
++--------+-----------+------------+-------------+-------------+
+9 rows in set (0.00 sec)
+
+mysql> select ord_no,purch_amt,(100*purch_amt)/6000 as 'Achieved %',(100*(6000-purch_amt)/6000) as 'Un
+achieved %' from orders where (100 * purch_amt)/6000>50;
++--------+-----------+------------+--------------+
+| ord_no | purch_amt | Achieved % | Unachieved % |
++--------+-----------+------------+--------------+
+|  70008 |   5760.00 |  96.000000 |     4.000000 |
+|  70013 |   3045.60 |  50.760000 |    49.240000 |
++--------+-----------+------------+--------------+
+2 rows in set (0.00 sec)
+
+mysql> create table employee (emp_id int,emp_name char(40),emp_lname char(40),emp_dept int);
+Query OK, 0 rows affected (0.16 sec)
+
+mysql> insert into employee values (127323 ,Michale,Robbin ,57);
+ERROR 1054 (42S22): Unknown column 'Michale' in 'field list'
+mysql> insert into employee (emp_id,emp_name,emp_lname,emp_dept) values (127323 ,Michale,Robbin ,57);
+ERROR 1054 (42S22): Unknown column 'Michale' in 'field list'
+mysql> insert into employee (emp_id,emp_name,emp_lname,emp_dept) values (127323 ,'Michale','Robbin' ,5
+7);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into employee values (526689 ,'Carlos','Snares' ,63);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into employee values (843795 ,'Enric','Dosio' ,57),(328717,'Jhon','Snares',63),(444527,'Joseph','Dosni',47),( 659831 'Zanifer','Emily',47),(847674 Kuleswar        Sitaraman               57
+    ->    748681 Henrey          Gabriel                 47
+    ->    555935 Alex            Manuel                  57
+    ->    539569 George          Mardy                   27
+    ->    733843 Mario           Saule                   63
+    ->    631548 Alan            Snappy                  27
+    ->    733843 Mario           Saule                   63;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''Zanifer','Emily',47),(847674 Kuleswar        Sitaraman               57
+   7486' at line 1
+mysql> insert into employee values (843795 ,'Enric','Dosio' ,57),(328717,'Jhon','Snares',63),(444527,'Joseph','Dosni',47),( 659831 'Zanifer','Emily',47),(847674 ,'Kuleswar','Sitaraman',57);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''Zanifer','Emily',47),(847674 ,'Kuleswar','Sitaraman',57)' at line 1
+mysql> select * from employee;
++--------+----------+-----------+----------+
+| emp_id | emp_name | emp_lname | emp_dept |
++--------+----------+-----------+----------+
+| 127323 | Michale  | Robbin    |       57 |
+| 526689 | Carlos   | Snares    |       63 |
++--------+----------+-----------+----------+
+2 rows in set (0.01 sec)
+
+mysql> insert into employee (emp_id,emp_name,emp_lname,emp_dept) values (843795,'Enric','Dosio',57),(328717,'Jhon','Snares',63),(444527, 'Joseph','Dosni',47),(659831,'Zanifer','Emily',47),(847674, 'Kuleswar','Sitaraman',57),(748681, 'Henrey','Gabriel',47),(555935 ,'Alex','Manuel',57),(539569, 'George','Mardy',27),(733843,'Mario','Saule',63),(631548,'Alan','Snappy',27),(839139, 'Maria','Foster',57) ;
+Query OK, 11 rows affected (0.01 sec)
+Records: 11  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee;
++--------+----------+-----------+----------+
+| emp_id | emp_name | emp_lname | emp_dept |
++--------+----------+-----------+----------+
+| 127323 | Michale  | Robbin    |       57 |
+| 526689 | Carlos   | Snares    |       63 |
+| 843795 | Enric    | Dosio     |       57 |
+| 328717 | Jhon     | Snares    |       63 |
+| 444527 | Joseph   | Dosni     |       47 |
+| 659831 | Zanifer  | Emily     |       47 |
+| 847674 | Kuleswar | Sitaraman |       57 |
+| 748681 | Henrey   | Gabriel   |       47 |
+| 555935 | Alex     | Manuel    |       57 |
+| 539569 | George   | Mardy     |       27 |
+| 733843 | Mario    | Saule     |       63 |
+| 631548 | Alan     | Snappy    |       27 |
+| 839139 | Maria    | Foster    |       57 |
++--------+----------+-----------+----------+
+13 rows in set (0.00 sec)
+
+mysql> select * from employee where (lname = 'Dosni' or lname = 'Mardy');
+ERROR 1054 (42S22): Unknown column 'lname' in 'where clause'
+mysql> select * from employee where (emp_lname = 'Dosni' or emp_lname = 'Mardy');
++--------+----------+-----------+----------+
+| emp_id | emp_name | emp_lname | emp_dept |
++--------+----------+-----------+----------+
+| 444527 | Joseph   | Dosni     |       47 |
+| 539569 | George   | Mardy     |       27 |
++--------+----------+-----------+----------+
+2 rows in set (0.00 sec)
+
+mysql> select * from employee where (emp_dept = 47 or emp_dept = 63);
++--------+----------+-----------+----------+
+| emp_id | emp_name | emp_lname | emp_dept |
++--------+----------+-----------+----------+
+| 526689 | Carlos   | Snares    |       63 |
+| 328717 | Jhon     | Snares    |       63 |
+| 444527 | Joseph   | Dosni     |       47 |
+| 659831 | Zanifer  | Emily     |       47 |
+| 748681 | Henrey   | Gabriel   |       47 |
+| 733843 | Mario    | Saule     |       63 |
++--------+----------+-----------+----------+
+6 rows in set (0.00 sec)
+
+mysql>
