@@ -1,0 +1,304 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.35 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use db
+Database changed
+mysql> show tables;
++--------------+
+| Tables_in_db |
++--------------+
+| booktable    |
+| customer     |
+| employee     |
+| issuetable   |
+| orders       |
+| salesman     |
++--------------+
+6 rows in set (0.15 sec)
+
+mysql> select * from salesman where city = 'Paris' or city='Rome';
++-------------+------------+-------+------------+
+| salesman_id | names      | city  | commission |
++-------------+------------+-------+------------+
+|     5002.00 | Nail Knite | Paris |       0.13 |
+|     5006.00 | MC Lyon    | Paris |       0.14 |
+|     5007.00 | Paul Adam  | Rome  |       0.13 |
++-------------+------------+-------+------------+
+3 rows in set (0.07 sec)
+
+mysql> select * from salesman where city = 'Paris' or city='Rome';
++-------------+------------+-------+------------+
+| salesman_id | names      | city  | commission |
++-------------+------------+-------+------------+
+|     5002.00 | Nail Knite | Paris |       0.13 |
+|     5006.00 | MC Lyon    | Paris |       0.14 |
+|     5007.00 | Paul Adam  | Rome  |       0.13 |
++-------------+------------+-------+------------+
+3 rows in set (0.09 sec)
+
+mysql> select * from salesman where in('Paris','Rome');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'in('Paris','Rome')' at line 1
+mysql> select * from salesman where city in('Paris','Rome');
++-------------+------------+-------+------------+
+| salesman_id | names      | city  | commission |
++-------------+------------+-------+------------+
+|     5002.00 | Nail Knite | Paris |       0.13 |
+|     5006.00 | MC Lyon    | Paris |       0.14 |
+|     5007.00 | Paul Adam  | Rome  |       0.13 |
++-------------+------------+-------+------------+
+3 rows in set (0.01 sec)
+
+mysql> select * from salesman where city not in ('Paris','Rome');
++-------------+-------------+----------+------------+
+| salesman_id | names       | city     | commission |
++-------------+-------------+----------+------------+
+|     5001.00 | Jodi        | London   |       0.15 |
+|     5001.00 | James Hoog  | New York |       0.15 |
+|     5005.00 | Pit Alex    | London   |       0.11 |
+|     5003.00 | Pawan Yadav | India    |       0.12 |
++-------------+-------------+----------+------------+
+4 rows in set (0.09 sec)
+
+mysql> select * from salesman where not city in ('Paris','Rome');
++-------------+-------------+----------+------------+
+| salesman_id | names       | city     | commission |
++-------------+-------------+----------+------------+
+|     5001.00 | Jodi        | London   |       0.15 |
+|     5001.00 | James Hoog  | New York |       0.15 |
+|     5005.00 | Pit Alex    | London   |       0.11 |
+|     5003.00 | Pawan Yadav | India    |       0.12 |
++-------------+-------------+----------+------------+
+4 rows in set (0.01 sec)
+
+mysql> select * from customer where id in(3007,3008,3009);
++------+--------------+-------+-------+-------------+
+| id   | name         | city  | grade | salesman_id |
++------+--------------+-------+-------+-------------+
+| 3007 | Pankaj Yadav | Noida | 87.00 |        5001 |
+| 3008 | Aman         | Delhi | 90.00 |        5002 |
+| 3009 | Ravi         | Leh   | 84.00 |        5003 |
++------+--------------+-------+-------+-------------+
+3 rows in set (0.10 sec)
+
+mysql> select * from salesman where commission between (0.12 and 0.14);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> select * from salesman where commission between 0.12 and 0.14;
++-------------+-------------+-------+------------+
+| salesman_id | names       | city  | commission |
++-------------+-------------+-------+------------+
+|     5002.00 | Nail Knite  | Paris |       0.13 |
+|     5006.00 | MC Lyon     | Paris |       0.14 |
+|     5007.00 | Paul Adam   | Rome  |       0.13 |
+|     5003.00 | Pawan Yadav | India |       0.12 |
++-------------+-------------+-------+------------+
+4 rows in set (0.01 sec)
+
+mysql> select * from orders where (purch_amt between 500 and 4000) and not purch_amt in(948.50, 1983.4
+3);
++--------+-----------+------------+-------------+-------------+
+| ord_no | purch_amt | ord_date   | customer_id | salesman_id |
++--------+-----------+------------+-------------+-------------+
+|  70005 |   2400.60 | 2012-07-27 |        3007 |        5001 |
+|  70003 |   2480.40 | 2012-10-10 |        3009 |        5003 |
+|  70013 |   3045.60 | 2012-04-25 |        3002 |        5001 |
++--------+-----------+------------+-------------+-------------+
+3 rows in set (0.02 sec)
+
+mysql> select * from salesman where name not between 'A' and "M";
+ERROR 1054 (42S22): Unknown column 'name' in 'where clause'
+mysql> select * from salesman where names not between 'A' and "M";
++-------------+-------------+--------+------------+
+| salesman_id | names       | city   | commission |
++-------------+-------------+--------+------------+
+|     5002.00 | Nail Knite  | Paris  |       0.13 |
+|     5005.00 | Pit Alex    | London |       0.11 |
+|     5006.00 | MC Lyon     | Paris  |       0.14 |
+|     5007.00 | Paul Adam   | Rome   |       0.13 |
+|     5003.00 | Pawan Yadav | India  |       0.12 |
++-------------+-------------+--------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from customer where name like 'B%';
+Empty set (0.00 sec)
+
+mysql> select * from customer where name like 'P%';
++------+--------------+-------+-------+-------------+
+| id   | name         | city  | grade | salesman_id |
++------+--------------+-------+-------+-------------+
+| 3002 | Pawan Yadav  | Noida | 84.00 |        5001 |
+| 3007 | Pankaj Yadav | Noida | 87.00 |        5001 |
++------+--------------+-------+-------+-------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from customer where name like '%n';
++------+-------+-----------+-------+-------------+
+| id   | name  | city      | grade | salesman_id |
++------+-------+-----------+-------+-------------+
+| 3008 | Aman  | Delhi     | 90.00 |        5002 |
+| 3003 | Raman | New Delhi | 87.00 |        5007 |
+| 3001 | Man   | GR.Noida  |  0.00 |        5005 |
++------+-------+-----------+-------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from salesman where names like 'N___l%';
+Empty set (0.00 sec)
+
+mysql> select * from salesman where names like 'N__l%';
++-------------+------------+-------+------------+
+| salesman_id | names      | city  | commission |
++-------------+------------+-------+------------+
+|     5002.00 | Nail Knite | Paris |       0.13 |
++-------------+------------+-------+------------+
+1 row in set (0.00 sec)
+
+mysql> select * from salesman where names like '% %' escape ' ';
+Empty set (0.01 sec)
+
+mysql> select * from salesman where names not like '% %' escape ' ';
++-------------+-------------+----------+------------+
+| salesman_id | names       | city     | commission |
++-------------+-------------+----------+------------+
+|     5001.00 | Jodi        | London   |       0.15 |
+|     5001.00 | James Hoog  | New York |       0.15 |
+|     5002.00 | Nail Knite  | Paris    |       0.13 |
+|     5005.00 | Pit Alex    | London   |       0.11 |
+|     5006.00 | MC Lyon     | Paris    |       0.14 |
+|     5007.00 | Paul Adam   | Rome     |       0.13 |
+|     5003.00 | Pawan Yadav | India    |       0.12 |
++-------------+-------------+----------+------------+
+7 rows in set (0.00 sec)
+
+mysql> select * from salesman where names not like '%  %' escape ' ';
++-------------+-------+--------+------------+
+| salesman_id | names | city   | commission |
++-------------+-------+--------+------------+
+|     5001.00 | Jodi  | London |       0.15 |
++-------------+-------+--------+------------+
+1 row in set (0.00 sec)
+
+mysql> select * from salesman where names not like '% _ %' escape ' ';
++-------------+-------------+----------+------------+
+| salesman_id | names       | city     | commission |
++-------------+-------------+----------+------------+
+|     5001.00 | Jodi        | London   |       0.15 |
+|     5001.00 | James Hoog  | New York |       0.15 |
+|     5002.00 | Nail Knite  | Paris    |       0.13 |
+|     5005.00 | Pit Alex    | London   |       0.11 |
+|     5006.00 | MC Lyon     | Paris    |       0.14 |
+|     5007.00 | Paul Adam   | Rome     |       0.13 |
+|     5003.00 | Pawan Yadav | India    |       0.12 |
++-------------+-------------+----------+------------+
+7 rows in set (0.00 sec)
+
+mysql> select * from salesman where names not like '% __ %' escape ' ';
++-------------+-------------+----------+------------+
+| salesman_id | names       | city     | commission |
++-------------+-------------+----------+------------+
+|     5001.00 | Jodi        | London   |       0.15 |
+|     5001.00 | James Hoog  | New York |       0.15 |
+|     5002.00 | Nail Knite  | Paris    |       0.13 |
+|     5005.00 | Pit Alex    | London   |       0.11 |
+|     5006.00 | MC Lyon     | Paris    |       0.14 |
+|     5007.00 | Paul Adam   | Rome     |       0.13 |
+|     5003.00 | Pawan Yadav | India    |       0.12 |
++-------------+-------------+----------+------------+
+7 rows in set (0.00 sec)
+
+mysql> select * from salesman where names like '% /%%' escape '/';
+Empty set (0.00 sec)
+
+mysql> select * from salesman where names not like '% /%%' escape '/';
++-------------+-------------+----------+------------+
+| salesman_id | names       | city     | commission |
++-------------+-------------+----------+------------+
+|     5001.00 | Jodi        | London   |       0.15 |
+|     5001.00 | James Hoog  | New York |       0.15 |
+|     5002.00 | Nail Knite  | Paris    |       0.13 |
+|     5005.00 | Pit Alex    | London   |       0.11 |
+|     5006.00 | MC Lyon     | Paris    |       0.14 |
+|     5007.00 | Paul Adam   | Rome     |       0.13 |
+|     5003.00 | Pawan Yadav | India    |       0.12 |
++-------------+-------------+----------+------------+
+7 rows in set (0.00 sec)
+
+mysql> select * from customer where grade = 0;
++------+------+----------+-------+-------------+
+| id   | name | city     | grade | salesman_id |
++------+------+----------+-------+-------------+
+| 3001 | Man  | GR.Noida |  0.00 |        5005 |
++------+------+----------+-------+-------------+
+1 row in set (0.01 sec)
+
+mysql> select * from customer where grade is null;
+Empty set (0.00 sec)
+
+mysql> select * from customer where grade is not null;
++------+--------------+-----------+-------+-------------+
+| id   | name         | city      | grade | salesman_id |
++------+--------------+-----------+-------+-------------+
+| 3002 | Pawan Yadav  | Noida     | 84.00 |        5001 |
+| 3007 | Pankaj Yadav | Noida     | 87.00 |        5001 |
+| 3005 | Ayush        | Shimla    | 87.00 |        5002 |
+| 3008 | Aman         | Delhi     | 90.00 |        5002 |
+| 3004 | Amit         | Solan     | 90.00 |        5006 |
+| 3009 | Ravi         | Leh       | 84.00 |        5003 |
+| 3003 | Raman        | New Delhi | 87.00 |        5007 |
+| 3001 | Man          | GR.Noida  |  0.00 |        5005 |
++------+--------------+-----------+-------+-------------+
+8 rows in set (0.01 sec)
+
+mysql> select * from customer where not grade is  null;
++------+--------------+-----------+-------+-------------+
+| id   | name         | city      | grade | salesman_id |
++------+--------------+-----------+-------+-------------+
+| 3002 | Pawan Yadav  | Noida     | 84.00 |        5001 |
+| 3007 | Pankaj Yadav | Noida     | 87.00 |        5001 |
+| 3005 | Ayush        | Shimla    | 87.00 |        5002 |
+| 3008 | Aman         | Delhi     | 90.00 |        5002 |
+| 3004 | Amit         | Solan     | 90.00 |        5006 |
+| 3009 | Ravi         | Leh       | 84.00 |        5003 |
+| 3003 | Raman        | New Delhi | 87.00 |        5007 |
+| 3001 | Man          | GR.Noida  |  0.00 |        5005 |
++------+--------------+-----------+-------+-------------+
+8 rows in set (0.00 sec)
+
+mysql> select * from employee;
++--------+----------+-----------+----------+
+| emp_id | emp_name | emp_lname | emp_dept |
++--------+----------+-----------+----------+
+| 127323 | Michale  | Robbin    |       57 |
+| 526689 | Carlos   | Snares    |       63 |
+| 843795 | Enric    | Dosio     |       57 |
+| 328717 | Jhon     | Snares    |       63 |
+| 444527 | Joseph   | Dosni     |       47 |
+| 659831 | Zanifer  | Emily     |       47 |
+| 847674 | Kuleswar | Sitaraman |       57 |
+| 748681 | Henrey   | Gabriel   |       47 |
+| 555935 | Alex     | Manuel    |       57 |
+| 539569 | George   | Mardy     |       27 |
+| 733843 | Mario    | Saule     |       63 |
+| 631548 | Alan     | Snappy    |       27 |
+| 839139 | Maria    | Foster    |       57 |
++--------+----------+-----------+----------+
+13 rows in set (0.02 sec)
+
+mysql> select * from employee where emp_lname like 'D%';
++--------+----------+-----------+----------+
+| emp_id | emp_name | emp_lname | emp_dept |
++--------+----------+-----------+----------+
+| 843795 | Enric    | Dosio     |       57 |
+| 444527 | Joseph   | Dosni     |       47 |
++--------+----------+-----------+----------+
+2 rows in set (0.00 sec)
+
+mysql>
