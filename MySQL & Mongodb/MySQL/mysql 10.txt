@@ -1,0 +1,60 @@
+mysql> use db
+Database changed
+mysql> create table jobs(id int,s_date DATE,e_date DATE,job_id char(40),department_id int);
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> insert into jobs values(102,'2001-01-13','2006-07-24','IT_Prog',60);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into jobs values(101,'1997-09-21','2001-10-27','AC_Account',110);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into jobs values(101,'2010-10-28','2005-03-15','AC_Mgr',110);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into jobs values(101,'2010-10-28','2005-03-15','',20);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> delete from jobs where department_id=20;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into jobs values(201,'2004-02-17','2007-12-19','MK_REP',20);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into jobs values(114,'2006-03-24','2007-12-31','ST_Clerk',50);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into jobs values(122,'2007-01-01','2007-12-31','ST_Clerk',50);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into jobs values(200,'1995-09-17','2001-06-17','AD_Asst',90);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into jobs values(176,'2006-03-24','2006-12-31','SA_Rep',80);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into jobs values(176,'2007-01-01','2007-12-31','SA_Man',80);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into jobs values(200,'2002-07-01','2006-12-31','AD_Ac
+count',90);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from jobs;
++------+------------+------------+------------+---------------+
+| id   | s_date     | e_date     | job_id     | department_id |
++------+------------+------------+------------+---------------+
+|  102 | 2001-01-13 | 2006-07-24 | IT_Prog    |            60 |
+|  101 | 1997-09-21 | 2001-10-27 | AC_Account |           110 |
+|  101 | 2010-10-28 | 2005-03-15 | AC_Mgr     |           110 |
+|  201 | 2004-02-17 | 2007-12-19 | MK_REP     |            20 |
+|  114 | 2006-03-24 | 2007-12-31 | ST_Clerk   |            50 |
+|  122 | 2007-01-01 | 2007-12-31 | ST_Clerk   |            50 |
+|  200 | 1995-09-17 | 2001-06-17 | AD_Asst    |            90 |
+|  176 | 2006-03-24 | 2006-12-31 | SA_Rep     |            80 |
+|  176 | 2007-01-01 | 2007-12-31 | SA_Man     |            80 |
+|  200 | 2002-07-01 | 2006-12-31 | AD_Account |            90 |
++------+------------+------------+------------+---------------+
+10 rows in set (0.00 sec)
+
+mysql>
