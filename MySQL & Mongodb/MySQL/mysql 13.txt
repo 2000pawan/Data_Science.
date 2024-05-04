@@ -1001,3 +1001,239 @@ mysql> select * from salesman cross join customer where salesman.city is not nul
 56 rows in set (0.00 sec)
 
 mysql>
+
+
+mysql> select * from item_mast inner join company_mast on item_mast.com=company_mast.COM_ID;
++------+-----------------+---------+------+--------+-----------+
+| id   | name            | price   | com  | COM_ID | COM_NAME  |
++------+-----------------+---------+------+--------+-----------+
+|  101 | Mother Board    | 3200.00 |   15 |     15 | Asus      |
+|  102 | Key Board       |  450.00 |   16 |     16 | Frontech  |
+|  103 | ZIP drive       |  250.00 |   14 |     14 | Zebornics |
+|  104 | Speaker         |  550.00 |   16 |     16 | Frontech  |
+|  105 | Monitor         | 5000.00 |   11 |     11 | Samsung   |
+|  106 | DVD drive       |  900.00 |   12 |     12 | iBall     |
+|  107 | CD drive        |  800.00 |   12 |     12 | iBall     |
+|  108 | Printer         | 2600.00 |   13 |     13 | Epsion    |
+|  109 | Refill cartidge |  350.00 |   13 |     13 | Epsion    |
+|  110 | Mouse           |  250.00 |   12 |     12 | iBall     |
++------+-----------------+---------+------+--------+-----------+
+10 rows in set (0.01 sec)
+
+mysql> select i.name,i.price,c.COM_NAME from item_mast i inner join company_mast c on i.com=c.COM_ID;
++-----------------+---------+-----------+
+| name            | price   | COM_NAME  |
++-----------------+---------+-----------+
+| Mother Board    | 3200.00 | Asus      |
+| Key Board       |  450.00 | Frontech  |
+| ZIP drive       |  250.00 | Zebornics |
+| Speaker         |  550.00 | Frontech  |
+| Monitor         | 5000.00 | Samsung   |
+| DVD drive       |  900.00 | iBall     |
+| CD drive        |  800.00 | iBall     |
+| Printer         | 2600.00 | Epsion    |
+| Refill cartidge |  350.00 | Epsion    |
+| Mouse           |  250.00 | iBall     |
++-----------------+---------+-----------+
+10 rows in set (0.01 sec)
+
+mysql> select avg(i.price),c.COM_NAME from item_mast i inner join company_mame c on i.com=c.COM_ID;
+ERROR 1146 (42S02): Table 'db.company_mame' doesn't exist
+mysql> select avg(i.price),c.COM_NAME from item_mast i inner join company_mast c on i.com=c.COM_ID;
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #2 of SELECT list contains nonaggregated column 'db.c.COM_NAME'; this is incompatible with sql_mode=only_full_group_by
+mysql> select avg(i.price),c.COM_NAME from item_mast i inner join company_mast c on i.com=c.COM_ID group by avg(i.price);
+ERROR 1056 (42000): Can't group on 'avg(i.price)'
+mysql> select avg(i.price),c.COM_NAME from item_mast i inner join company_mast c on i.com=c.COM_ID group by i.price;
+ERROR 1055 (42000): Expression #2 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'db.c.COM_NAME' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> select avg(i.price),c.COM_NAME from item_mast i inner join company_mast c on i.com=c.COM_ID group by c.COM_NAME;
++--------------+-----------+
+| avg(i.price) | COM_NAME  |
++--------------+-----------+
+|  3200.000000 | Asus      |
+|   500.000000 | Frontech  |
+|   250.000000 | Zebornics |
+|  5000.000000 | Samsung   |
+|   650.000000 | iBall     |
+|  1475.000000 | Epsion    |
++--------------+-----------+
+6 rows in set (0.01 sec)
+
+mysql> select avg(i.price),c.COM_NAME from item_mast i inner join company_mast c on i.com=c.COM_ID group by c.COM_NAME where avg(i.price)>350;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where avg(i.price)>350' at line 1
+mysql> select avg(i.price),c.COM_NAME from item_mast i inner join company_mast c on i.com=c.COM_ID where avg(i.price)>350 group by c.COM_NAME;
+ERROR 1111 (HY000): Invalid use of group function
+mysql> select avg(i.price),c.COM_NAME from item_mast i inner join company_mast c on i.com=c.COM_ID group by c.COM_NAME having avg(i.price)>=350;
++--------------+----------+
+| avg(i.price) | COM_NAME |
++--------------+----------+
+|  3200.000000 | Asus     |
+|   500.000000 | Frontech |
+|  5000.000000 | Samsung  |
+|   650.000000 | iBall    |
+|  1475.000000 | Epsion   |
++--------------+----------+
+5 rows in set (0.01 sec)
+
+mysql> select i.name,i.price,c.COM_NAME from item_mast i inner join company_mast c on i.com=c.COM_ID w
+hermax(i.price);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'whermax(i.price)' at line 1
+mysql> select i.name,i.price,c.COM_NAME from item_mast i inner join company_mast c on i.com=c.COM_ID where max(i.price);
+ERROR 1111 (HY000): Invalid use of group function
+mysql> select i.name,i.price,c.COM_NAME from item_mast i inner join company_mast c on i.com=c.COM_ID  and i.price=(select max(i.price) from item_mast i where i.com=c.COM_ID);
++--------------+---------+-----------+
+| name         | price   | COM_NAME  |
++--------------+---------+-----------+
+| Mother Board | 3200.00 | Asus      |
+| ZIP drive    |  250.00 | Zebornics |
+| Speaker      |  550.00 | Frontech  |
+| Monitor      | 5000.00 | Samsung   |
+| DVD drive    |  900.00 | iBall     |
+| Printer      | 2600.00 | Epsion    |
++--------------+---------+-----------+
+6 rows in set (0.01 sec)
+
+mysql>
+
+
+
+
+
+mysql> select * from employee;
++--------+----------+-----------+----------+
+| emp_id | emp_name | emp_lname | emp_dept |
++--------+----------+-----------+----------+
+| 127323 | Michale  | Robbin    |       57 |
+| 526689 | Carlos   | Snares    |       63 |
+| 843795 | Enric    | Dosio     |       57 |
+| 328717 | Jhon     | Snares    |       63 |
+| 444527 | Joseph   | Dosni     |       47 |
+| 659831 | Zanifer  | Emily     |       47 |
+| 847674 | Kuleswar | Sitaraman |       57 |
+| 748681 | Henrey   | Gabriel   |       47 |
+| 555935 | Alex     | Manuel    |       57 |
+| 539569 | George   | Mardy     |       27 |
+| 733843 | Mario    | Saule     |       63 |
+| 631548 | Alan     | Snappy    |       27 |
+| 839139 | Maria    | Foster    |       57 |
++--------+----------+-----------+----------+
+13 rows in set (0.00 sec)
+
+mysql> select * from emp_dept;
++------+---------+--------+
+| code | name    | allot  |
++------+---------+--------+
+|   57 | IT      |  65000 |
+|   63 | Finance |  15000 |
+|   47 | HR      | 240000 |
+|   27 | RD      |  55000 |
+|   89 | QC      |  75000 |
++------+---------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select * from employee e inner join emp_dept d on e.emp_dept=d.code;
++--------+----------+-----------+----------+------+---------+--------+
+| emp_id | emp_name | emp_lname | emp_dept | code | name    | allot  |
++--------+----------+-----------+----------+------+---------+--------+
+| 127323 | Michale  | Robbin    |       57 |   57 | IT      |  65000 |
+| 526689 | Carlos   | Snares    |       63 |   63 | Finance |  15000 |
+| 843795 | Enric    | Dosio     |       57 |   57 | IT      |  65000 |
+| 328717 | Jhon     | Snares    |       63 |   63 | Finance |  15000 |
+| 444527 | Joseph   | Dosni     |       47 |   47 | HR      | 240000 |
+| 659831 | Zanifer  | Emily     |       47 |   47 | HR      | 240000 |
+| 847674 | Kuleswar | Sitaraman |       57 |   57 | IT      |  65000 |
+| 748681 | Henrey   | Gabriel   |       47 |   47 | HR      | 240000 |
+| 555935 | Alex     | Manuel    |       57 |   57 | IT      |  65000 |
+| 539569 | George   | Mardy     |       27 |   27 | RD      |  55000 |
+| 733843 | Mario    | Saule     |       63 |   63 | Finance |  15000 |
+| 631548 | Alan     | Snappy    |       27 |   27 | RD      |  55000 |
+| 839139 | Maria    | Foster    |       57 |   57 | IT      |  65000 |
++--------+----------+-----------+----------+------+---------+--------+
+13 rows in set (0.01 sec)
+
+mysql> select e.emp_name as First_name,e.emp_lname as Last_name,d.name as Department,d.allot as Sanction_amount from employee e inner join emp_dept d on e.emp_dept=d.code;
++------------+-----------+------------+-----------------+
+| First_name | Last_name | Department | Sanction_amount |
++------------+-----------+------------+-----------------+
+| Michale    | Robbin    | IT         |           65000 |
+| Carlos     | Snares    | Finance    |           15000 |
+| Enric      | Dosio     | IT         |           65000 |
+| Jhon       | Snares    | Finance    |           15000 |
+| Joseph     | Dosni     | HR         |          240000 |
+| Zanifer    | Emily     | HR         |          240000 |
+| Kuleswar   | Sitaraman | IT         |           65000 |
+| Henrey     | Gabriel   | HR         |          240000 |
+| Alex       | Manuel    | IT         |           65000 |
+| George     | Mardy     | RD         |           55000 |
+| Mario      | Saule     | Finance    |           15000 |
+| Alan       | Snappy    | RD         |           55000 |
+| Maria      | Foster    | IT         |           65000 |
++------------+-----------+------------+-----------------+
+13 rows in set (0.01 sec)
+
+mysql> select e.emp_name as First_name,e.emp_lname as Last_name,d.name as Department,d.allot as Sanction_amount from employee e inner join emp_dept d on e.emp_dept=d.code order by d.name;
++------------+-----------+------------+-----------------+
+| First_name | Last_name | Department | Sanction_amount |
++------------+-----------+------------+-----------------+
+| Carlos     | Snares    | Finance    |           15000 |
+| Jhon       | Snares    | Finance    |           15000 |
+| Mario      | Saule     | Finance    |           15000 |
+| Joseph     | Dosni     | HR         |          240000 |
+| Zanifer    | Emily     | HR         |          240000 |
+| Henrey     | Gabriel   | HR         |          240000 |
+| Michale    | Robbin    | IT         |           65000 |
+| Enric      | Dosio     | IT         |           65000 |
+| Kuleswar   | Sitaraman | IT         |           65000 |
+| Alex       | Manuel    | IT         |           65000 |
+| Maria      | Foster    | IT         |           65000 |
+| George     | Mardy     | RD         |           55000 |
+| Alan       | Snappy    | RD         |           55000 |
++------------+-----------+------------+-----------------+
+13 rows in set (0.01 sec)
+
+mysql> select e.emp_name as First_name,e.emp_lname as Last_name from employee e inner join emp_dept d
+on e.emp_dept=d.code where d.allot>50000;
++------------+-----------+
+| First_name | Last_name |
++------------+-----------+
+| Michale    | Robbin    |
+| Enric      | Dosio     |
+| Joseph     | Dosni     |
+| Zanifer    | Emily     |
+| Kuleswar   | Sitaraman |
+| Henrey     | Gabriel   |
+| Alex       | Manuel    |
+| George     | Mardy     |
+| Alan       | Snappy    |
+| Maria      | Foster    |
++------------+-----------+
+10 rows in set (0.01 sec)
+
+mysql> select e.emp_name as First_name,e.emp_lname as Last_name from employee e inner join emp_dept d on e.emp_dept=d.code and d.allot>50000;
++------------+-----------+
+| First_name | Last_name |
++------------+-----------+
+| Michale    | Robbin    |
+| Enric      | Dosio     |
+| Joseph     | Dosni     |
+| Zanifer    | Emily     |
+| Kuleswar   | Sitaraman |
+| Henrey     | Gabriel   |
+| Alex       | Manuel    |
+| George     | Mardy     |
+| Alan       | Snappy    |
+| Maria      | Foster    |
++------------+-----------+
+10 rows in set (0.00 sec)
+
+mysql> select d.name from employee e inner join emp_dept d on e.emp_dept=d.code group by d.name having
+ count(*)>2;
++---------+
+| name    |
++---------+
+| IT      |
+| Finance |
+| HR      |
++---------+
+3 rows in set (0.01 sec)
+
+mysql>
