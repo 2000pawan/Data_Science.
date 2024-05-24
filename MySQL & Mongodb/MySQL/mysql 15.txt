@@ -355,3 +355,522 @@ mysql> select * from salesman where city in (select city from customer);
 Empty set (0.00 sec)
 
 mysql>
+
+
+
+mysql> select * from salesman a where exists(select * from customer b where a.names<b.name);
++-------------+-------------+----------+------------+
+| salesman_id | names       | city     | commission |
++-------------+-------------+----------+------------+
+|     5001.00 | Jodi        | London   |       0.15 |
+|     5001.00 | James Hoog  | New York |       0.15 |
+|     5002.00 | Nail Knite  | Paris    |       0.13 |
+|     5005.00 | Pit Alex    | London   |       0.11 |
+|     5006.00 | MC Lyon     | Paris    |       0.14 |
+|     5007.00 | Paul Adam   | Rome     |       0.13 |
+|     5003.00 | Pawan Yadav | India    |       0.12 |
++-------------+-------------+----------+------------+
+7 rows in set (0.08 sec)
+
+mysql> select * from salesman;
++-------------+-------------+----------+------------+
+| salesman_id | names       | city     | commission |
++-------------+-------------+----------+------------+
+|     5001.00 | Jodi        | London   |       0.15 |
+|     5001.00 | James Hoog  | New York |       0.15 |
+|     5002.00 | Nail Knite  | Paris    |       0.13 |
+|     5005.00 | Pit Alex    | London   |       0.11 |
+|     5006.00 | MC Lyon     | Paris    |       0.14 |
+|     5007.00 | Paul Adam   | Rome     |       0.13 |
+|     5003.00 | Pawan Yadav | India    |       0.12 |
++-------------+-------------+----------+------------+
+7 rows in set (0.00 sec)
+
+mysql> select * from customer;
++------+--------------+-----------+-------+-------------+
+| id   | name         | city      | grade | salesman_id |
++------+--------------+-----------+-------+-------------+
+| 3002 | Pawan Yadav  | Noida     | 84.00 |        5001 |
+| 3007 | Pankaj Yadav | Noida     | 87.00 |        5001 |
+| 3005 | Ayush        | Shimla    | 87.00 |        5002 |
+| 3008 | Aman         | Delhi     | 90.00 |        5002 |
+| 3004 | Amit         | Solan     | 90.00 |        5006 |
+| 3009 | Ravi         | Leh       | 84.00 |        5003 |
+| 3003 | Raman        | New Delhi | 87.00 |        5007 |
+| 3001 | Man          | GR.Noida  |  0.00 |        5005 |
++------+--------------+-----------+-------+-------------+
+8 rows in set (0.00 sec)
+
+mysql> select * from customer where grade>any(select grade from customer where city <'Noida');
++------+--------------+-----------+-------+-------------+
+| id   | name         | city      | grade | salesman_id |
++------+--------------+-----------+-------+-------------+
+| 3002 | Pawan Yadav  | Noida     | 84.00 |        5001 |
+| 3007 | Pankaj Yadav | Noida     | 87.00 |        5001 |
+| 3005 | Ayush        | Shimla    | 87.00 |        5002 |
+| 3008 | Aman         | Delhi     | 90.00 |        5002 |
+| 3004 | Amit         | Solan     | 90.00 |        5006 |
+| 3009 | Ravi         | Leh       | 84.00 |        5003 |
+| 3003 | Raman        | New Delhi | 87.00 |        5007 |
++------+--------------+-----------+-------+-------------+
+7 rows in set (0.01 sec)
+
+mysql> select * from customer where grade>any(select grade from customer where city <'Delhi');
+Empty set (0.00 sec)
+
+mysql> select * from orders where purch_amt >(select purch_amt from orders where ord_date='2012-09-10'
+);
+ERROR 1242 (21000): Subquery returns more than 1 row
+mysql> select * from orders where purch_amt > any(select purch_amt from orders where ord_date='2012-09
+-10');
++--------+-----------+------------+-------------+-------------+
+| ord_no | purch_amt | ord_date   | customer_id | salesman_id |
++--------+-----------+------------+-------------+-------------+
+|  70007 |    948.50 | 2012-09-10 |        3005 |        5002 |
+|  70005 |   2400.60 | 2012-07-27 |        3007 |        5001 |
+|  70008 |   5760.00 | 2012-09-10 |        3002 |        5001 |
+|  70010 |   1983.43 | 2012-10-10 |        3004 |        5006 |
+|  70003 |   2480.40 | 2012-10-10 |        3009 |        5003 |
+|  70013 |   3045.60 | 2012-04-25 |        3002 |        5001 |
++--------+-----------+------------+-------------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from orders where purch_amt <any(select purch_amt from orders a,customer b where a.customer_id=b.customer_id and b.city='Noida');
+ERROR 1054 (42S22): Unknown column 'b.customer_id' in 'where clause'
+mysql> select * from orders where purch_amt <any(select purch_amt from orders a,customer b where a.customer_id=b.id and b.city='Noida');
++--------+-----------+------------+-------------+-------------+
+| ord_no | purch_amt | ord_date   | customer_id | salesman_id |
++--------+-----------+------------+-------------+-------------+
+|  70001 |    150.50 | 2012-10-05 |        3005 |        5002 |
+|  70009 |    270.65 | 2012-09-10 |        3001 |        5005 |
+|  70002 |     65.26 | 2012-10-05 |        3002 |        5001 |
+|  70004 |    110.50 | 2012-08-17 |        3009 |        5003 |
+|  70007 |    948.50 | 2012-09-10 |        3005 |        5002 |
+|  70005 |   2400.60 | 2012-07-27 |        3007 |        5001 |
+|  70010 |   1983.43 | 2012-10-10 |        3004 |        5006 |
+|  70003 |   2480.40 | 2012-10-10 |        3009 |        5003 |
+|  70012 |    250.45 | 2012-06-27 |        3008 |        5002 |
+|  70011 |     75.29 | 2012-08-17 |        3003 |        5007 |
+|  70013 |   3045.60 | 2012-04-25 |        3002 |        5001 |
++--------+-----------+------------+-------------+-------------+
+11 rows in set (0.01 sec)
+
+mysql> select * from orders where purch_amt <any(select purch_amt from orders a,customer b where a.customer_id=b.id and b.city='Leh');
++--------+-----------+------------+-------------+-------------+
+| ord_no | purch_amt | ord_date   | customer_id | salesman_id |
++--------+-----------+------------+-------------+-------------+
+|  70001 |    150.50 | 2012-10-05 |        3005 |        5002 |
+|  70009 |    270.65 | 2012-09-10 |        3001 |        5005 |
+|  70002 |     65.26 | 2012-10-05 |        3002 |        5001 |
+|  70004 |    110.50 | 2012-08-17 |        3009 |        5003 |
+|  70007 |    948.50 | 2012-09-10 |        3005 |        5002 |
+|  70005 |   2400.60 | 2012-07-27 |        3007 |        5001 |
+|  70010 |   1983.43 | 2012-10-10 |        3004 |        5006 |
+|  70012 |    250.45 | 2012-06-27 |        3008 |        5002 |
+|  70011 |     75.29 | 2012-08-17 |        3003 |        5007 |
++--------+-----------+------------+-------------+-------------+
+9 rows in set (0.00 sec)
+
+mysql> select * from orders where purch_amt <(select max(purch_amt) from orders a,customer b where a.c
+ustomer_id=b.id and b.city='Leh');
++--------+-----------+------------+-------------+-------------+
+| ord_no | purch_amt | ord_date   | customer_id | salesman_id |
++--------+-----------+------------+-------------+-------------+
+|  70001 |    150.50 | 2012-10-05 |        3005 |        5002 |
+|  70009 |    270.65 | 2012-09-10 |        3001 |        5005 |
+|  70002 |     65.26 | 2012-10-05 |        3002 |        5001 |
+|  70004 |    110.50 | 2012-08-17 |        3009 |        5003 |
+|  70007 |    948.50 | 2012-09-10 |        3005 |        5002 |
+|  70005 |   2400.60 | 2012-07-27 |        3007 |        5001 |
+|  70010 |   1983.43 | 2012-10-10 |        3004 |        5006 |
+|  70012 |    250.45 | 2012-06-27 |        3008 |        5002 |
+|  70011 |     75.29 | 2012-08-17 |        3003 |        5007 |
++--------+-----------+------------+-------------+-------------+
+9 rows in set (0.01 sec)
+
+mysql> select * from customer where grade>any(select grade from customer where city='Solan');
+Empty set (0.00 sec)
+
+mysql> select * from customer where grade>any(select grade from customer where city='Leh');
++------+--------------+-----------+-------+-------------+
+| id   | name         | city      | grade | salesman_id |
++------+--------------+-----------+-------+-------------+
+| 3007 | Pankaj Yadav | Noida     | 87.00 |        5001 |
+| 3005 | Ayush        | Shimla    | 87.00 |        5002 |
+| 3008 | Aman         | Delhi     | 90.00 |        5002 |
+| 3004 | Amit         | Solan     | 90.00 |        5006 |
+| 3003 | Raman        | New Delhi | 87.00 |        5007 |
++------+--------------+-----------+-------+-------------+
+5 rows in set (0.01 sec)
+
+mysql> select * from customer where grade>all(select grade from customer where city='Leh');
++------+--------------+-----------+-------+-------------+
+| id   | name         | city      | grade | salesman_id |
++------+--------------+-----------+-------+-------------+
+| 3007 | Pankaj Yadav | Noida     | 87.00 |        5001 |
+| 3005 | Ayush        | Shimla    | 87.00 |        5002 |
+| 3008 | Aman         | Delhi     | 90.00 |        5002 |
+| 3004 | Amit         | Solan     | 90.00 |        5006 |
+| 3003 | Raman        | New Delhi | 87.00 |        5007 |
++------+--------------+-----------+-------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from customer where grade>all(select grade from customer where city='Solan');
+Empty set (0.00 sec)
+
+mysql> select a.names,a.city,b.total_amt from salesman a,(select salesman_id,sum(orders.purch_amt) as
+total_amt from orders group by salesman_id) b where b.salesman_id=a.salesman_id and a.city in (select
+distinct city from customer);
+Empty set (0.02 sec)
+
+mysql> select * from customer where grade !=(select grade from customer where city='Leh');
++------+--------------+-----------+-------+-------------+
+| id   | name         | city      | grade | salesman_id |
++------+--------------+-----------+-------+-------------+
+| 3007 | Pankaj Yadav | Noida     | 87.00 |        5001 |
+| 3005 | Ayush        | Shimla    | 87.00 |        5002 |
+| 3008 | Aman         | Delhi     | 90.00 |        5002 |
+| 3004 | Amit         | Solan     | 90.00 |        5006 |
+| 3003 | Raman        | New Delhi | 87.00 |        5007 |
+| 3001 | Man          | GR.Noida  |  0.00 |        5005 |
++------+--------------+-----------+-------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from customer where grade <> all (select grade from customer where city='Leh' and not grade is null);
++------+--------------+-----------+-------+-------------+
+| id   | name         | city      | grade | salesman_id |
++------+--------------+-----------+-------+-------------+
+| 3007 | Pankaj Yadav | Noida     | 87.00 |        5001 |
+| 3005 | Ayush        | Shimla    | 87.00 |        5002 |
+| 3008 | Aman         | Delhi     | 90.00 |        5002 |
+| 3004 | Amit         | Solan     | 90.00 |        5006 |
+| 3003 | Raman        | New Delhi | 87.00 |        5007 |
+| 3001 | Man          | GR.Noida  |  0.00 |        5005 |
++------+--------------+-----------+-------+-------------+
+6 rows in set (0.01 sec)
+
+mysql> select * from customer where grade not in (select grade from customer where city='Delhi');
++------+--------------+-----------+-------+-------------+
+| id   | name         | city      | grade | salesman_id |
++------+--------------+-----------+-------+-------------+
+| 3002 | Pawan Yadav  | Noida     | 84.00 |        5001 |
+| 3007 | Pankaj Yadav | Noida     | 87.00 |        5001 |
+| 3005 | Ayush        | Shimla    | 87.00 |        5002 |
+| 3009 | Ravi         | Leh       | 84.00 |        5003 |
+| 3003 | Raman        | New Delhi | 87.00 |        5007 |
+| 3001 | Man          | GR.Noida  |  0.00 |        5005 |
++------+--------------+-----------+-------+-------------+
+6 rows in set (0.01 sec)
+
+mysql> select * from customer where grade not grade = any (select grade from customer where city='Shim
+la');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'grade = any (select grade from customer where city='Shimla')' at line 1
+mysql> select * from customer where not grade = any (select grade from customer where city='Shimla');
++------+-------------+----------+-------+-------------+
+| id   | name        | city     | grade | salesman_id |
++------+-------------+----------+-------+-------------+
+| 3002 | Pawan Yadav | Noida    | 84.00 |        5001 |
+| 3008 | Aman        | Delhi    | 90.00 |        5002 |
+| 3004 | Amit        | Solan    | 90.00 |        5006 |
+| 3009 | Ravi        | Leh      | 84.00 |        5003 |
+| 3001 | Man         | GR.Noida |  0.00 |        5005 |
++------+-------------+----------+-------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from customer where not grade = any (select grade from customer where city='London');
++------+--------------+-----------+-------+-------------+
+| id   | name         | city      | grade | salesman_id |
++------+--------------+-----------+-------+-------------+
+| 3002 | Pawan Yadav  | Noida     | 84.00 |        5001 |
+| 3007 | Pankaj Yadav | Noida     | 87.00 |        5001 |
+| 3005 | Ayush        | Shimla    | 87.00 |        5002 |
+| 3008 | Aman         | Delhi     | 90.00 |        5002 |
+| 3004 | Amit         | Solan     | 90.00 |        5006 |
+| 3009 | Ravi         | Leh       | 84.00 |        5003 |
+| 3003 | Raman        | New Delhi | 87.00 |        5007 |
+| 3001 | Man          | GR.Noida  |  0.00 |        5005 |
++------+--------------+-----------+-------+-------------+
+8 rows in set (0.01 sec)
+
+mysql> select * from item_mast;
++------+-----------------+---------+------+
+| id   | name            | price   | com  |
++------+-----------------+---------+------+
+|  101 | Mother Board    | 3200.00 |   15 |
+|  102 | Key Board       |  450.00 |   16 |
+|  103 | ZIP drive       |  250.00 |   14 |
+|  104 | Speaker         |  550.00 |   16 |
+|  105 | Monitor         | 5000.00 |   11 |
+|  106 | DVD drive       |  900.00 |   12 |
+|  107 | CD drive        |  800.00 |   12 |
+|  108 | Printer         | 2600.00 |   13 |
+|  109 | Refill cartidge |  350.00 |   13 |
+|  110 | Mouse           |  250.00 |   12 |
++------+-----------------+---------+------+
+10 rows in set (0.10 sec)
+
+mysql> select * from company_mast;
++--------+-----------+
+| COM_ID | COM_NAME  |
++--------+-----------+
+|     11 | Samsung   |
+|     12 | iBall     |
+|     13 | Epsion    |
+|     14 | Zebornics |
+|     15 | Asus      |
+|     16 | Frontech  |
++--------+-----------+
+6 rows in set (0.02 sec)
+
+mysql> select avg(price) as 'Average Price',b.com_name as Company from item_mast a,company_mast b wher
+e a.com=b.com_id group by b.com_name;
++---------------+-----------+
+| Average Price | Company   |
++---------------+-----------+
+|   3200.000000 | Asus      |
+|    500.000000 | Frontech  |
+|    250.000000 | Zebornics |
+|   5000.000000 | Samsung   |
+|    650.000000 | iBall     |
+|   1475.000000 | Epsion    |
++---------------+-----------+
+6 rows in set (0.01 sec)
+
+mysql> select avg(price) as 'Average Price',b.com_name as Company from item_mast a,company_mast b wher
+e a.com=b.com_id group by b.com_name having avg(price)>=350;
++---------------+----------+
+| Average Price | Company  |
++---------------+----------+
+|   3200.000000 | Asus     |
+|    500.000000 | Frontech |
+|   5000.000000 | Samsung  |
+|    650.000000 | iBall    |
+|   1475.000000 | Epsion   |
++---------------+----------+
+5 rows in set (0.00 sec)
+
+mysql> select b.com_name as Product Name,b.price as Price,a.com_name as Company from item mast b,company_mast a where a.com_id=c.com and b.price= (select max(b.price) from item_mast b where b.com=a.com_id);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Name,b.price as Price,a.com_name as Company from item mast b,company_mast a wher' at line 1
+mysql> select b.com_name as 'Product Name',b.price as 'Price',a.com_name as 'Company' from item mast b,company_mast a where a.com_id=c.com and b.price= (select max(b.price) from item_mast b where b.com=a.com_id);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'b,company_mast a where a.com_id=c.com and b.price= (select max(b.price) from ite' at line 1
+mysql> select b.com_name as 'Product Name',b.price as 'Price',a.com_name as 'Company' from item_mast b,company_mast a where a.com_id=c.com and b.price= (select max(b.price) from item_mast b where b.com=a.com_id);
+ERROR 1054 (42S22): Unknown column 'b.com_name' in 'field list'
+mysql> select b.name as 'Product Name',b.price as 'Price',a.com_name as 'Company' from item_mast b,company_mast a where a.com_id=c.com and b.price= (select max(b.price) from item_mast b where b.com=a.com_id);
+ERROR 1054 (42S22): Unknown column 'c.com' in 'where clause'
+mysql> select b.name as 'Product Name',b.price as 'Price',a.com_name as 'Company' from item_mast b,company_mast a where a.com_id=b.com and b.price= (select max(b.price) from item_mast b where b.com=a.com_
+id);
++--------------+---------+-----------+
+| Product Name | Price   | Company   |
++--------------+---------+-----------+
+| Mother Board | 3200.00 | Asus      |
+| ZIP drive    |  250.00 | Zebornics |
+| Speaker      |  550.00 | Frontech  |
+| Monitor      | 5000.00 | Samsung   |
+| DVD drive    |  900.00 | iBall     |
+| Printer      | 2600.00 | Epsion    |
++--------------+---------+-----------+
+6 rows in set (0.00 sec)
+
+mysql> select * from emp_details where emp_lname in ('Gabriel','Dosio');
+ERROR 1146 (42S02): Table 'db.emp_details' doesn't exist
+mysql> show tables;
++--------------+
+| Tables_in_db |
++--------------+
+| booktable    |
+| company_mast |
+| customer     |
+| departments  |
+| emp_dept     |
+| employee     |
+| employees    |
+| issuetable   |
+| item_mast    |
+| job          |
+| job_grades   |
+| job_history  |
+| jobs         |
+| locations    |
+| orders       |
+| salesman     |
++--------------+
+16 rows in set (0.05 sec)
+
+mysql> select * from employee;
++--------+----------+-----------+----------+
+| emp_id | emp_name | emp_lname | emp_dept |
++--------+----------+-----------+----------+
+| 127323 | Michale  | Robbin    |       57 |
+| 526689 | Carlos   | Snares    |       63 |
+| 843795 | Enric    | Dosio     |       57 |
+| 328717 | Jhon     | Snares    |       63 |
+| 444527 | Joseph   | Dosni     |       47 |
+| 659831 | Zanifer  | Emily     |       47 |
+| 847674 | Kuleswar | Sitaraman |       57 |
+| 748681 | Henrey   | Gabriel   |       47 |
+| 555935 | Alex     | Manuel    |       57 |
+| 539569 | George   | Mardy     |       27 |
+| 733843 | Mario    | Saule     |       63 |
+| 631548 | Alan     | Snappy    |       27 |
+| 839139 | Maria    | Foster    |       57 |
++--------+----------+-----------+----------+
+13 rows in set (0.04 sec)
+
+mysql> select * from employee where emp_lname in ('Gabriel','Dosio');
++--------+----------+-----------+----------+
+| emp_id | emp_name | emp_lname | emp_dept |
++--------+----------+-----------+----------+
+| 843795 | Enric    | Dosio     |       57 |
+| 748681 | Henrey   | Gabriel   |       47 |
++--------+----------+-----------+----------+
+2 rows in set (0.00 sec)
+
+mysql> select * from employee where emp_id in(89,63);
+Empty set (0.00 sec)
+
+mysql> select * from employee where emp_id in (89,63);
+Empty set (0.00 sec)
+
+mysql> select * from employee where emp_dept in (89,63);
++--------+----------+-----------+----------+
+| emp_id | emp_name | emp_lname | emp_dept |
++--------+----------+-----------+----------+
+| 526689 | Carlos   | Snares    |       63 |
+| 328717 | Jhon     | Snares    |       63 |
+| 733843 | Mario    | Saule     |       63 |
++--------+----------+-----------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select * from emp_dept;
++------+---------+--------+
+| code | name    | allot  |
++------+---------+--------+
+|   57 | IT      |  65000 |
+|   63 | Finance |  15000 |
+|   47 | HR      | 240000 |
+|   27 | RD      |  55000 |
+|   89 | QC      |  75000 |
++------+---------+--------+
+5 rows in set (0.02 sec)
+
+mysql> select a.emp_name,a.emp_lname from employee a where a.emp_dept in (select code from emp_dept wh
+ere allot >50000)'
+    '> ;
+    '> select a.emp_name,a.emp_lname from employee a where a.emp_dept in (select code from emp_dept where allot >50000);
+    '>
+
+
+
+
+mysql> select a.emp_name,a.emp_lname from employee a where a.emp_dept in (select code from emp_dept where allot >50000);
++----------+-----------+
+| emp_name | emp_lname |
++----------+-----------+
+| Michale  | Robbin    |
+| Enric    | Dosio     |
+| Joseph   | Dosni     |
+| Zanifer  | Emily     |
+| Kuleswar | Sitaraman |
+| Henrey   | Gabriel   |
+| Alex     | Manuel    |
+| George   | Mardy     |
+| Alan     | Snappy    |
+| Maria    | Foster    |
++----------+-----------+
+10 rows in set (0.01 sec)
+
+mysql> select * from emp_deprt;
+ERROR 1146 (42S02): Table 'db.emp_deprt' doesn't exist
+mysql> show tables;
++--------------+
+| Tables_in_db |
++--------------+
+| booktable    |
+| company_mast |
+| customer     |
+| departments  |
+| emp_dept     |
+| employee     |
+| employees    |
+| issuetable   |
+| item_mast    |
+| job          |
+| job_grades   |
+| job_history  |
+| jobs         |
+| locations    |
+| orders       |
+| salesman     |
++--------------+
+16 rows in set (0.01 sec)
+
+mysql> select * from emp_dept;
++------+---------+--------+
+| code | name    | allot  |
++------+---------+--------+
+|   57 | IT      |  65000 |
+|   63 | Finance |  15000 |
+|   47 | HR      | 240000 |
+|   27 | RD      |  55000 |
+|   89 | QC      |  75000 |
++------+---------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select * from emp_dept where allot > (select avg(allot) from emp_dept);
++------+------+--------+
+| code | name | allot  |
++------+------+--------+
+|   47 | HR   | 240000 |
++------+------+--------+
+1 row in set (0.01 sec)
+
+mysql> select * from employee;
++--------+----------+-----------+----------+
+| emp_id | emp_name | emp_lname | emp_dept |
++--------+----------+-----------+----------+
+| 127323 | Michale  | Robbin    |       57 |
+| 526689 | Carlos   | Snares    |       63 |
+| 843795 | Enric    | Dosio     |       57 |
+| 328717 | Jhon     | Snares    |       63 |
+| 444527 | Joseph   | Dosni     |       47 |
+| 659831 | Zanifer  | Emily     |       47 |
+| 847674 | Kuleswar | Sitaraman |       57 |
+| 748681 | Henrey   | Gabriel   |       47 |
+| 555935 | Alex     | Manuel    |       57 |
+| 539569 | George   | Mardy     |       27 |
+| 733843 | Mario    | Saule     |       63 |
+| 631548 | Alan     | Snappy    |       27 |
+| 839139 | Maria    | Foster    |       57 |
++--------+----------+-----------+----------+
+13 rows in set (0.00 sec)
+
+mysql> select name from emp_dept where 2>(select count(*) from employee where emp_dept.code=employee.e
+mp_dept);
++------+
+| name |
++------+
+| QC   |
++------+
+1 row in set (0.01 sec)
+
+mysql> select name from emp_dept where code in(select emp_dept from employee group by emp_dept having count(*)>2);
++---------+
+| name    |
++---------+
+| IT      |
+| Finance |
+| HR      |
++---------+
+3 rows in set (0.01 sec)
+
+mysql> select emp_name,emp_lname from employee where emp_dept in(select code from emp_dept where allot
+=(select min(allot) from emp_dept where allot >(select min(allot) from emp_dept)));
++----------+-----------+
+| emp_name | emp_lname |
++----------+-----------+
+| George   | Mardy     |
+| Alan     | Snappy    |
++----------+-----------+
+2 rows in set (0.00 sec)
+
+mysql>

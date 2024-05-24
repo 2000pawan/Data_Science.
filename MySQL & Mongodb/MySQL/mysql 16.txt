@@ -1,0 +1,1046 @@
+mysql> select * from employees;
++-------------+-------------+-------------+----------+-------------------+------------+------------+----------+------------+------------+---------------+
+| employee_id | fname       | lname       | email    | mobile            | hire_date  | job_id     | salary   | commission | manager_id | department_id |
++-------------+-------------+-------------+----------+-------------------+------------+------------+----------+------------+------------+---------------+
+|         100 | Steven      | King        | SKING    |     5151234567.00 | 2003-06-17 | AD_PRES    | 24000.00 |       0.00 |          0 |            90 |
+|         101 | Neena       | Kochhar     | NKOCHHAR |     5151234568.00 | 2005-09-21 | AD_VP      | 17000.00 |       0.00 |        100 |            90 |
+|         102 | Lex         | De Haan     | LDEHAAN  |     5151234569.00 | 2001-01-13 | AD_VP      | 17000.00 |       0.00 |        100 |            90 |
+|         103 | Alexander   | Hunold      | AHUNOLD  |     5904234567.00 | 2006-01-03 | IT_PROG    |  9000.00 |       0.00 |        102 |            60 |
+|         104 | Bruce       | Ernst       | BERNST   |     5904234568.00 | 2007-05-21 | IT_PROG    |  6000.00 |       0.00 |        103 |            60 |
+|         105 | David       | Austin      | DAUSTIN  |     5904234569.00 | 2005-06-25 | IT_PROG    |  4800.00 |       0.00 |        103 |            60 |
+|         106 | Valli       | Pataballa   | VPATABAL |     5904234560.00 | 2006-02-05 | IT_PROG    |  4800.00 |       0.00 |        103 |            60 |
+|         107 | Diana       | Lorentz     | DLORENTZ |     5904235567.00 | 2007-02-07 | IT_PROG    |  4200.00 |       0.00 |        103 |            60 |
+|         108 | Nancy       | Greenberg   | NGREENBE |     5151244569.00 | 2002-08-17 | FI_MGR     | 12000.00 |       0.00 |        101 |           100 |
+|         109 | Daniel      | Faviet      | DFAVIET  |     5151244169.00 | 2002-08-16 | FI_ACCOUNT |  9000.00 |       0.00 |        108 |           100 |
+|         110 | John        | Chen        | JCHEN    |     5151244269.00 | 2005-09-28 | FI_ACCOUNT |  8200.00 |       0.00 |        108 |           100 |
+|         111 | Ismael      | Sciarra     | ISCIARRA |     5151244369.00 | 2005-09-30 | FI_ACCOUNT |  7700.00 |       0.00 |        108 |           100 |
+|         112 | Jose Manuel | Urman       | JMURMAN  |     5151244469.00 | 2006-03-07 | FI_ACCOUNT |  7800.00 |       0.00 |        108 |           100 |
+|         113 | Luis        | Popp        | LPOPP    |     5151244467.00 | 2007-12-07 | FI_ACCOUNT |  6900.00 |       0.00 |        108 |           100 |
+|         114 | Den         | Raphaely    | DRAPHEAL |     5151274561.00 | 2002-12-07 | PU_MAN     | 11000.00 |       0.00 |        100 |            30 |
+|         115 | Alexander   | Khoo        | AKHOO    |     5151274562.00 | 2003-05-18 | PU_CLEARK  |  3100.00 |       0.00 |        114 |            30 |
+|         116 | Shelli      | Baida       | SBAIDA   |     5151274563.00 | 2005-12-24 | PU_CLEARK  |  2900.00 |       0.00 |        114 |            30 |
+|         117 | Sigal       | Tobias      | STOBIAS  |     5151274564.00 | 2005-07-24 | PU_CLEARK  |  2800.00 |       0.00 |        114 |            30 |
+|         118 | Guy         | Himuro      | GHIMURO  |     5151274565.00 | 2006-11-15 | PU_CLEARK  |  2600.00 |       0.00 |        114 |            30 |
+|         119 | Karen       | Colmenares  | KCOLMENA |     5151274566.00 | 2007-08-10 | PU_CLEARK  |  2500.00 |       0.00 |        114 |            30 |
+|         120 | Matthew     | Weiss       | MWEISS   |     6501231234.00 | 2004-07-18 | ST_MAN     |  8000.00 |       0.00 |        100 |            50 |
+|         121 | Adam        | Fripp       | AFRIPP   |     6501232234.00 | 2005-04-10 | ST_MAN     |  8200.00 |       0.00 |        100 |            50 |
+|         122 | Payam       | Kaufling    | PKAUFLIN |     6501233234.00 | 2003-05-01 | ST_MAN     |  7900.00 |       0.00 |        100 |            50 |
+|         123 | Shanta      | Vollman     | SVOLLMAN |     6501235234.00 | 2007-11-16 | ST_MAN     |  6500.00 |       0.00 |        100 |            50 |
+|         124 | Kevin       | Mourgos     | KMOURGOS |     6501234234.00 | 2005-10-10 | ST_MAN     |  5800.00 |       0.00 |        100 |            50 |
+|         125 | Julia       | Nayer       | JNAYER   |     6501241214.00 | 2005-07-16 | ST_CLERK   |  3200.00 |       0.00 |        120 |            50 |
+|         126 | Irene       | Mikkilineni | IMIKKILI |     6501241224.00 | 2006-09-28 | ST_CLERK   |  2700.00 |       0.00 |        120 |            50 |
+|         127 | James       | Landry      | JLANDRY  |     6501241334.00 | 2007-01-14 | ST_CLERK   |  2400.00 |       0.00 |        120 |            50 |
+|         128 | Steven      | Markle      | SMARKLE  |     6501241434.00 | 2008-03-08 | ST_CLERK   |  2200.00 |       0.00 |        120 |            50 |
+|         129 | Laura       | Bissot      | LBISSOT  |     6501245234.00 | 2005-08-20 | ST_CLERK   |  3300.00 |       0.00 |        121 |            50 |
+|         130 | Mozhe       | Atkinson    | MATKINSO |     6501246234.00 | 2005-10-30 | ST_CLERK   |  2800.00 |       0.00 |        121 |            50 |
+|         131 | James       | Marlow      | JAMRLOW  |     6501247234.00 | 2005-02-16 | ST_CLERK   |  2500.00 |       0.00 |        121 |            50 |
+|         132 | TJ          | Olson       | TJOLSON  |     6501248234.00 | 2007-04-10 | ST_CLERK   |  2100.00 |       0.00 |        121 |            50 |
+|         133 | Jason       | Mallin      | JMALLIN  |     6501271934.00 | 2004-06-14 | ST_CLERK   |  3300.00 |       0.00 |        122 |            50 |
+|         134 | Michael     | Rogers      | MROGERS  |     6501271834.00 | 2006-08-26 | ST_CLERK   |  2900.00 |       0.00 |        122 |            50 |
+|         135 | Ki          | Gee         | KGEE     |     6501271734.00 | 2007-12-12 | ST_CLERK   |  2400.00 |       0.00 |        122 |            50 |
+|         136 | Hazel       | Philtanker  | HPHILTAN |     6501271634.00 | 2008-02-06 | ST_CLERK   |  2200.00 |       0.00 |        122 |            50 |
+|         137 | Renske      | Ladwig      | RLADWIG  |     6501211234.00 | 2003-07-14 | ST_CLERK   |  3600.00 |       0.00 |        123 |            50 |
+|         138 | Stephen     | Stiles      | SSTILES  |     6501212034.00 | 2005-10-26 | ST_CLERK   |  3200.00 |       0.00 |        123 |            50 |
+|         139 | John        | Seo         | JSEO     |     6501212019.00 | 2006-02-12 | ST_CLERK   |  2700.00 |       0.00 |        123 |            50 |
+|         140 | Joshua      | Patel       | JPATEL   |     6501211834.00 | 2006-04-06 | ST_CLERK   |  2500.00 |       0.00 |        123 |            50 |
+|         141 | Trenna      | Rajs        | TRAJS    |     6501218009.00 | 2003-10-17 | ST_CLERK   |  3500.00 |       0.00 |        124 |            50 |
+|         142 | Curtis      | Davies      | CDAVIES  |     6501212994.00 | 2005-01-29 | ST_CLERK   |  3100.00 |       0.00 |        124 |            50 |
+|         143 | Randall     | Matos       | RMATOS   |     6501212874.00 | 2006-03-15 | ST_CLERK   |  2600.00 |       0.00 |        124 |            50 |
+|         144 | Peter       | Vargas      | PVARGAS  |     6501212004.00 | 2006-07-09 | ST_CLERK   |  2500.00 |       0.00 |        124 |            50 |
+|         145 | John        | Russell     | JRUSSEL  | 11441344429268.00 | 2004-10-01 | SA_MAN     | 14000.00 |       0.40 |        100 |            80 |
+|         146 | Karen       | Partners    | KPARTNER | 11441344467268.00 | 2005-01-05 | SA_MAN     | 13500.00 |       0.30 |        100 |            80 |
+|         147 | Alberto     | Errazuriz   | AERRAZUR | 11441344429278.00 | 2005-03-10 | SA_MAN     | 12000.00 |       0.30 |        100 |            80 |
+|         148 | Gerald      | Cambrault   | GCAMBRAU | 11441344619268.00 | 2007-10-15 | SA_MAN     | 11000.00 |       0.30 |        100 |            80 |
+|         149 | Eleni       | Zlotkey     | EZLOTKEY | 11441344429018.00 | 2008-01-29 | SA_MAN     | 10500.00 |       0.20 |        100 |            80 |
+|         150 | Peter       | Tucker      | PTUCKER  | 11441344129268.00 | 2005-01-30 | SA_REP     | 10000.00 |       0.30 |        145 |            80 |
+|         151 | David       | Bernstein   | DBERNSTE | 11441344345268.00 | 2005-03-24 | SA_REP     |  9500.00 |       0.25 |        145 |            80 |
+|         152 | Peter       | Hall        | PHALL    | 11441344478968.00 | 2005-08-20 | SA_REP     |  9000.00 |       0.25 |        145 |            80 |
+|         153 | Christopher | Olsen       | COLSEN   | 11441344498718.00 | 2006-03-30 | SA_REP     |  8000.00 |       0.20 |        145 |            80 |
+|         154 | Nanette     | Cambrault   | NCAMBRAU | 11441344987668.00 | 2006-12-09 | SA_REP     |  7500.00 |       0.20 |        145 |            80 |
+|         155 | Oliver      | Tuvault     | OTUVAULT | 11441344486508.00 | 2007-11-23 | SA_REP     |  7000.00 |       0.15 |        145 |            80 |
+|         156 | Janette     | King        | JKING    | 11441345429268.00 | 2004-01-30 | SA_REP     | 10000.00 |       0.35 |        146 |            80 |
+|         157 | Patrick     | Sully       | PSULLY   | 11441345929268.00 | 2004-03-04 | SA_REP     |  9500.00 |       0.35 |        146 |            80 |
+|         158 | Allan       | McEwen      | AMCEWEN  | 11441345829268.00 | 2004-08-01 | SA_REP     |  9000.00 |       0.35 |        146 |            80 |
+|         159 | Lindsey     | Smith       | LSMITH   | 11441345729268.00 | 2005-03-10 | SA_REP     |  8000.00 |       0.30 |        146 |            80 |
+|         160 | Louise      | Doran       | LDORAN   | 11441345629268.00 | 2005-12-15 | SA_REP     |  7500.00 |       0.30 |        146 |            80 |
+|         161 | Sarath      | Sewall      | SSEWALL  | 11441345529268.00 | 2006-11-03 | SA_REP     |  7000.00 |       0.25 |        146 |            80 |
+|         162 | Clara       | Vishney     | CVISHNEY | 11441346129268.00 | 2005-11-11 | SA_REP     | 10500.00 |       0.25 |        147 |            80 |
+|         163 | Danielle    | Greene      | DGREENE  | 11441346229268.00 | 2007-03-19 | SA_REP     |  9500.00 |       0.15 |        147 |            80 |
+|         164 | Mattea      | Marvins     | MMARVINS | 11441346329268.00 | 2008-01-24 | SA_REP     |  7200.00 |       0.10 |        147 |            80 |
+|         165 | David       | Lee         | DLEE     | 11441346529268.00 | 2008-02-23 | SA_REP     |  6800.00 |       0.10 |        147 |            80 |
+|         166 | Sunder      | Ande        | SANDE    | 11441346629268.00 | 2008-03-24 | SA_REP     |  6400.00 |       0.10 |        147 |            80 |
+|         167 | Amit        | Banda       | ABANDA   | 11441346729268.00 | 2008-04-21 | SA_REP     |  6200.00 |       0.10 |        147 |            80 |
+|         168 | Lisa        | Ozer        | LOZER    | 11441343929268.00 | 2005-03-11 | SA_REP     | 11500.00 |       0.25 |        148 |            80 |
+|         169 | Harrison    | Bloom       | HBLOOM   | 11441343829268.00 | 2006-03-23 | SA_REP     | 10000.00 |       0.20 |        148 |            80 |
+|         170 | Tayler      | Fox         | TFOX     | 11441343729268.00 | 2006-01-24 | SA_REP     |  9600.00 |       0.20 |        148 |            80 |
+|         171 | William     | Smith       | WSMITH   | 11441343629268.00 | 2007-02-23 | SA_REP     |  7400.00 |       0.15 |        148 |            80 |
+|         172 | Sundita     | Kumar       | SKUMAR   | 11441343529268.00 | 2007-03-24 | SA_REP     |  7300.00 |       0.15 |        148 |            80 |
+|         173 | Elizabeth   | Bates       | EBATES   | 11441343329268.00 | 2008-04-21 | SA_REP     |  6100.00 |       0.10 |        148 |            80 |
+|         174 | Ellen       | Abel        | EABEL    | 11441644429267.00 | 2004-05-11 | SA_REP     | 11000.00 |       0.30 |        149 |            80 |
+|         175 | Alyssa      | Hutton      | AHUTTON  | 11441644429266.00 | 2005-03-19 | SA_REP     |  8800.00 |       0.25 |        149 |            80 |
+|         176 | Jonathon    | Taylor      | JTAYLOR  | 11441644429265.00 | 2006-03-24 | SA_REP     |  8600.00 |       0.25 |        149 |            80 |
+|         177 | Jack        | Livingston  | JLIVINGS | 11441644429264.00 | 2006-04-23 | SA_REP     |  8400.00 |       0.20 |        149 |            80 |
+|         178 | Kimberely   | Grant       | KGRANT   | 11441644429263.00 | 2007-05-24 | SA_REP     |  7000.00 |       0.15 |        149 |            80 |
+|         179 | Charles     | Johnson     | CJOHNSON | 11441644429262.00 | 2008-01-04 | SA_REP     |  6200.00 |       0.10 |        149 |            80 |
+|         180 | Winston     | Taylor      | WTAYLOR  |     6505079876.00 | 2006-01-24 | SH_CLERK   |  3200.00 |       0.00 |        120 |            50 |
+|         181 | Jean        | Fleaur      | JFLEAUR  |     6505079877.00 | 2006-02-23 | SH_CLERK   |  3100.00 |       0.00 |        120 |            50 |
+|         182 | Martha      | Sullivan    | MSULLIVA |     6505079878.00 | 2007-06-21 | SH_CLERK   |  2500.00 |       0.00 |        120 |            50 |
+|         183 | Girard      | Geoni       | GGEONI   |     6505079879.00 | 2008-02-03 | SH_CLERK   |  2800.00 |       0.00 |        120 |            50 |
+|         184 | Nandita     | Sarchand    | NSARCHAN |     6505091876.00 | 2004-01-27 | SH_CLERK   |  4200.00 |       0.00 |        121 |            50 |
+|         185 | Alexis      | Bull        | ABULL    |     6505092876.00 | 2005-02-20 | SH_CLERK   |  4100.00 |       0.00 |        121 |            50 |
+|         186 | Julia       | Dellinger   | JDELLING |     6505093876.00 | 2006-06-24 | SH_CLERK   |  3400.00 |       0.00 |        121 |            50 |
+|         187 | Anthony     | Cabrio      | ACABRIO  |     6505094876.00 | 2007-02-07 | SH_CLERK   |  3000.00 |       0.00 |        121 |            50 |
+|         188 | Kelly       | Chung       | KCHUNG   |     6505051876.00 | 2005-06-14 | SH_CLERK   |  3800.00 |       0.00 |        122 |            50 |
+|         189 | Jennifer    | Dilly       | JDILLY   |     6505052876.00 | 2005-08-13 | SH_CLERK   |  3600.00 |       0.00 |        122 |            50 |
+|         190 | Timothy     | Gates       | TGATES   |     6505053876.00 | 2006-07-11 | SH_CLERK   |  2900.00 |       0.00 |        122 |            50 |
+|         191 | Randall     | Perkins     | RPERKINS |     6505054876.00 | 2007-12-19 | SH_CLERK   |  2500.00 |       0.00 |        122 |            50 |
+|         192 | Sarah       | Bell        | SBELL    |     6505011876.00 | 2004-02-04 | SH_CLERK   |  4000.00 |       0.00 |        123 |            50 |
+|         193 | Britney     | Everett     | BEVERETT |     6505012876.00 | 2005-03-03 | SH_CLERK   |  3900.00 |       0.00 |        123 |            50 |
+|         194 | Samuel      | McCain      | SMCCAIN  |     6505013876.00 | 2006-07-01 | SH_CLERK   |  3200.00 |       0.00 |        123 |            50 |
+|         195 | Vance       | Jones       | VJONES   |     6505014876.00 | 2007-03-17 | SH_CLERK   |  2800.00 |       0.00 |        123 |            50 |
+|         196 | Alana       | Walsh       | AWALSH   |     6505079811.00 | 2006-04-24 | SH_CLERK   |  3100.00 |       0.00 |        124 |            50 |
+|         197 | Kevin       | Feeney      | KFEENEY  |     6505079822.00 | 2006-05-23 | SH_CLERK   |  3000.00 |       0.00 |        124 |            50 |
+|         198 | Donald      | OConnell    | DOCONNEL |     6505079833.00 | 2007-06-21 | SH_CLERK   |  2600.00 |       0.00 |        124 |            50 |
+|         199 | Douglas     | Grant       | DGRANT   |     6505079844.00 | 2008-01-13 | SH_CLERK   |  2600.00 |       0.00 |        124 |            50 |
+|         200 | Jennifer    | Whalen      | JWHALEN  |     5151234444.00 | 2003-09-17 | AD_ASST    |  4400.00 |       0.00 |        101 |            10 |
+|         201 | Michael     | Hartstein   | MHARTSTE |     5151235555.00 | 2004-02-17 | MK_MAN     | 13000.00 |       0.00 |        100 |            20 |
+|         202 | Pat         | Fay         | PFAY     |     6031236666.00 | 2005-08-17 | MK_REP     |  6000.00 |       0.00 |        201 |            20 |
+|         203 | Susan       | Mavris      | SMAVRIS  |     5151237777.00 | 2002-06-07 | HR_REP     |  6500.00 |       0.00 |        101 |            40 |
+|         204 | Hermann     | Baer        | HBAER    |     5151238888.00 | 2002-06-07 | PR_REP     | 10000.00 |       0.00 |        101 |            70 |
+|         205 | Shelley     | Higgins     | SHIGGINS |     5151238080.00 | 2002-06-07 | AC_MGR     | 12008.00 |       0.00 |        101 |           110 |
+|         206 | PAWAN       | YADAV       | PYADAV   |     8882293337.00 | 2000-08-22 | AC_ACCOUNT | 70000.00 |       0.00 |        205 |           110 |
++-------------+-------------+-------------+----------+-------------------+------------+------------+----------+------------+------------+---------------+
+107 rows in set (0.17 sec)
+
+mysql> select fname,lname from employees where salary > (select salary from employees where employee_i
+d=163);
++----------+-----------+
+| fname    | lname     |
++----------+-----------+
+| Steven   | King      |
+| Neena    | Kochhar   |
+| Lex      | De Haan   |
+| Nancy    | Greenberg |
+| Den      | Raphaely  |
+| John     | Russell   |
+| Karen    | Partners  |
+| Alberto  | Errazuriz |
+| Gerald   | Cambrault |
+| Eleni    | Zlotkey   |
+| Peter    | Tucker    |
+| Janette  | King      |
+| Clara    | Vishney   |
+| Lisa     | Ozer      |
+| Harrison | Bloom     |
+| Tayler   | Fox       |
+| Ellen    | Abel      |
+| Michael  | Hartstein |
+| Hermann  | Baer      |
+| Shelley  | Higgins   |
+| PAWAN    | YADAV     |
++----------+-----------+
+21 rows in set (0.03 sec)
+
+mysql> select fname,lname,department_id,job_id from employees where manager_id > (select manager_id fr
+om employees where employee_id=169);
++-----------+------------+---------------+------------+
+| fname     | lname      | department_id | job_id     |
++-----------+------------+---------------+------------+
+| Ellen     | Abel       |            80 | SA_REP     |
+| Alyssa    | Hutton     |            80 | SA_REP     |
+| Jonathon  | Taylor     |            80 | SA_REP     |
+| Jack      | Livingston |            80 | SA_REP     |
+| Kimberely | Grant      |            80 | SA_REP     |
+| Charles   | Johnson    |            80 | SA_REP     |
+| Pat       | Fay        |            20 | MK_REP     |
+| PAWAN     | YADAV      |           110 | AC_ACCOUNT |
++-----------+------------+---------------+------------+
+8 rows in set (0.00 sec)
+
+mysql> select fname,lname,department_id,job_id from employees where job_id > (select job_id from emplo
+yees where employee_id=169);
++----------+-------------+---------------+----------+
+| fname    | lname       | department_id | job_id   |
++----------+-------------+---------------+----------+
+| Matthew  | Weiss       |            50 | ST_MAN   |
+| Adam     | Fripp       |            50 | ST_MAN   |
+| Payam    | Kaufling    |            50 | ST_MAN   |
+| Shanta   | Vollman     |            50 | ST_MAN   |
+| Kevin    | Mourgos     |            50 | ST_MAN   |
+| Julia    | Nayer       |            50 | ST_CLERK |
+| Irene    | Mikkilineni |            50 | ST_CLERK |
+| James    | Landry      |            50 | ST_CLERK |
+| Steven   | Markle      |            50 | ST_CLERK |
+| Laura    | Bissot      |            50 | ST_CLERK |
+| Mozhe    | Atkinson    |            50 | ST_CLERK |
+| James    | Marlow      |            50 | ST_CLERK |
+| TJ       | Olson       |            50 | ST_CLERK |
+| Jason    | Mallin      |            50 | ST_CLERK |
+| Michael  | Rogers      |            50 | ST_CLERK |
+| Ki       | Gee         |            50 | ST_CLERK |
+| Hazel    | Philtanker  |            50 | ST_CLERK |
+| Renske   | Ladwig      |            50 | ST_CLERK |
+| Stephen  | Stiles      |            50 | ST_CLERK |
+| John     | Seo         |            50 | ST_CLERK |
+| Joshua   | Patel       |            50 | ST_CLERK |
+| Trenna   | Rajs        |            50 | ST_CLERK |
+| Curtis   | Davies      |            50 | ST_CLERK |
+| Randall  | Matos       |            50 | ST_CLERK |
+| Peter    | Vargas      |            50 | ST_CLERK |
+| Winston  | Taylor      |            50 | SH_CLERK |
+| Jean     | Fleaur      |            50 | SH_CLERK |
+| Martha   | Sullivan    |            50 | SH_CLERK |
+| Girard   | Geoni       |            50 | SH_CLERK |
+| Nandita  | Sarchand    |            50 | SH_CLERK |
+| Alexis   | Bull        |            50 | SH_CLERK |
+| Julia    | Dellinger   |            50 | SH_CLERK |
+| Anthony  | Cabrio      |            50 | SH_CLERK |
+| Kelly    | Chung       |            50 | SH_CLERK |
+| Jennifer | Dilly       |            50 | SH_CLERK |
+| Timothy  | Gates       |            50 | SH_CLERK |
+| Randall  | Perkins     |            50 | SH_CLERK |
+| Sarah    | Bell        |            50 | SH_CLERK |
+| Britney  | Everett     |            50 | SH_CLERK |
+| Samuel   | McCain      |            50 | SH_CLERK |
+| Vance    | Jones       |            50 | SH_CLERK |
+| Alana    | Walsh       |            50 | SH_CLERK |
+| Kevin    | Feeney      |            50 | SH_CLERK |
+| Donald   | OConnell    |            50 | SH_CLERK |
+| Douglas  | Grant       |            50 | SH_CLERK |
++----------+-------------+---------------+----------+
+45 rows in set (0.01 sec)
+
+mysql> select fname,lname,department_id,job_id from employees where job_id > (select job_id from employees where job_id=169);
+Empty set, 107 warnings (0.01 sec)
+
+mysql> select fname,lname,department_id,job_id from employees where job_id = (select job_id from emplo
+yees where employee_id=169);
++-------------+------------+---------------+--------+
+| fname       | lname      | department_id | job_id |
++-------------+------------+---------------+--------+
+| Peter       | Tucker     |            80 | SA_REP |
+| David       | Bernstein  |            80 | SA_REP |
+| Peter       | Hall       |            80 | SA_REP |
+| Christopher | Olsen      |            80 | SA_REP |
+| Nanette     | Cambrault  |            80 | SA_REP |
+| Oliver      | Tuvault    |            80 | SA_REP |
+| Janette     | King       |            80 | SA_REP |
+| Patrick     | Sully      |            80 | SA_REP |
+| Allan       | McEwen     |            80 | SA_REP |
+| Lindsey     | Smith      |            80 | SA_REP |
+| Louise      | Doran      |            80 | SA_REP |
+| Sarath      | Sewall     |            80 | SA_REP |
+| Clara       | Vishney    |            80 | SA_REP |
+| Danielle    | Greene     |            80 | SA_REP |
+| Mattea      | Marvins    |            80 | SA_REP |
+| David       | Lee        |            80 | SA_REP |
+| Sunder      | Ande       |            80 | SA_REP |
+| Amit        | Banda      |            80 | SA_REP |
+| Lisa        | Ozer       |            80 | SA_REP |
+| Harrison    | Bloom      |            80 | SA_REP |
+| Tayler      | Fox        |            80 | SA_REP |
+| William     | Smith      |            80 | SA_REP |
+| Sundita     | Kumar      |            80 | SA_REP |
+| Elizabeth   | Bates      |            80 | SA_REP |
+| Ellen       | Abel       |            80 | SA_REP |
+| Alyssa      | Hutton     |            80 | SA_REP |
+| Jonathon    | Taylor     |            80 | SA_REP |
+| Jack        | Livingston |            80 | SA_REP |
+| Kimberely   | Grant      |            80 | SA_REP |
+| Charles     | Johnson    |            80 | SA_REP |
++-------------+------------+---------------+--------+
+30 rows in set (0.00 sec)
+
+mysql> select fname,lname,department_id from employees where salary in (select min(salary) from employ
+ees group by department_id);
++-----------+------------+---------------+
+| fname     | lname      | department_id |
++-----------+------------+---------------+
+| Neena     | Kochhar    |            90 |
+| Lex       | De Haan    |            90 |
+| Bruce     | Ernst      |            60 |
+| Diana     | Lorentz    |            60 |
+| Luis      | Popp       |           100 |
+| Karen     | Colmenares |            30 |
+| Shanta    | Vollman    |            50 |
+| James     | Marlow     |            50 |
+| TJ        | Olson      |            50 |
+| Joshua    | Patel      |            50 |
+| Peter     | Vargas     |            50 |
+| Peter     | Tucker     |            80 |
+| Janette   | King       |            80 |
+| Harrison  | Bloom      |            80 |
+| Elizabeth | Bates      |            80 |
+| Martha    | Sullivan   |            50 |
+| Nandita   | Sarchand   |            50 |
+| Randall   | Perkins    |            50 |
+| Jennifer  | Whalen     |            10 |
+| Pat       | Fay        |            20 |
+| Susan     | Mavris     |            40 |
+| Hermann   | Baer       |            70 |
+| Shelley   | Higgins    |           110 |
++-----------+------------+---------------+
+23 rows in set (0.02 sec)
+
+mysql> select fname,lname,salary,department_id from employees where salary in (select min(salary) from
+ employees group by department_id);
++-----------+------------+----------+---------------+
+| fname     | lname      | salary   | department_id |
++-----------+------------+----------+---------------+
+| Neena     | Kochhar    | 17000.00 |            90 |
+| Lex       | De Haan    | 17000.00 |            90 |
+| Bruce     | Ernst      |  6000.00 |            60 |
+| Diana     | Lorentz    |  4200.00 |            60 |
+| Luis      | Popp       |  6900.00 |           100 |
+| Karen     | Colmenares |  2500.00 |            30 |
+| Shanta    | Vollman    |  6500.00 |            50 |
+| James     | Marlow     |  2500.00 |            50 |
+| TJ        | Olson      |  2100.00 |            50 |
+| Joshua    | Patel      |  2500.00 |            50 |
+| Peter     | Vargas     |  2500.00 |            50 |
+| Peter     | Tucker     | 10000.00 |            80 |
+| Janette   | King       | 10000.00 |            80 |
+| Harrison  | Bloom      | 10000.00 |            80 |
+| Elizabeth | Bates      |  6100.00 |            80 |
+| Martha    | Sullivan   |  2500.00 |            50 |
+| Nandita   | Sarchand   |  4200.00 |            50 |
+| Randall   | Perkins    |  2500.00 |            50 |
+| Jennifer  | Whalen     |  4400.00 |            10 |
+| Pat       | Fay        |  6000.00 |            20 |
+| Susan     | Mavris     |  6500.00 |            40 |
+| Hermann   | Baer       | 10000.00 |            70 |
+| Shelley   | Higgins    | 12008.00 |           110 |
++-----------+------------+----------+---------------+
+23 rows in set (0.00 sec)
+
+mysql> select employee_id,fname,lname from employees where salary> (select avg(salary) from employees)
+;
++-------------+-------------+------------+
+| employee_id | fname       | lname      |
++-------------+-------------+------------+
+|         100 | Steven      | King       |
+|         101 | Neena       | Kochhar    |
+|         102 | Lex         | De Haan    |
+|         103 | Alexander   | Hunold     |
+|         108 | Nancy       | Greenberg  |
+|         109 | Daniel      | Faviet     |
+|         110 | John        | Chen       |
+|         111 | Ismael      | Sciarra    |
+|         112 | Jose Manuel | Urman      |
+|         114 | Den         | Raphaely   |
+|         120 | Matthew     | Weiss      |
+|         121 | Adam        | Fripp      |
+|         122 | Payam       | Kaufling   |
+|         145 | John        | Russell    |
+|         146 | Karen       | Partners   |
+|         147 | Alberto     | Errazuriz  |
+|         148 | Gerald      | Cambrault  |
+|         149 | Eleni       | Zlotkey    |
+|         150 | Peter       | Tucker     |
+|         151 | David       | Bernstein  |
+|         152 | Peter       | Hall       |
+|         153 | Christopher | Olsen      |
+|         154 | Nanette     | Cambrault  |
+|         156 | Janette     | King       |
+|         157 | Patrick     | Sully      |
+|         158 | Allan       | McEwen     |
+|         159 | Lindsey     | Smith      |
+|         160 | Louise      | Doran      |
+|         162 | Clara       | Vishney    |
+|         163 | Danielle    | Greene     |
+|         164 | Mattea      | Marvins    |
+|         168 | Lisa        | Ozer       |
+|         169 | Harrison    | Bloom      |
+|         170 | Tayler      | Fox        |
+|         171 | William     | Smith      |
+|         172 | Sundita     | Kumar      |
+|         174 | Ellen       | Abel       |
+|         175 | Alyssa      | Hutton     |
+|         176 | Jonathon    | Taylor     |
+|         177 | Jack        | Livingston |
+|         201 | Michael     | Hartstein  |
+|         204 | Hermann     | Baer       |
+|         205 | Shelley     | Higgins    |
+|         206 | PAWAN       | YADAV      |
++-------------+-------------+------------+
+44 rows in set (0.01 sec)
+
+mysql> select employee_id,fname,lname,salary from employees where manager_id= (select manager_id from
+employees where fname='Payam');
++-------------+---------+-----------+----------+
+| employee_id | fname   | lname     | salary   |
++-------------+---------+-----------+----------+
+|         101 | Neena   | Kochhar   | 17000.00 |
+|         102 | Lex     | De Haan   | 17000.00 |
+|         114 | Den     | Raphaely  | 11000.00 |
+|         120 | Matthew | Weiss     |  8000.00 |
+|         121 | Adam    | Fripp     |  8200.00 |
+|         122 | Payam   | Kaufling  |  7900.00 |
+|         123 | Shanta  | Vollman   |  6500.00 |
+|         124 | Kevin   | Mourgos   |  5800.00 |
+|         145 | John    | Russell   | 14000.00 |
+|         146 | Karen   | Partners  | 13500.00 |
+|         147 | Alberto | Errazuriz | 12000.00 |
+|         148 | Gerald  | Cambrault | 11000.00 |
+|         149 | Eleni   | Zlotkey   | 10500.00 |
+|         201 | Michael | Hartstein | 13000.00 |
++-------------+---------+-----------+----------+
+14 rows in set (0.00 sec)
+
+mysql> select employee_id,fname,lname,salary from employees where manager_id= (select employee_id from
+ employees where fname='Payam');
++-------------+----------+------------+---------+
+| employee_id | fname    | lname      | salary  |
++-------------+----------+------------+---------+
+|         133 | Jason    | Mallin     | 3300.00 |
+|         134 | Michael  | Rogers     | 2900.00 |
+|         135 | Ki       | Gee        | 2400.00 |
+|         136 | Hazel    | Philtanker | 2200.00 |
+|         188 | Kelly    | Chung      | 3800.00 |
+|         189 | Jennifer | Dilly      | 3600.00 |
+|         190 | Timothy  | Gates      | 2900.00 |
+|         191 | Randall  | Perkins    | 2500.00 |
++-------------+----------+------------+---------+
+8 rows in set (0.00 sec)
+
+mysql> select a.department_id,a.fname,a.lname,a.job_id,b.names from employees a,departments b where a.
+department_id=b.department_id and b.names='Finance';
+ERROR 1054 (42S22): Unknown column 'b.names' in 'field list'
+mysql> select * from departments;
++---------------+----------------------+------------+-------------+
+| department_id | name                 | manager_id | location_id |
++---------------+----------------------+------------+-------------+
+|            10 | Admin                |        200 |        1700 |
+|            20 | Marketing            |        201 |        1800 |
+|            30 | Purchasing           |        114 |        1700 |
+|            40 | HR                   |        203 |        2400 |
+|            50 | Shipping             |        121 |        1500 |
+|            60 | IT                   |        103 |        1400 |
+|            70 | Public Relations     |        204 |        2700 |
+|            80 | Sales                |        145 |        2500 |
+|            90 | Executive            |        100 |        1700 |
+|           100 | Finance              |        108 |        1700 |
+|           110 | Accounting           |        205 |        1700 |
+|           120 | Treasury             |          0 |        1700 |
+|           130 | Corporate Tax        |          0 |        1700 |
+|           140 | Control and Credit   |          0 |        1700 |
+|           150 | Shareholder Services |          0 |        1700 |
+|           160 | Benifits             |          0 |        1700 |
+|           170 | Manufacturing        |          0 |        1700 |
+|           180 | Construction         |          0 |        1700 |
+|           190 | Contracting          |          0 |        1700 |
+|           200 | Operations           |          0 |        1700 |
+|           210 | IT Supports          |          0 |        1700 |
+|           220 | NOC                  |          0 |        1700 |
+|           230 | IT Helpdesk          |          0 |        1700 |
+|           240 | Government Sales     |          0 |        1700 |
+|           250 | Retail Sales         |          0 |        1700 |
+|           260 | Recruiting           |          0 |        1700 |
+|           270 | Payroll              |          0 |        1700 |
++---------------+----------------------+------------+-------------+
+27 rows in set (0.03 sec)
+
+mysql> select a.department_id,a.fname,a.lname,a.job_id,b.name from employees a,departments b where a.d
+epartment_id=b.department_id and b.name='Finance';
++---------------+-------------+-----------+------------+---------+
+| department_id | fname       | lname     | job_id     | name    |
++---------------+-------------+-----------+------------+---------+
+|           100 | Nancy       | Greenberg | FI_MGR     | Finance |
+|           100 | Daniel      | Faviet    | FI_ACCOUNT | Finance |
+|           100 | John        | Chen      | FI_ACCOUNT | Finance |
+|           100 | Ismael      | Sciarra   | FI_ACCOUNT | Finance |
+|           100 | Jose Manuel | Urman     | FI_ACCOUNT | Finance |
+|           100 | Luis        | Popp      | FI_ACCOUNT | Finance |
++---------------+-------------+-----------+------------+---------+
+6 rows in set (0.01 sec)
+
+mysql> select * from employees where salary=3000 and manger_id=(select employee_id from employees wher
+e employee_id=121);
+ERROR 1054 (42S22): Unknown column 'manger_id' in 'where clause'
+mysql> select * from employees where salary=3000 and manager_id=(select employee_id from employees whe
+re employee_id=121);
++-------------+---------+--------+---------+---------------+------------+----------+---------+------------+------------+---------------+
+| employee_id | fname   | lname  | email   | mobile        | hire_date  | job_id   | salary  | commission | manager_id | department_id |
++-------------+---------+--------+---------+---------------+------------+----------+---------+------------+------------+---------------+
+|         187 | Anthony | Cabrio | ACABRIO | 6505094876.00 | 2007-02-07 | SH_CLERK | 3000.00 |       0.00 |        121 |            50 |
++-------------+---------+--------+---------+---------------+------------+----------+---------+------------+------------+---------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM employees WHERE (salary,manager_id)=(SELECT 3000,121);
++-------------+---------+--------+---------+---------------+------------+----------+---------+------------+------------+---------------+
+| employee_id | fname   | lname  | email   | mobile        | hire_date  | job_id   | salary  | commission | manager_id | department_id |
++-------------+---------+--------+---------+---------------+------------+----------+---------+------------+------------+---------------+
+|         187 | Anthony | Cabrio | ACABRIO | 6505094876.00 | 2007-02-07 | SH_CLERK | 3000.00 |       0.00 |        121 |            50 |
++-------------+---------+--------+---------+---------------+------------+----------+---------+------------+------------+---------------+
+1 row in set (0.01 sec)
+
+mysql> select * from employees where employee_id in (134,159,183);
++-------------+---------+--------+---------+-------------------+------------+----------+---------+------------+------------+---------------+
+| employee_id | fname   | lname  | email   | mobile            | hire_date  | job_id   | salary  | commission | manager_id | department_id |
++-------------+---------+--------+---------+-------------------+------------+----------+---------+------------+------------+---------------+
+|         134 | Michael | Rogers | MROGERS |     6501271834.00 | 2006-08-26 | ST_CLERK | 2900.00 |       0.00 |        122 |            50 |
+|         159 | Lindsey | Smith  | LSMITH  | 11441345729268.00 | 2005-03-10 | SA_REP   | 8000.00 |       0.30 |        146 |            80 |
+|         183 | Girard  | Geoni  | GGEONI  |     6505079879.00 | 2008-02-03 | SH_CLERK | 2800.00 |       0.00 |        120 |            50 |
++-------------+---------+--------+---------+-------------------+------------+----------+---------+------------+------------+---------------+
+3 rows in set (0.01 sec)
+
+mysql> select * from employees where salary between 1000 and 3000;
++-------------+---------+-------------+----------+---------------+------------+-----------+---------+------------+------------+---------------+
+| employee_id | fname   | lname       | email    | mobile        | hire_date  | job_id    | salary  | commission | manager_id | department_id |
++-------------+---------+-------------+----------+---------------+------------+-----------+---------+------------+------------+---------------+
+|         116 | Shelli  | Baida       | SBAIDA   | 5151274563.00 | 2005-12-24 | PU_CLEARK | 2900.00 |       0.00 |        114 |            30 |
+|         117 | Sigal   | Tobias      | STOBIAS  | 5151274564.00 | 2005-07-24 | PU_CLEARK | 2800.00 |       0.00 |        114 |            30 |
+|         118 | Guy     | Himuro      | GHIMURO  | 5151274565.00 | 2006-11-15 | PU_CLEARK | 2600.00 |       0.00 |        114 |            30 |
+|         119 | Karen   | Colmenares  | KCOLMENA | 5151274566.00 | 2007-08-10 | PU_CLEARK | 2500.00 |       0.00 |        114 |            30 |
+|         126 | Irene   | Mikkilineni | IMIKKILI | 6501241224.00 | 2006-09-28 | ST_CLERK  | 2700.00 |       0.00 |        120 |            50 |
+|         127 | James   | Landry      | JLANDRY  | 6501241334.00 | 2007-01-14 | ST_CLERK  | 2400.00 |       0.00 |        120 |            50 |
+|         128 | Steven  | Markle      | SMARKLE  | 6501241434.00 | 2008-03-08 | ST_CLERK  | 2200.00 |       0.00 |        120 |            50 |
+|         130 | Mozhe   | Atkinson    | MATKINSO | 6501246234.00 | 2005-10-30 | ST_CLERK  | 2800.00 |       0.00 |        121 |            50 |
+|         131 | James   | Marlow      | JAMRLOW  | 6501247234.00 | 2005-02-16 | ST_CLERK  | 2500.00 |       0.00 |        121 |            50 |
+|         132 | TJ      | Olson       | TJOLSON  | 6501248234.00 | 2007-04-10 | ST_CLERK  | 2100.00 |       0.00 |        121 |            50 |
+|         134 | Michael | Rogers      | MROGERS  | 6501271834.00 | 2006-08-26 | ST_CLERK  | 2900.00 |       0.00 |        122 |            50 |
+|         135 | Ki      | Gee         | KGEE     | 6501271734.00 | 2007-12-12 | ST_CLERK  | 2400.00 |       0.00 |        122 |            50 |
+|         136 | Hazel   | Philtanker  | HPHILTAN | 6501271634.00 | 2008-02-06 | ST_CLERK  | 2200.00 |       0.00 |        122 |            50 |
+|         139 | John    | Seo         | JSEO     | 6501212019.00 | 2006-02-12 | ST_CLERK  | 2700.00 |       0.00 |        123 |            50 |
+|         140 | Joshua  | Patel       | JPATEL   | 6501211834.00 | 2006-04-06 | ST_CLERK  | 2500.00 |       0.00 |        123 |            50 |
+|         143 | Randall | Matos       | RMATOS   | 6501212874.00 | 2006-03-15 | ST_CLERK  | 2600.00 |       0.00 |        124 |            50 |
+|         144 | Peter   | Vargas      | PVARGAS  | 6501212004.00 | 2006-07-09 | ST_CLERK  | 2500.00 |       0.00 |        124 |            50 |
+|         182 | Martha  | Sullivan    | MSULLIVA | 6505079878.00 | 2007-06-21 | SH_CLERK  | 2500.00 |       0.00 |        120 |            50 |
+|         183 | Girard  | Geoni       | GGEONI   | 6505079879.00 | 2008-02-03 | SH_CLERK  | 2800.00 |       0.00 |        120 |            50 |
+|         187 | Anthony | Cabrio      | ACABRIO  | 6505094876.00 | 2007-02-07 | SH_CLERK  | 3000.00 |       0.00 |        121 |            50 |
+|         190 | Timothy | Gates       | TGATES   | 6505053876.00 | 2006-07-11 | SH_CLERK  | 2900.00 |       0.00 |        122 |            50 |
+|         191 | Randall | Perkins     | RPERKINS | 6505054876.00 | 2007-12-19 | SH_CLERK  | 2500.00 |       0.00 |        122 |            50 |
+|         195 | Vance   | Jones       | VJONES   | 6505014876.00 | 2007-03-17 | SH_CLERK  | 2800.00 |       0.00 |        123 |            50 |
+|         197 | Kevin   | Feeney      | KFEENEY  | 6505079822.00 | 2006-05-23 | SH_CLERK  | 3000.00 |       0.00 |        124 |            50 |
+|         198 | Donald  | OConnell    | DOCONNEL | 6505079833.00 | 2007-06-21 | SH_CLERK  | 2600.00 |       0.00 |        124 |            50 |
+|         199 | Douglas | Grant       | DGRANT   | 6505079844.00 | 2008-01-13 | SH_CLERK  | 2600.00 |       0.00 |        124 |            50 |
++-------------+---------+-------------+----------+---------------+------------+-----------+---------+------------+------------+---------------+
+26 rows in set (0.01 sec)
+
+mysql> select * from employees where salary between min(salary) and 2500;
+ERROR 1111 (HY000): Invalid use of group function
+mysql> select * from employees where salary between (select min(salary) from employees) and 2500;
++-------------+---------+------------+----------+---------------+------------+-----------+---------+------------+------------+---------------+
+| employee_id | fname   | lname      | email    | mobile        | hire_date  | job_id    | salary  | commission | manager_id | department_id |
++-------------+---------+------------+----------+---------------+------------+-----------+---------+------------+------------+---------------+
+|         119 | Karen   | Colmenares | KCOLMENA | 5151274566.00 | 2007-08-10 | PU_CLEARK | 2500.00 |       0.00 |        114 |            30 |
+|         127 | James   | Landry     | JLANDRY  | 6501241334.00 | 2007-01-14 | ST_CLERK  | 2400.00 |       0.00 |        120 |            50 |
+|         128 | Steven  | Markle     | SMARKLE  | 6501241434.00 | 2008-03-08 | ST_CLERK  | 2200.00 |       0.00 |        120 |            50 |
+|         131 | James   | Marlow     | JAMRLOW  | 6501247234.00 | 2005-02-16 | ST_CLERK  | 2500.00 |       0.00 |        121 |            50 |
+|         132 | TJ      | Olson      | TJOLSON  | 6501248234.00 | 2007-04-10 | ST_CLERK  | 2100.00 |       0.00 |        121 |            50 |
+|         135 | Ki      | Gee        | KGEE     | 6501271734.00 | 2007-12-12 | ST_CLERK  | 2400.00 |       0.00 |        122 |            50 |
+|         136 | Hazel   | Philtanker | HPHILTAN | 6501271634.00 | 2008-02-06 | ST_CLERK  | 2200.00 |       0.00 |        122 |            50 |
+|         140 | Joshua  | Patel      | JPATEL   | 6501211834.00 | 2006-04-06 | ST_CLERK  | 2500.00 |       0.00 |        123 |            50 |
+|         144 | Peter   | Vargas     | PVARGAS  | 6501212004.00 | 2006-07-09 | ST_CLERK  | 2500.00 |       0.00 |        124 |            50 |
+|         182 | Martha  | Sullivan   | MSULLIVA | 6505079878.00 | 2007-06-21 | SH_CLERK  | 2500.00 |       0.00 |        120 |            50 |
+|         191 | Randall | Perkins    | RPERKINS | 6505054876.00 | 2007-12-19 | SH_CLERK  | 2500.00 |       0.00 |        122 |            50 |
++-------------+---------+------------+----------+---------------+------------+-----------+---------+------------+------------+---------------+
+11 rows in set (0.00 sec)
+
+mysql> select * from employees where manager_id between(100,200);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> select * from employees where manager_id between (100,200);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> select * from employees where department_id  not  in (select department_id from departments whe
+re manager_id between 100 and 200);
++-------------+---------+-----------+----------+---------------+------------+------------+----------+------------+------------+---------------+
+| employee_id | fname   | lname     | email    | mobile        | hire_date  | job_id     | salary   | commission | manager_id | department_id |
++-------------+---------+-----------+----------+---------------+------------+------------+----------+------------+------------+---------------+
+|         201 | Michael | Hartstein | MHARTSTE | 5151235555.00 | 2004-02-17 | MK_MAN     | 13000.00 |       0.00 |        100 |            20 |
+|         202 | Pat     | Fay       | PFAY     | 6031236666.00 | 2005-08-17 | MK_REP     |  6000.00 |       0.00 |        201 |            20 |
+|         203 | Susan   | Mavris    | SMAVRIS  | 5151237777.00 | 2002-06-07 | HR_REP     |  6500.00 |       0.00 |        101 |            40 |
+|         204 | Hermann | Baer      | HBAER    | 5151238888.00 | 2002-06-07 | PR_REP     | 10000.00 |       0.00 |        101 |            70 |
+|         205 | Shelley | Higgins   | SHIGGINS | 5151238080.00 | 2002-06-07 | AC_MGR     | 12008.00 |       0.00 |        101 |           110 |
+|         206 | PAWAN   | YADAV     | PYADAV   | 8882293337.00 | 2000-08-22 | AC_ACCOUNT | 70000.00 |
+      0.00 |        205 |           110 |
++-------------+---------+-----------+----------+---------------+------------+------------+----------+------------+------------+---------------+
+6 rows in set (0.05 sec)
+
+mysql> select * from employees where salary = (select salary from employees where min(salary)>(select min(salary) from employee);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> select * from employees where salary = (select salary from employees where min(salary)>(select min(salary) from employee));
+ERROR 1111 (HY000): Invalid use of group function
+mysql> select * from employees where salary = ((select salary from employees where min(salary)>(select
+ min(salary) from employee));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> select * from employees where employee_id in(select employee_id from employees where salary = (
+select max(salary) from employees where salary<(select max(salary) from employee));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> select * from employees where employee_id in (select employee_id from employees where salary =
+(select max(salary) from employees where salary < (select max(salary) from employee));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> select * from employees where employee_id in (select employee_id from employees where salary = (select max(salary) from employees where salary < (select max(salary) from employee)));
+Empty set (0.02 sec)
+
+mysql> SELECT * FROM employees WHERE employee_id IN (SELECT employee_id FROM employees WHERE salary = (SELECT MAX(salary) FROM employees WHERE salary < (SELECT MAX(salary) FROM employees)));
++-------------+--------+-------+-------+---------------+------------+---------+----------+------------+------------+---------------+
+| employee_id | fname  | lname | email | mobile        | hire_date  | job_id  | salary   | commission | manager_id | department_id |
++-------------+--------+-------+-------+---------------+------------+---------+----------+------------+------------+---------------+
+|         100 | Steven | King  | SKING | 5151234567.00 | 2003-06-17 | AD_PRES | 24000.00 |       0.00 |          0 |            90 |
++-------------+--------+-------+-------+---------------+------------+---------+----------+------------+------------+---------------+
+1 row in set (0.01 sec)
+
+mysql> select fname,lname,hire_date from employees where department_id = (select department_id from em
+ployees where fname='Clara');
++-------------+------------+------------+
+| fname       | lname      | hire_date  |
++-------------+------------+------------+
+| John        | Russell    | 2004-10-01 |
+| Karen       | Partners   | 2005-01-05 |
+| Alberto     | Errazuriz  | 2005-03-10 |
+| Gerald      | Cambrault  | 2007-10-15 |
+| Eleni       | Zlotkey    | 2008-01-29 |
+| Peter       | Tucker     | 2005-01-30 |
+| David       | Bernstein  | 2005-03-24 |
+| Peter       | Hall       | 2005-08-20 |
+| Christopher | Olsen      | 2006-03-30 |
+| Nanette     | Cambrault  | 2006-12-09 |
+| Oliver      | Tuvault    | 2007-11-23 |
+| Janette     | King       | 2004-01-30 |
+| Patrick     | Sully      | 2004-03-04 |
+| Allan       | McEwen     | 2004-08-01 |
+| Lindsey     | Smith      | 2005-03-10 |
+| Louise      | Doran      | 2005-12-15 |
+| Sarath      | Sewall     | 2006-11-03 |
+| Clara       | Vishney    | 2005-11-11 |
+| Danielle    | Greene     | 2007-03-19 |
+| Mattea      | Marvins    | 2008-01-24 |
+| David       | Lee        | 2008-02-23 |
+| Sunder      | Ande       | 2008-03-24 |
+| Amit        | Banda      | 2008-04-21 |
+| Lisa        | Ozer       | 2005-03-11 |
+| Harrison    | Bloom      | 2006-03-23 |
+| Tayler      | Fox        | 2006-01-24 |
+| William     | Smith      | 2007-02-23 |
+| Sundita     | Kumar      | 2007-03-24 |
+| Elizabeth   | Bates      | 2008-04-21 |
+| Ellen       | Abel       | 2004-05-11 |
+| Alyssa      | Hutton     | 2005-03-19 |
+| Jonathon    | Taylor     | 2006-03-24 |
+| Jack        | Livingston | 2006-04-23 |
+| Kimberely   | Grant      | 2007-05-24 |
+| Charles     | Johnson    | 2008-01-04 |
++-------------+------------+------------+
+35 rows in set (0.10 sec)
+
+mysql> select fname,lname,hire_date from employees where department_id = (select department_id from employees where fname='Clara') and fname<>'Clara';
++-------------+------------+------------+
+| fname       | lname      | hire_date  |
++-------------+------------+------------+
+| John        | Russell    | 2004-10-01 |
+| Karen       | Partners   | 2005-01-05 |
+| Alberto     | Errazuriz  | 2005-03-10 |
+| Gerald      | Cambrault  | 2007-10-15 |
+| Eleni       | Zlotkey    | 2008-01-29 |
+| Peter       | Tucker     | 2005-01-30 |
+| David       | Bernstein  | 2005-03-24 |
+| Peter       | Hall       | 2005-08-20 |
+| Christopher | Olsen      | 2006-03-30 |
+| Nanette     | Cambrault  | 2006-12-09 |
+| Oliver      | Tuvault    | 2007-11-23 |
+| Janette     | King       | 2004-01-30 |
+| Patrick     | Sully      | 2004-03-04 |
+| Allan       | McEwen     | 2004-08-01 |
+| Lindsey     | Smith      | 2005-03-10 |
+| Louise      | Doran      | 2005-12-15 |
+| Sarath      | Sewall     | 2006-11-03 |
+| Danielle    | Greene     | 2007-03-19 |
+| Mattea      | Marvins    | 2008-01-24 |
+| David       | Lee        | 2008-02-23 |
+| Sunder      | Ande       | 2008-03-24 |
+| Amit        | Banda      | 2008-04-21 |
+| Lisa        | Ozer       | 2005-03-11 |
+| Harrison    | Bloom      | 2006-03-23 |
+| Tayler      | Fox        | 2006-01-24 |
+| William     | Smith      | 2007-02-23 |
+| Sundita     | Kumar      | 2007-03-24 |
+| Elizabeth   | Bates      | 2008-04-21 |
+| Ellen       | Abel       | 2004-05-11 |
+| Alyssa      | Hutton     | 2005-03-19 |
+| Jonathon    | Taylor     | 2006-03-24 |
+| Jack        | Livingston | 2006-04-23 |
+| Kimberely   | Grant      | 2007-05-24 |
+| Charles     | Johnson    | 2008-01-04 |
++-------------+------------+------------+
+34 rows in set (0.01 sec)
+
+mysql> select employee_id,fname,lname from employees where fname like('%T');
++-------------+-------+-------+
+| employee_id | fname | lname |
++-------------+-------+-------+
+|         167 | Amit  | Banda |
+|         202 | Pat   | Fay   |
++-------------+-------+-------+
+2 rows in set (0.01 sec)
+
+mysql> select employee_id,fname,lname from employees where fname like('T%');
++-------------+---------+-------+
+| employee_id | fname   | lname |
++-------------+---------+-------+
+|         132 | TJ      | Olson |
+|         141 | Trenna  | Rajs  |
+|         170 | Tayler  | Fox   |
+|         190 | Timothy | Gates |
++-------------+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> select employee_id,fname,lname from employees where department_id=(select departmenT_id from employees where fname like('T%'));
+ERROR 1242 (21000): Subquery returns more than 1 row
+mysql> select employee_id,fname,lname from employees where department_id in (select departmenT_id from
+ employees where fname like('T%'));
++-------------+-------------+-------------+
+| employee_id | fname       | lname       |
++-------------+-------------+-------------+
+|         120 | Matthew     | Weiss       |
+|         121 | Adam        | Fripp       |
+|         122 | Payam       | Kaufling    |
+|         123 | Shanta      | Vollman     |
+|         124 | Kevin       | Mourgos     |
+|         125 | Julia       | Nayer       |
+|         126 | Irene       | Mikkilineni |
+|         127 | James       | Landry      |
+|         128 | Steven      | Markle      |
+|         129 | Laura       | Bissot      |
+|         130 | Mozhe       | Atkinson    |
+|         131 | James       | Marlow      |
+|         132 | TJ          | Olson       |
+|         133 | Jason       | Mallin      |
+|         134 | Michael     | Rogers      |
+|         135 | Ki          | Gee         |
+|         136 | Hazel       | Philtanker  |
+|         137 | Renske      | Ladwig      |
+|         138 | Stephen     | Stiles      |
+|         139 | John        | Seo         |
+|         140 | Joshua      | Patel       |
+|         141 | Trenna      | Rajs        |
+|         142 | Curtis      | Davies      |
+|         143 | Randall     | Matos       |
+|         144 | Peter       | Vargas      |
+|         145 | John        | Russell     |
+|         146 | Karen       | Partners    |
+|         147 | Alberto     | Errazuriz   |
+|         148 | Gerald      | Cambrault   |
+|         149 | Eleni       | Zlotkey     |
+|         150 | Peter       | Tucker      |
+|         151 | David       | Bernstein   |
+|         152 | Peter       | Hall        |
+|         153 | Christopher | Olsen       |
+|         154 | Nanette     | Cambrault   |
+|         155 | Oliver      | Tuvault     |
+|         156 | Janette     | King        |
+|         157 | Patrick     | Sully       |
+|         158 | Allan       | McEwen      |
+|         159 | Lindsey     | Smith       |
+|         160 | Louise      | Doran       |
+|         161 | Sarath      | Sewall      |
+|         162 | Clara       | Vishney     |
+|         163 | Danielle    | Greene      |
+|         164 | Mattea      | Marvins     |
+|         165 | David       | Lee         |
+|         166 | Sunder      | Ande        |
+|         167 | Amit        | Banda       |
+|         168 | Lisa        | Ozer        |
+|         169 | Harrison    | Bloom       |
+|         170 | Tayler      | Fox         |
+|         171 | William     | Smith       |
+|         172 | Sundita     | Kumar       |
+|         173 | Elizabeth   | Bates       |
+|         174 | Ellen       | Abel        |
+|         175 | Alyssa      | Hutton      |
+|         176 | Jonathon    | Taylor      |
+|         177 | Jack        | Livingston  |
+|         178 | Kimberely   | Grant       |
+|         179 | Charles     | Johnson     |
+|         180 | Winston     | Taylor      |
+|         181 | Jean        | Fleaur      |
+|         182 | Martha      | Sullivan    |
+|         183 | Girard      | Geoni       |
+|         184 | Nandita     | Sarchand    |
+|         185 | Alexis      | Bull        |
+|         186 | Julia       | Dellinger   |
+|         187 | Anthony     | Cabrio      |
+|         188 | Kelly       | Chung       |
+|         189 | Jennifer    | Dilly       |
+|         190 | Timothy     | Gates       |
+|         191 | Randall     | Perkins     |
+|         192 | Sarah       | Bell        |
+|         193 | Britney     | Everett     |
+|         194 | Samuel      | McCain      |
+|         195 | Vance       | Jones       |
+|         196 | Alana       | Walsh       |
+|         197 | Kevin       | Feeney      |
+|         198 | Donald      | OConnell    |
+|         199 | Douglas     | Grant       |
++-------------+-------------+-------------+
+80 rows in set (0.02 sec)
+
+mysql> select employee_id,fname,lname from employees where department_id in (select departmenT_id from employees where fname like('%T%'));
++-------------+-------------+-------------+
+| employee_id | fname       | lname       |
++-------------+-------------+-------------+
+|         100 | Steven      | King        |
+|         101 | Neena       | Kochhar     |
+|         102 | Lex         | De Haan     |
+|         120 | Matthew     | Weiss       |
+|         121 | Adam        | Fripp       |
+|         122 | Payam       | Kaufling    |
+|         123 | Shanta      | Vollman     |
+|         124 | Kevin       | Mourgos     |
+|         125 | Julia       | Nayer       |
+|         126 | Irene       | Mikkilineni |
+|         127 | James       | Landry      |
+|         128 | Steven      | Markle      |
+|         129 | Laura       | Bissot      |
+|         130 | Mozhe       | Atkinson    |
+|         131 | James       | Marlow      |
+|         132 | TJ          | Olson       |
+|         133 | Jason       | Mallin      |
+|         134 | Michael     | Rogers      |
+|         135 | Ki          | Gee         |
+|         136 | Hazel       | Philtanker  |
+|         137 | Renske      | Ladwig      |
+|         138 | Stephen     | Stiles      |
+|         139 | John        | Seo         |
+|         140 | Joshua      | Patel       |
+|         141 | Trenna      | Rajs        |
+|         142 | Curtis      | Davies      |
+|         143 | Randall     | Matos       |
+|         144 | Peter       | Vargas      |
+|         145 | John        | Russell     |
+|         146 | Karen       | Partners    |
+|         147 | Alberto     | Errazuriz   |
+|         148 | Gerald      | Cambrault   |
+|         149 | Eleni       | Zlotkey     |
+|         150 | Peter       | Tucker      |
+|         151 | David       | Bernstein   |
+|         152 | Peter       | Hall        |
+|         153 | Christopher | Olsen       |
+|         154 | Nanette     | Cambrault   |
+|         155 | Oliver      | Tuvault     |
+|         156 | Janette     | King        |
+|         157 | Patrick     | Sully       |
+|         158 | Allan       | McEwen      |
+|         159 | Lindsey     | Smith       |
+|         160 | Louise      | Doran       |
+|         161 | Sarath      | Sewall      |
+|         162 | Clara       | Vishney     |
+|         163 | Danielle    | Greene      |
+|         164 | Mattea      | Marvins     |
+|         165 | David       | Lee         |
+|         166 | Sunder      | Ande        |
+|         167 | Amit        | Banda       |
+|         168 | Lisa        | Ozer        |
+|         169 | Harrison    | Bloom       |
+|         170 | Tayler      | Fox         |
+|         171 | William     | Smith       |
+|         172 | Sundita     | Kumar       |
+|         173 | Elizabeth   | Bates       |
+|         174 | Ellen       | Abel        |
+|         175 | Alyssa      | Hutton      |
+|         176 | Jonathon    | Taylor      |
+|         177 | Jack        | Livingston  |
+|         178 | Kimberely   | Grant       |
+|         179 | Charles     | Johnson     |
+|         180 | Winston     | Taylor      |
+|         181 | Jean        | Fleaur      |
+|         182 | Martha      | Sullivan    |
+|         183 | Girard      | Geoni       |
+|         184 | Nandita     | Sarchand    |
+|         185 | Alexis      | Bull        |
+|         186 | Julia       | Dellinger   |
+|         187 | Anthony     | Cabrio      |
+|         188 | Kelly       | Chung       |
+|         189 | Jennifer    | Dilly       |
+|         190 | Timothy     | Gates       |
+|         191 | Randall     | Perkins     |
+|         192 | Sarah       | Bell        |
+|         193 | Britney     | Everett     |
+|         194 | Samuel      | McCain      |
+|         195 | Vance       | Jones       |
+|         196 | Alana       | Walsh       |
+|         197 | Kevin       | Feeney      |
+|         198 | Donald      | OConnell    |
+|         199 | Douglas     | Grant       |
+|         201 | Michael     | Hartstein   |
+|         202 | Pat         | Fay         |
++-------------+-------------+-------------+
+85 rows in set (0.00 sec)
+
+mysql> select employee_id,fname,lname from employees where department_id in (select departmenT_id from employees where fname like('%J%') and salary> avg(salary);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> select employee_id,fname,lname from employees where department_id in (select departmenT_id from employees where fname like('%J%') and salary> avg(salary));
+ERROR 1111 (HY000): Invalid use of group function
+mysql> select employee_id,fname,lname from employees where department_id in (select department_id from
+ employees where fname like('%J%')) and salary >(select avg(salary) from employees);;
++-------------+-------------+------------+
+| employee_id | fname       | lname      |
++-------------+-------------+------------+
+|         108 | Nancy       | Greenberg  |
+|         109 | Daniel      | Faviet     |
+|         110 | John        | Chen       |
+|         111 | Ismael      | Sciarra    |
+|         112 | Jose Manuel | Urman      |
+|         120 | Matthew     | Weiss      |
+|         121 | Adam        | Fripp      |
+|         122 | Payam       | Kaufling   |
+|         145 | John        | Russell    |
+|         146 | Karen       | Partners   |
+|         147 | Alberto     | Errazuriz  |
+|         148 | Gerald      | Cambrault  |
+|         149 | Eleni       | Zlotkey    |
+|         150 | Peter       | Tucker     |
+|         151 | David       | Bernstein  |
+|         152 | Peter       | Hall       |
+|         153 | Christopher | Olsen      |
+|         154 | Nanette     | Cambrault  |
+|         156 | Janette     | King       |
+|         157 | Patrick     | Sully      |
+|         158 | Allan       | McEwen     |
+|         159 | Lindsey     | Smith      |
+|         160 | Louise      | Doran      |
+|         162 | Clara       | Vishney    |
+|         163 | Danielle    | Greene     |
+|         164 | Mattea      | Marvins    |
+|         168 | Lisa        | Ozer       |
+|         169 | Harrison    | Bloom      |
+|         170 | Tayler      | Fox        |
+|         171 | William     | Smith      |
+|         172 | Sundita     | Kumar      |
+|         174 | Ellen       | Abel       |
+|         175 | Alyssa      | Hutton     |
+|         176 | Jonathon    | Taylor     |
+|         177 | Jack        | Livingston |
++-------------+-------------+------------+
+35 rows in set (0.01 sec)
+
+ERROR:
+No query specified
+
+mysql> select employee_id,fname,lname from employees where department_id in (select department_id from employees where fname like('%J%')) and salary >(select avg(salary) from employees);
++-------------+-------------+------------+
+| employee_id | fname       | lname      |
++-------------+-------------+------------+
+|         108 | Nancy       | Greenberg  |
+|         109 | Daniel      | Faviet     |
+|         110 | John        | Chen       |
+|         111 | Ismael      | Sciarra    |
+|         112 | Jose Manuel | Urman      |
+|         120 | Matthew     | Weiss      |
+|         121 | Adam        | Fripp      |
+|         122 | Payam       | Kaufling   |
+|         145 | John        | Russell    |
+|         146 | Karen       | Partners   |
+|         147 | Alberto     | Errazuriz  |
+|         148 | Gerald      | Cambrault  |
+|         149 | Eleni       | Zlotkey    |
+|         150 | Peter       | Tucker     |
+|         151 | David       | Bernstein  |
+|         152 | Peter       | Hall       |
+|         153 | Christopher | Olsen      |
+|         154 | Nanette     | Cambrault  |
+|         156 | Janette     | King       |
+|         157 | Patrick     | Sully      |
+|         158 | Allan       | McEwen     |
+|         159 | Lindsey     | Smith      |
+|         160 | Louise      | Doran      |
+|         162 | Clara       | Vishney    |
+|         163 | Danielle    | Greene     |
+|         164 | Mattea      | Marvins    |
+|         168 | Lisa        | Ozer       |
+|         169 | Harrison    | Bloom      |
+|         170 | Tayler      | Fox        |
+|         171 | William     | Smith      |
+|         172 | Sundita     | Kumar      |
+|         174 | Ellen       | Abel       |
+|         175 | Alyssa      | Hutton     |
+|         176 | Jonathon    | Taylor     |
+|         177 | Jack        | Livingston |
++-------------+-------------+------------+
+35 rows in set (0.01 sec)
+
+mysql> select employee_id,fname,lname,salary from employees where department_id in (select department_
+id from employees where fname like('%J%')) and salary >(select avg(salary) from employees);
++-------------+-------------+------------+----------+
+| employee_id | fname       | lname      | salary   |
++-------------+-------------+------------+----------+
+|         108 | Nancy       | Greenberg  | 12000.00 |
+|         109 | Daniel      | Faviet     |  9000.00 |
+|         110 | John        | Chen       |  8200.00 |
+|         111 | Ismael      | Sciarra    |  7700.00 |
+|         112 | Jose Manuel | Urman      |  7800.00 |
+|         120 | Matthew     | Weiss      |  8000.00 |
+|         121 | Adam        | Fripp      |  8200.00 |
+|         122 | Payam       | Kaufling   |  7900.00 |
+|         145 | John        | Russell    | 14000.00 |
+|         146 | Karen       | Partners   | 13500.00 |
+|         147 | Alberto     | Errazuriz  | 12000.00 |
+|         148 | Gerald      | Cambrault  | 11000.00 |
+|         149 | Eleni       | Zlotkey    | 10500.00 |
+|         150 | Peter       | Tucker     | 10000.00 |
+|         151 | David       | Bernstein  |  9500.00 |
+|         152 | Peter       | Hall       |  9000.00 |
+|         153 | Christopher | Olsen      |  8000.00 |
+|         154 | Nanette     | Cambrault  |  7500.00 |
+|         156 | Janette     | King       | 10000.00 |
+|         157 | Patrick     | Sully      |  9500.00 |
+|         158 | Allan       | McEwen     |  9000.00 |
+|         159 | Lindsey     | Smith      |  8000.00 |
+|         160 | Louise      | Doran      |  7500.00 |
+|         162 | Clara       | Vishney    | 10500.00 |
+|         163 | Danielle    | Greene     |  9500.00 |
+|         164 | Mattea      | Marvins    |  7200.00 |
+|         168 | Lisa        | Ozer       | 11500.00 |
+|         169 | Harrison    | Bloom      | 10000.00 |
+|         170 | Tayler      | Fox        |  9600.00 |
+|         171 | William     | Smith      |  7400.00 |
+|         172 | Sundita     | Kumar      |  7300.00 |
+|         174 | Ellen       | Abel       | 11000.00 |
+|         175 | Alyssa      | Hutton     |  8800.00 |
+|         176 | Jonathon    | Taylor     |  8600.00 |
+|         177 | Jack        | Livingston |  8400.00 |
++-------------+-------------+------------+----------+
+35 rows in set (0.01 sec)
+
+mysql> select employee_id,fname,lname,salary from employees where salary> (select avg(salary) from employees) and department_id in (select department_id from employees where fname like('%J%'));
++-------------+-------------+------------+----------+
+| employee_id | fname       | lname      | salary   |
++-------------+-------------+------------+----------+
+|         108 | Nancy       | Greenberg  | 12000.00 |
+|         109 | Daniel      | Faviet     |  9000.00 |
+|         110 | John        | Chen       |  8200.00 |
+|         111 | Ismael      | Sciarra    |  7700.00 |
+|         112 | Jose Manuel | Urman      |  7800.00 |
+|         120 | Matthew     | Weiss      |  8000.00 |
+|         121 | Adam        | Fripp      |  8200.00 |
+|         122 | Payam       | Kaufling   |  7900.00 |
+|         145 | John        | Russell    | 14000.00 |
+|         146 | Karen       | Partners   | 13500.00 |
+|         147 | Alberto     | Errazuriz  | 12000.00 |
+|         148 | Gerald      | Cambrault  | 11000.00 |
+|         149 | Eleni       | Zlotkey    | 10500.00 |
+|         150 | Peter       | Tucker     | 10000.00 |
+|         151 | David       | Bernstein  |  9500.00 |
+|         152 | Peter       | Hall       |  9000.00 |
+|         153 | Christopher | Olsen      |  8000.00 |
+|         154 | Nanette     | Cambrault  |  7500.00 |
+|         156 | Janette     | King       | 10000.00 |
+|         157 | Patrick     | Sully      |  9500.00 |
+|         158 | Allan       | McEwen     |  9000.00 |
+|         159 | Lindsey     | Smith      |  8000.00 |
+|         160 | Louise      | Doran      |  7500.00 |
+|         162 | Clara       | Vishney    | 10500.00 |
+|         163 | Danielle    | Greene     |  9500.00 |
+|         164 | Mattea      | Marvins    |  7200.00 |
+|         168 | Lisa        | Ozer       | 11500.00 |
+|         169 | Harrison    | Bloom      | 10000.00 |
+|         170 | Tayler      | Fox        |  9600.00 |
+|         171 | William     | Smith      |  7400.00 |
+|         172 | Sundita     | Kumar      |  7300.00 |
+|         174 | Ellen       | Abel       | 11000.00 |
+|         175 | Alyssa      | Hutton     |  8800.00 |
+|         176 | Jonathon    | Taylor     |  8600.00 |
+|         177 | Jack        | Livingston |  8400.00 |
++-------------+-------------+------------+----------+
+35 rows in set (0.00 sec)
+
+mysql>
