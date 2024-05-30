@@ -2167,3 +2167,147 @@ mysql> select department_id,sum(salary) as total_sum from employees group by dep
 11 rows in set (0.01 sec)
 
 mysql>
+
+
+
+
+
+mysql> select * from employees limit 5;
++-------------+-----------+---------+----------+---------------+------------+---------+----------+------------+------------+---------------+
+| employee_id | fname     | lname   | email    | mobile        | hire_date  | job_id  | salary   | commission | manager_id | department_id |
++-------------+-----------+---------+----------+---------------+------------+---------+----------+------------+------------+---------------+
+|         100 | Steven    | King    | SKING    | 5151234567.00 | 2003-06-17 | AD_PRES | 24000.00 |       0.00 |          0 |            90 |
+|         101 | Neena     | Kochhar | NKOCHHAR | 5151234568.00 | 2005-09-21 | AD_VP   | 17000.00 |       0.00 |        100 |            90 |
+|         102 | Lex       | De Haan | LDEHAAN  | 5151234569.00 | 2001-01-13 | AD_VP   | 17000.00 |       0.00 |        100 |            90 |
+|         103 | Alexander | Hunold  | AHUNOLD  | 5904234567.00 | 2006-01-03 | IT_PROG |  9000.00 |       0.00 |        102 |            60 |
+|         104 | Bruce     | Ernst   | BERNST   | 5904234568.00 | 2007-05-21 | IT_PROG |  6000.00 |       0.00 |        103 |            60 |
++-------------+-----------+---------+----------+---------------+------------+---------+----------+------------+------------+---------------+
+5 rows in set (0.04 sec)
+
+mysql> select * from departments limit 5;
++---------------+------------+------------+-------------+
+| department_id | name       | manager_id | location_id |
++---------------+------------+------------+-------------+
+|            10 | Admin      |        200 |        1700 |
+|            20 | Marketing  |        201 |        1800 |
+|            30 | Purchasing |        114 |        1700 |
+|            40 | HR         |        203 |        2400 |
+|            50 | Shipping   |        121 |        1500 |
++---------------+------------+------------+-------------+
+5 rows in set (0.01 sec)
+
+mysql> select employee_id,fname,lname, case job_id when 'ST_MAN' then "SALESMAN" when 'IT_PROG' then 'DEVELOPER' else job_id end as designation,salary from employees;
++-------------+-------------+-------------+-------------+----------+
+| employee_id | fname       | lname       | designation | salary   |
++-------------+-------------+-------------+-------------+----------+
+|         100 | Steven      | King        | AD_PRES     | 24000.00 |
+|         101 | Neena       | Kochhar     | AD_VP       | 17000.00 |
+|         102 | Lex         | De Haan     | AD_VP       | 17000.00 |
+|         103 | Alexander   | Hunold      | DEVELOPER   |  9000.00 |
+|         104 | Bruce       | Ernst       | DEVELOPER   |  6000.00 |
+|         105 | David       | Austin      | DEVELOPER   |  4800.00 |
+|         106 | Valli       | Pataballa   | DEVELOPER   |  4800.00 |
+|         107 | Diana       | Lorentz     | DEVELOPER   |  4200.00 |
+|         108 | Nancy       | Greenberg   | FI_MGR      | 12000.00 |
+|         109 | Daniel      | Faviet      | FI_ACCOUNT  |  9000.00 |
+|         110 | John        | Chen        | FI_ACCOUNT  |  8200.00 |
+|         111 | Ismael      | Sciarra     | FI_ACCOUNT  |  7700.00 |
+|         112 | Jose Manuel | Urman       | FI_ACCOUNT  |  7800.00 |
+|         113 | Luis        | Popp        | FI_ACCOUNT  |  6900.00 |
+|         114 | Den         | Raphaely    | PU_MAN      | 11000.00 |
+|         115 | Alexander   | Khoo        | PU_CLEARK   |  3100.00 |
+|         116 | Shelli      | Baida       | PU_CLEARK   |  2900.00 |
+|         117 | Sigal       | Tobias      | PU_CLEARK   |  2800.00 |
+|         118 | Guy         | Himuro      | PU_CLEARK   |  2600.00 |
+|         119 | Karen       | Colmenares  | PU_CLEARK   |  2500.00 |
+|         120 | Matthew     | Weiss       | SALESMAN    |  8000.00 |
+|         121 | Adam        | Fripp       | SALESMAN    |  8200.00 |
+|         122 | Payam       | Kaufling    | SALESMAN    |  7900.00 |
+|         123 | Shanta      | Vollman     | SALESMAN    |  6500.00 |
+|         124 | Kevin       | Mourgos     | SALESMAN    |  5800.00 |
+|         125 | Julia       | Nayer       | ST_CLERK    |  3200.00 |
+|         126 | Irene       | Mikkilineni | ST_CLERK    |  2700.00 |
+|         127 | James       | Landry      | ST_CLERK    |  2400.00 |
+|         128 | Steven      | Markle      | ST_CLERK    |  2200.00 |
+|         129 | Laura       | Bissot      | ST_CLERK    |  3300.00 |
+|         130 | Mozhe       | Atkinson    | ST_CLERK    |  2800.00 |
+|         131 | James       | Marlow      | ST_CLERK    |  2500.00 |
+|         132 | TJ          | Olson       | ST_CLERK    |  2100.00 |
+|         133 | Jason       | Mallin      | ST_CLERK    |  3300.00 |
+|         134 | Michael     | Rogers      | ST_CLERK    |  2900.00 |
+|         135 | Ki          | Gee         | ST_CLERK    |  2400.00 |
+|         136 | Hazel       | Philtanker  | ST_CLERK    |  2200.00 |
+|         137 | Renske      | Ladwig      | ST_CLERK    |  3600.00 |
+|         138 | Stephen     | Stiles      | ST_CLERK    |  3200.00 |
+|         139 | John        | Seo         | ST_CLERK    |  2700.00 |
+|         140 | Joshua      | Patel       | ST_CLERK    |  2500.00 |
+|         141 | Trenna      | Rajs        | ST_CLERK    |  3500.00 |
+|         142 | Curtis      | Davies      | ST_CLERK    |  3100.00 |
+|         143 | Randall     | Matos       | ST_CLERK    |  2600.00 |
+|         144 | Peter       | Vargas      | ST_CLERK    |  2500.00 |
+|         145 | John        | Russell     | SA_MAN      | 14000.00 |
+|         146 | Karen       | Partners    | SA_MAN      | 13500.00 |
+|         147 | Alberto     | Errazuriz   | SA_MAN      | 12000.00 |
+|         148 | Gerald      | Cambrault   | SA_MAN      | 11000.00 |
+|         149 | Eleni       | Zlotkey     | SA_MAN      | 10500.00 |
+|         150 | Peter       | Tucker      | SA_REP      | 10000.00 |
+|         151 | David       | Bernstein   | SA_REP      |  9500.00 |
+|         152 | Peter       | Hall        | SA_REP      |  9000.00 |
+|         153 | Christopher | Olsen       | SA_REP      |  8000.00 |
+|         154 | Nanette     | Cambrault   | SA_REP      |  7500.00 |
+|         155 | Oliver      | Tuvault     | SA_REP      |  7000.00 |
+|         156 | Janette     | King        | SA_REP      | 10000.00 |
+|         157 | Patrick     | Sully       | SA_REP      |  9500.00 |
+|         158 | Allan       | McEwen      | SA_REP      |  9000.00 |
+|         159 | Lindsey     | Smith       | SA_REP      |  8000.00 |
+|         160 | Louise      | Doran       | SA_REP      |  7500.00 |
+|         161 | Sarath      | Sewall      | SA_REP      |  7000.00 |
+|         162 | Clara       | Vishney     | SA_REP      | 10500.00 |
+|         163 | Danielle    | Greene      | SA_REP      |  9500.00 |
+|         164 | Mattea      | Marvins     | SA_REP      |  7200.00 |
+|         165 | David       | Lee         | SA_REP      |  6800.00 |
+|         166 | Sunder      | Ande        | SA_REP      |  6400.00 |
+|         167 | Amit        | Banda       | SA_REP      |  6200.00 |
+|         168 | Lisa        | Ozer        | SA_REP      | 11500.00 |
+|         169 | Harrison    | Bloom       | SA_REP      | 10000.00 |
+|         170 | Tayler      | Fox         | SA_REP      |  9600.00 |
+|         171 | William     | Smith       | SA_REP      |  7400.00 |
+|         172 | Sundita     | Kumar       | SA_REP      |  7300.00 |
+|         173 | Elizabeth   | Bates       | SA_REP      |  6100.00 |
+|         174 | Ellen       | Abel        | SA_REP      | 11000.00 |
+|         175 | Alyssa      | Hutton      | SA_REP      |  8800.00 |
+|         176 | Jonathon    | Taylor      | SA_REP      |  8600.00 |
+|         177 | Jack        | Livingston  | SA_REP      |  8400.00 |
+|         178 | Kimberely   | Grant       | SA_REP      |  7000.00 |
+|         179 | Charles     | Johnson     | SA_REP      |  6200.00 |
+|         180 | Winston     | Taylor      | SH_CLERK    |  3200.00 |
+|         181 | Jean        | Fleaur      | SH_CLERK    |  3100.00 |
+|         182 | Martha      | Sullivan    | SH_CLERK    |  2500.00 |
+|         183 | Girard      | Geoni       | SH_CLERK    |  2800.00 |
+|         184 | Nandita     | Sarchand    | SH_CLERK    |  4200.00 |
+|         185 | Alexis      | Bull        | SH_CLERK    |  4100.00 |
+|         186 | Julia       | Dellinger   | SH_CLERK    |  3400.00 |
+|         187 | Anthony     | Cabrio      | SH_CLERK    |  3000.00 |
+|         188 | Kelly       | Chung       | SH_CLERK    |  3800.00 |
+|         189 | Jennifer    | Dilly       | SH_CLERK    |  3600.00 |
+|         190 | Timothy     | Gates       | SH_CLERK    |  2900.00 |
+|         191 | Randall     | Perkins     | SH_CLERK    |  2500.00 |
+|         192 | Sarah       | Bell        | SH_CLERK    |  4000.00 |
+|         193 | Britney     | Everett     | SH_CLERK    |  3900.00 |
+|         194 | Samuel      | McCain      | SH_CLERK    |  3200.00 |
+|         195 | Vance       | Jones       | SH_CLERK    |  2800.00 |
+|         196 | Alana       | Walsh       | SH_CLERK    |  3100.00 |
+|         197 | Kevin       | Feeney      | SH_CLERK    |  3000.00 |
+|         198 | Donald      | OConnell    | SH_CLERK    |  2600.00 |
+|         199 | Douglas     | Grant       | SH_CLERK    |  2600.00 |
+|         200 | Jennifer    | Whalen      | AD_ASST     |  4400.00 |
+|         201 | Michael     | Hartstein   | MK_MAN      | 13000.00 |
+|         202 | Pat         | Fay         | MK_REP      |  6000.00 |
+|         203 | Susan       | Mavris      | HR_REP      |  6500.00 |
+|         204 | Hermann     | Baer        | PR_REP      | 10000.00 |
+|         205 | Shelley     | Higgins     | AC_MGR      | 12008.00 |
+|         206 | PAWAN       | YADAV       | AC_ACCOUNT  | 70000.00 |
++-------------+-------------+-------------+-------------+----------+
+107 rows in set (0.02 sec)
+
+mysql> select employee_id,fname,lname,salary,case salary when salary > avg(salary) then 'HIGH' when salary < avg(salary) then 'LOW' end as "Salary Status' from employees;
