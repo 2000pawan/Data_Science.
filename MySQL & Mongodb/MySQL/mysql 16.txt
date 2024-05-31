@@ -2311,3 +2311,2482 @@ mysql> select employee_id,fname,lname, case job_id when 'ST_MAN' then "SALESMAN"
 107 rows in set (0.02 sec)
 
 mysql> select employee_id,fname,lname,salary,case salary when salary > avg(salary) then 'HIGH' when salary < avg(salary) then 'LOW' end as "Salary Status' from employees;
+
+
+
+
+
+mysql> select * from employees limit 5;
++-------------+-----------+---------+----------+---------------+------------+---------+----------+------------+------------+---------------+
+| employee_id | fname     | lname   | email    | mobile        | hire_date  | job_id  | salary   | commission | manager_id | department_id |
++-------------+-----------+---------+----------+---------------+------------+---------+----------+------------+------------+---------------+
+|         100 | Steven    | King    | SKING    | 5151234567.00 | 2003-06-17 | AD_PRES | 24000.00 |       0.00 |          0 |            90 |
+|         101 | Neena     | Kochhar | NKOCHHAR | 5151234568.00 | 2005-09-21 | AD_VP   | 17000.00 |       0.00 |        100 |            90 |
+|         102 | Lex       | De Haan | LDEHAAN  | 5151234569.00 | 2001-01-13 | AD_VP   | 17000.00 |       0.00 |        100 |            90 |
+|         103 | Alexander | Hunold  | AHUNOLD  | 5904234567.00 | 2006-01-03 | IT_PROG |  9000.00 |       0.00 |        102 |            60 |
+|         104 | Bruce     | Ernst   | BERNST   | 5904234568.00 | 2007-05-21 | IT_PROG |  6000.00 |       0.00 |        103 |            60 |
++-------------+-----------+---------+----------+---------------+------------+---------+----------+------------+------------+---------------+
+5 rows in set (0.01 sec)
+
+mysql> select employee_id,fname,lname,salary,case salary when salary > avg(salary) then 'HIGH' when salary < avg(salary) then 'LOW' end as "Salary Status' from employees;
+    "> system cls;
+    "> "
+    -> ;
+ERROR 1054 (42S22): Unknown column 'employee_id' in 'field list'
+mysql> select employee_id,fname,lname,salary,case salary when salary > avg(salary) then 'HIGH' when salary < avg(salary) then 'LOW' end as "Salary Status' from employees group by employee_id;
+    "> "
+    -> ;
+ERROR 1054 (42S22): Unknown column 'employee_id' in 'field list'
+mysql> select employee_id,fname,lname,salary,case salary when salary >= (select avg(salary) from employees) then 'HIGH' else 'LOW' end as "Salary Status' from employees;
+    "> "
+    -> ;
+ERROR 1054 (42S22): Unknown column 'employee_id' in 'field list'
+mysql> select employee_id,fname,lname,salary,case when salary >= (select avg(salary) from employees) then 'HIGH' else 'LOW' end as "Salary Status' from employees;
+    "> "
+    -> ;
+ERROR 1054 (42S22): Unknown column 'employee_id' in 'field list'
+mysql> select employee_id,fname,lname,salary,case when salary >= (select avg(salary) from employees) then 'HIGH' else 'LOW' end as 'Salary Status' from employees;
++-------------+-------------+-------------+----------+---------------+
+| employee_id | fname       | lname       | salary   | Salary Status |
++-------------+-------------+-------------+----------+---------------+
+|         100 | Steven      | King        | 24000.00 | HIGH          |
+|         101 | Neena       | Kochhar     | 17000.00 | HIGH          |
+|         102 | Lex         | De Haan     | 17000.00 | HIGH          |
+|         103 | Alexander   | Hunold      |  9000.00 | HIGH          |
+|         104 | Bruce       | Ernst       |  6000.00 | LOW           |
+|         105 | David       | Austin      |  4800.00 | LOW           |
+|         106 | Valli       | Pataballa   |  4800.00 | LOW           |
+|         107 | Diana       | Lorentz     |  4200.00 | LOW           |
+|         108 | Nancy       | Greenberg   | 12000.00 | HIGH          |
+|         109 | Daniel      | Faviet      |  9000.00 | HIGH          |
+|         110 | John        | Chen        |  8200.00 | HIGH          |
+|         111 | Ismael      | Sciarra     |  7700.00 | HIGH          |
+|         112 | Jose Manuel | Urman       |  7800.00 | HIGH          |
+|         113 | Luis        | Popp        |  6900.00 | LOW           |
+|         114 | Den         | Raphaely    | 11000.00 | HIGH          |
+|         115 | Alexander   | Khoo        |  3100.00 | LOW           |
+|         116 | Shelli      | Baida       |  2900.00 | LOW           |
+|         117 | Sigal       | Tobias      |  2800.00 | LOW           |
+|         118 | Guy         | Himuro      |  2600.00 | LOW           |
+|         119 | Karen       | Colmenares  |  2500.00 | LOW           |
+|         120 | Matthew     | Weiss       |  8000.00 | HIGH          |
+|         121 | Adam        | Fripp       |  8200.00 | HIGH          |
+|         122 | Payam       | Kaufling    |  7900.00 | HIGH          |
+|         123 | Shanta      | Vollman     |  6500.00 | LOW           |
+|         124 | Kevin       | Mourgos     |  5800.00 | LOW           |
+|         125 | Julia       | Nayer       |  3200.00 | LOW           |
+|         126 | Irene       | Mikkilineni |  2700.00 | LOW           |
+|         127 | James       | Landry      |  2400.00 | LOW           |
+|         128 | Steven      | Markle      |  2200.00 | LOW           |
+|         129 | Laura       | Bissot      |  3300.00 | LOW           |
+|         130 | Mozhe       | Atkinson    |  2800.00 | LOW           |
+|         131 | James       | Marlow      |  2500.00 | LOW           |
+|         132 | TJ          | Olson       |  2100.00 | LOW           |
+|         133 | Jason       | Mallin      |  3300.00 | LOW           |
+|         134 | Michael     | Rogers      |  2900.00 | LOW           |
+|         135 | Ki          | Gee         |  2400.00 | LOW           |
+|         136 | Hazel       | Philtanker  |  2200.00 | LOW           |
+|         137 | Renske      | Ladwig      |  3600.00 | LOW           |
+|         138 | Stephen     | Stiles      |  3200.00 | LOW           |
+|         139 | John        | Seo         |  2700.00 | LOW           |
+|         140 | Joshua      | Patel       |  2500.00 | LOW           |
+|         141 | Trenna      | Rajs        |  3500.00 | LOW           |
+|         142 | Curtis      | Davies      |  3100.00 | LOW           |
+|         143 | Randall     | Matos       |  2600.00 | LOW           |
+|         144 | Peter       | Vargas      |  2500.00 | LOW           |
+|         145 | John        | Russell     | 14000.00 | HIGH          |
+|         146 | Karen       | Partners    | 13500.00 | HIGH          |
+|         147 | Alberto     | Errazuriz   | 12000.00 | HIGH          |
+|         148 | Gerald      | Cambrault   | 11000.00 | HIGH          |
+|         149 | Eleni       | Zlotkey     | 10500.00 | HIGH          |
+|         150 | Peter       | Tucker      | 10000.00 | HIGH          |
+|         151 | David       | Bernstein   |  9500.00 | HIGH          |
+|         152 | Peter       | Hall        |  9000.00 | HIGH          |
+|         153 | Christopher | Olsen       |  8000.00 | HIGH          |
+|         154 | Nanette     | Cambrault   |  7500.00 | HIGH          |
+|         155 | Oliver      | Tuvault     |  7000.00 | LOW           |
+|         156 | Janette     | King        | 10000.00 | HIGH          |
+|         157 | Patrick     | Sully       |  9500.00 | HIGH          |
+|         158 | Allan       | McEwen      |  9000.00 | HIGH          |
+|         159 | Lindsey     | Smith       |  8000.00 | HIGH          |
+|         160 | Louise      | Doran       |  7500.00 | HIGH          |
+|         161 | Sarath      | Sewall      |  7000.00 | LOW           |
+|         162 | Clara       | Vishney     | 10500.00 | HIGH          |
+|         163 | Danielle    | Greene      |  9500.00 | HIGH          |
+|         164 | Mattea      | Marvins     |  7200.00 | HIGH          |
+|         165 | David       | Lee         |  6800.00 | LOW           |
+|         166 | Sunder      | Ande        |  6400.00 | LOW           |
+|         167 | Amit        | Banda       |  6200.00 | LOW           |
+|         168 | Lisa        | Ozer        | 11500.00 | HIGH          |
+|         169 | Harrison    | Bloom       | 10000.00 | HIGH          |
+|         170 | Tayler      | Fox         |  9600.00 | HIGH          |
+|         171 | William     | Smith       |  7400.00 | HIGH          |
+|         172 | Sundita     | Kumar       |  7300.00 | HIGH          |
+|         173 | Elizabeth   | Bates       |  6100.00 | LOW           |
+|         174 | Ellen       | Abel        | 11000.00 | HIGH          |
+|         175 | Alyssa      | Hutton      |  8800.00 | HIGH          |
+|         176 | Jonathon    | Taylor      |  8600.00 | HIGH          |
+|         177 | Jack        | Livingston  |  8400.00 | HIGH          |
+|         178 | Kimberely   | Grant       |  7000.00 | LOW           |
+|         179 | Charles     | Johnson     |  6200.00 | LOW           |
+|         180 | Winston     | Taylor      |  3200.00 | LOW           |
+|         181 | Jean        | Fleaur      |  3100.00 | LOW           |
+|         182 | Martha      | Sullivan    |  2500.00 | LOW           |
+|         183 | Girard      | Geoni       |  2800.00 | LOW           |
+|         184 | Nandita     | Sarchand    |  4200.00 | LOW           |
+|         185 | Alexis      | Bull        |  4100.00 | LOW           |
+|         186 | Julia       | Dellinger   |  3400.00 | LOW           |
+|         187 | Anthony     | Cabrio      |  3000.00 | LOW           |
+|         188 | Kelly       | Chung       |  3800.00 | LOW           |
+|         189 | Jennifer    | Dilly       |  3600.00 | LOW           |
+|         190 | Timothy     | Gates       |  2900.00 | LOW           |
+|         191 | Randall     | Perkins     |  2500.00 | LOW           |
+|         192 | Sarah       | Bell        |  4000.00 | LOW           |
+|         193 | Britney     | Everett     |  3900.00 | LOW           |
+|         194 | Samuel      | McCain      |  3200.00 | LOW           |
+|         195 | Vance       | Jones       |  2800.00 | LOW           |
+|         196 | Alana       | Walsh       |  3100.00 | LOW           |
+|         197 | Kevin       | Feeney      |  3000.00 | LOW           |
+|         198 | Donald      | OConnell    |  2600.00 | LOW           |
+|         199 | Douglas     | Grant       |  2600.00 | LOW           |
+|         200 | Jennifer    | Whalen      |  4400.00 | LOW           |
+|         201 | Michael     | Hartstein   | 13000.00 | HIGH          |
+|         202 | Pat         | Fay         |  6000.00 | LOW           |
+|         203 | Susan       | Mavris      |  6500.00 | LOW           |
+|         204 | Hermann     | Baer        | 10000.00 | HIGH          |
+|         205 | Shelley     | Higgins     | 12008.00 | HIGH          |
+|         206 | PAWAN       | YADAV       | 70000.00 | HIGH          |
++-------------+-------------+-------------+----------+---------------+
+107 rows in set (0.02 sec)
+
+mysql> select employee_id,fname,lname,salary as SalaryDrawn, (salary - (select avg(salary) from employ
+ees)) as AvgCompare,case when salary >=(select avg(salary) from employees) then 'High' else 'Low' as '
+SalaryStatus from employees;
+    '> '
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'as 'SalaryStatus from employees;
+'' at line 1
+mysql> select employee_id,fname,lname,salary as SalaryDrawn, (salary - (select avg(salary) from employees)) as AvgCompare,case when salary >=(select avg(salary) from employees) then 'High' else 'Low' as S
+alaryStatus from employees;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'as SalaryStatus from employees' at line 1
+mysql> select employee_id,fname,lname,salary as SalaryDrawn, (salary - (select avg(salary) from employees)) as AvgCompare,case when salary >=(select avg(salary) from employees) then 'High' else 'Low' end as SalaryStatus from employees;
++-------------+-------------+-------------+-------------+--------------+--------------+
+| employee_id | fname       | lname       | SalaryDrawn | AvgCompare   | SalaryStatus |
++-------------+-------------+-------------+-------------+--------------+--------------+
+|         100 | Steven      | King        |    24000.00 | 16961.607477 | High         |
+|         101 | Neena       | Kochhar     |    17000.00 |  9961.607477 | High         |
+|         102 | Lex         | De Haan     |    17000.00 |  9961.607477 | High         |
+|         103 | Alexander   | Hunold      |     9000.00 |  1961.607477 | High         |
+|         104 | Bruce       | Ernst       |     6000.00 | -1038.392523 | Low          |
+|         105 | David       | Austin      |     4800.00 | -2238.392523 | Low          |
+|         106 | Valli       | Pataballa   |     4800.00 | -2238.392523 | Low          |
+|         107 | Diana       | Lorentz     |     4200.00 | -2838.392523 | Low          |
+|         108 | Nancy       | Greenberg   |    12000.00 |  4961.607477 | High         |
+|         109 | Daniel      | Faviet      |     9000.00 |  1961.607477 | High         |
+|         110 | John        | Chen        |     8200.00 |  1161.607477 | High         |
+|         111 | Ismael      | Sciarra     |     7700.00 |   661.607477 | High         |
+|         112 | Jose Manuel | Urman       |     7800.00 |   761.607477 | High         |
+|         113 | Luis        | Popp        |     6900.00 |  -138.392523 | Low          |
+|         114 | Den         | Raphaely    |    11000.00 |  3961.607477 | High         |
+|         115 | Alexander   | Khoo        |     3100.00 | -3938.392523 | Low          |
+|         116 | Shelli      | Baida       |     2900.00 | -4138.392523 | Low          |
+|         117 | Sigal       | Tobias      |     2800.00 | -4238.392523 | Low          |
+|         118 | Guy         | Himuro      |     2600.00 | -4438.392523 | Low          |
+|         119 | Karen       | Colmenares  |     2500.00 | -4538.392523 | Low          |
+|         120 | Matthew     | Weiss       |     8000.00 |   961.607477 | High         |
+|         121 | Adam        | Fripp       |     8200.00 |  1161.607477 | High         |
+|         122 | Payam       | Kaufling    |     7900.00 |   861.607477 | High         |
+|         123 | Shanta      | Vollman     |     6500.00 |  -538.392523 | Low          |
+|         124 | Kevin       | Mourgos     |     5800.00 | -1238.392523 | Low          |
+|         125 | Julia       | Nayer       |     3200.00 | -3838.392523 | Low          |
+|         126 | Irene       | Mikkilineni |     2700.00 | -4338.392523 | Low          |
+|         127 | James       | Landry      |     2400.00 | -4638.392523 | Low          |
+|         128 | Steven      | Markle      |     2200.00 | -4838.392523 | Low          |
+|         129 | Laura       | Bissot      |     3300.00 | -3738.392523 | Low          |
+|         130 | Mozhe       | Atkinson    |     2800.00 | -4238.392523 | Low          |
+|         131 | James       | Marlow      |     2500.00 | -4538.392523 | Low          |
+|         132 | TJ          | Olson       |     2100.00 | -4938.392523 | Low          |
+|         133 | Jason       | Mallin      |     3300.00 | -3738.392523 | Low          |
+|         134 | Michael     | Rogers      |     2900.00 | -4138.392523 | Low          |
+|         135 | Ki          | Gee         |     2400.00 | -4638.392523 | Low          |
+|         136 | Hazel       | Philtanker  |     2200.00 | -4838.392523 | Low          |
+|         137 | Renske      | Ladwig      |     3600.00 | -3438.392523 | Low          |
+|         138 | Stephen     | Stiles      |     3200.00 | -3838.392523 | Low          |
+|         139 | John        | Seo         |     2700.00 | -4338.392523 | Low          |
+|         140 | Joshua      | Patel       |     2500.00 | -4538.392523 | Low          |
+|         141 | Trenna      | Rajs        |     3500.00 | -3538.392523 | Low          |
+|         142 | Curtis      | Davies      |     3100.00 | -3938.392523 | Low          |
+|         143 | Randall     | Matos       |     2600.00 | -4438.392523 | Low          |
+|         144 | Peter       | Vargas      |     2500.00 | -4538.392523 | Low          |
+|         145 | John        | Russell     |    14000.00 |  6961.607477 | High         |
+|         146 | Karen       | Partners    |    13500.00 |  6461.607477 | High         |
+|         147 | Alberto     | Errazuriz   |    12000.00 |  4961.607477 | High         |
+|         148 | Gerald      | Cambrault   |    11000.00 |  3961.607477 | High         |
+|         149 | Eleni       | Zlotkey     |    10500.00 |  3461.607477 | High         |
+|         150 | Peter       | Tucker      |    10000.00 |  2961.607477 | High         |
+|         151 | David       | Bernstein   |     9500.00 |  2461.607477 | High         |
+|         152 | Peter       | Hall        |     9000.00 |  1961.607477 | High         |
+|         153 | Christopher | Olsen       |     8000.00 |   961.607477 | High         |
+|         154 | Nanette     | Cambrault   |     7500.00 |   461.607477 | High         |
+|         155 | Oliver      | Tuvault     |     7000.00 |   -38.392523 | Low          |
+|         156 | Janette     | King        |    10000.00 |  2961.607477 | High         |
+|         157 | Patrick     | Sully       |     9500.00 |  2461.607477 | High         |
+|         158 | Allan       | McEwen      |     9000.00 |  1961.607477 | High         |
+|         159 | Lindsey     | Smith       |     8000.00 |   961.607477 | High         |
+|         160 | Louise      | Doran       |     7500.00 |   461.607477 | High         |
+|         161 | Sarath      | Sewall      |     7000.00 |   -38.392523 | Low          |
+|         162 | Clara       | Vishney     |    10500.00 |  3461.607477 | High         |
+|         163 | Danielle    | Greene      |     9500.00 |  2461.607477 | High         |
+|         164 | Mattea      | Marvins     |     7200.00 |   161.607477 | High         |
+|         165 | David       | Lee         |     6800.00 |  -238.392523 | Low          |
+|         166 | Sunder      | Ande        |     6400.00 |  -638.392523 | Low          |
+|         167 | Amit        | Banda       |     6200.00 |  -838.392523 | Low          |
+|         168 | Lisa        | Ozer        |    11500.00 |  4461.607477 | High         |
+|         169 | Harrison    | Bloom       |    10000.00 |  2961.607477 | High         |
+|         170 | Tayler      | Fox         |     9600.00 |  2561.607477 | High         |
+|         171 | William     | Smith       |     7400.00 |   361.607477 | High         |
+|         172 | Sundita     | Kumar       |     7300.00 |   261.607477 | High         |
+|         173 | Elizabeth   | Bates       |     6100.00 |  -938.392523 | Low          |
+|         174 | Ellen       | Abel        |    11000.00 |  3961.607477 | High         |
+|         175 | Alyssa      | Hutton      |     8800.00 |  1761.607477 | High         |
+|         176 | Jonathon    | Taylor      |     8600.00 |  1561.607477 | High         |
+|         177 | Jack        | Livingston  |     8400.00 |  1361.607477 | High         |
+|         178 | Kimberely   | Grant       |     7000.00 |   -38.392523 | Low          |
+|         179 | Charles     | Johnson     |     6200.00 |  -838.392523 | Low          |
+|         180 | Winston     | Taylor      |     3200.00 | -3838.392523 | Low          |
+|         181 | Jean        | Fleaur      |     3100.00 | -3938.392523 | Low          |
+|         182 | Martha      | Sullivan    |     2500.00 | -4538.392523 | Low          |
+|         183 | Girard      | Geoni       |     2800.00 | -4238.392523 | Low          |
+|         184 | Nandita     | Sarchand    |     4200.00 | -2838.392523 | Low          |
+|         185 | Alexis      | Bull        |     4100.00 | -2938.392523 | Low          |
+|         186 | Julia       | Dellinger   |     3400.00 | -3638.392523 | Low          |
+|         187 | Anthony     | Cabrio      |     3000.00 | -4038.392523 | Low          |
+|         188 | Kelly       | Chung       |     3800.00 | -3238.392523 | Low          |
+|         189 | Jennifer    | Dilly       |     3600.00 | -3438.392523 | Low          |
+|         190 | Timothy     | Gates       |     2900.00 | -4138.392523 | Low          |
+|         191 | Randall     | Perkins     |     2500.00 | -4538.392523 | Low          |
+|         192 | Sarah       | Bell        |     4000.00 | -3038.392523 | Low          |
+|         193 | Britney     | Everett     |     3900.00 | -3138.392523 | Low          |
+|         194 | Samuel      | McCain      |     3200.00 | -3838.392523 | Low          |
+|         195 | Vance       | Jones       |     2800.00 | -4238.392523 | Low          |
+|         196 | Alana       | Walsh       |     3100.00 | -3938.392523 | Low          |
+|         197 | Kevin       | Feeney      |     3000.00 | -4038.392523 | Low          |
+|         198 | Donald      | OConnell    |     2600.00 | -4438.392523 | Low          |
+|         199 | Douglas     | Grant       |     2600.00 | -4438.392523 | Low          |
+|         200 | Jennifer    | Whalen      |     4400.00 | -2638.392523 | Low          |
+|         201 | Michael     | Hartstein   |    13000.00 |  5961.607477 | High         |
+|         202 | Pat         | Fay         |     6000.00 | -1038.392523 | Low          |
+|         203 | Susan       | Mavris      |     6500.00 |  -538.392523 | Low          |
+|         204 | Hermann     | Baer        |    10000.00 |  2961.607477 | High         |
+|         205 | Shelley     | Higgins     |    12008.00 |  4969.607477 | High         |
+|         206 | PAWAN       | YADAV       |    70000.00 | 62961.607477 | High         |
++-------------+-------------+-------------+-------------+--------------+--------------+
+107 rows in set (0.01 sec)
+
+mysql> select employee_id,fname,lname,salary as SalaryDrawn, round((salary - (select avg(salary) from employees)),2) as AvgCompare,case when salary >=(select avg(salary) from employees) then 'High' else 'Low' end as SalaryStatus from employees;
++-------------+-------------+-------------+-------------+------------+--------------+
+| employee_id | fname       | lname       | SalaryDrawn | AvgCompare | SalaryStatus |
++-------------+-------------+-------------+-------------+------------+--------------+
+|         100 | Steven      | King        |    24000.00 |   16961.61 | High         |
+|         101 | Neena       | Kochhar     |    17000.00 |    9961.61 | High         |
+|         102 | Lex         | De Haan     |    17000.00 |    9961.61 | High         |
+|         103 | Alexander   | Hunold      |     9000.00 |    1961.61 | High         |
+|         104 | Bruce       | Ernst       |     6000.00 |   -1038.39 | Low          |
+|         105 | David       | Austin      |     4800.00 |   -2238.39 | Low          |
+|         106 | Valli       | Pataballa   |     4800.00 |   -2238.39 | Low          |
+|         107 | Diana       | Lorentz     |     4200.00 |   -2838.39 | Low          |
+|         108 | Nancy       | Greenberg   |    12000.00 |    4961.61 | High         |
+|         109 | Daniel      | Faviet      |     9000.00 |    1961.61 | High         |
+|         110 | John        | Chen        |     8200.00 |    1161.61 | High         |
+|         111 | Ismael      | Sciarra     |     7700.00 |     661.61 | High         |
+|         112 | Jose Manuel | Urman       |     7800.00 |     761.61 | High         |
+|         113 | Luis        | Popp        |     6900.00 |    -138.39 | Low          |
+|         114 | Den         | Raphaely    |    11000.00 |    3961.61 | High         |
+|         115 | Alexander   | Khoo        |     3100.00 |   -3938.39 | Low          |
+|         116 | Shelli      | Baida       |     2900.00 |   -4138.39 | Low          |
+|         117 | Sigal       | Tobias      |     2800.00 |   -4238.39 | Low          |
+|         118 | Guy         | Himuro      |     2600.00 |   -4438.39 | Low          |
+|         119 | Karen       | Colmenares  |     2500.00 |   -4538.39 | Low          |
+|         120 | Matthew     | Weiss       |     8000.00 |     961.61 | High         |
+|         121 | Adam        | Fripp       |     8200.00 |    1161.61 | High         |
+|         122 | Payam       | Kaufling    |     7900.00 |     861.61 | High         |
+|         123 | Shanta      | Vollman     |     6500.00 |    -538.39 | Low          |
+|         124 | Kevin       | Mourgos     |     5800.00 |   -1238.39 | Low          |
+|         125 | Julia       | Nayer       |     3200.00 |   -3838.39 | Low          |
+|         126 | Irene       | Mikkilineni |     2700.00 |   -4338.39 | Low          |
+|         127 | James       | Landry      |     2400.00 |   -4638.39 | Low          |
+|         128 | Steven      | Markle      |     2200.00 |   -4838.39 | Low          |
+|         129 | Laura       | Bissot      |     3300.00 |   -3738.39 | Low          |
+|         130 | Mozhe       | Atkinson    |     2800.00 |   -4238.39 | Low          |
+|         131 | James       | Marlow      |     2500.00 |   -4538.39 | Low          |
+|         132 | TJ          | Olson       |     2100.00 |   -4938.39 | Low          |
+|         133 | Jason       | Mallin      |     3300.00 |   -3738.39 | Low          |
+|         134 | Michael     | Rogers      |     2900.00 |   -4138.39 | Low          |
+|         135 | Ki          | Gee         |     2400.00 |   -4638.39 | Low          |
+|         136 | Hazel       | Philtanker  |     2200.00 |   -4838.39 | Low          |
+|         137 | Renske      | Ladwig      |     3600.00 |   -3438.39 | Low          |
+|         138 | Stephen     | Stiles      |     3200.00 |   -3838.39 | Low          |
+|         139 | John        | Seo         |     2700.00 |   -4338.39 | Low          |
+|         140 | Joshua      | Patel       |     2500.00 |   -4538.39 | Low          |
+|         141 | Trenna      | Rajs        |     3500.00 |   -3538.39 | Low          |
+|         142 | Curtis      | Davies      |     3100.00 |   -3938.39 | Low          |
+|         143 | Randall     | Matos       |     2600.00 |   -4438.39 | Low          |
+|         144 | Peter       | Vargas      |     2500.00 |   -4538.39 | Low          |
+|         145 | John        | Russell     |    14000.00 |    6961.61 | High         |
+|         146 | Karen       | Partners    |    13500.00 |    6461.61 | High         |
+|         147 | Alberto     | Errazuriz   |    12000.00 |    4961.61 | High         |
+|         148 | Gerald      | Cambrault   |    11000.00 |    3961.61 | High         |
+|         149 | Eleni       | Zlotkey     |    10500.00 |    3461.61 | High         |
+|         150 | Peter       | Tucker      |    10000.00 |    2961.61 | High         |
+|         151 | David       | Bernstein   |     9500.00 |    2461.61 | High         |
+|         152 | Peter       | Hall        |     9000.00 |    1961.61 | High         |
+|         153 | Christopher | Olsen       |     8000.00 |     961.61 | High         |
+|         154 | Nanette     | Cambrault   |     7500.00 |     461.61 | High         |
+|         155 | Oliver      | Tuvault     |     7000.00 |     -38.39 | Low          |
+|         156 | Janette     | King        |    10000.00 |    2961.61 | High         |
+|         157 | Patrick     | Sully       |     9500.00 |    2461.61 | High         |
+|         158 | Allan       | McEwen      |     9000.00 |    1961.61 | High         |
+|         159 | Lindsey     | Smith       |     8000.00 |     961.61 | High         |
+|         160 | Louise      | Doran       |     7500.00 |     461.61 | High         |
+|         161 | Sarath      | Sewall      |     7000.00 |     -38.39 | Low          |
+|         162 | Clara       | Vishney     |    10500.00 |    3461.61 | High         |
+|         163 | Danielle    | Greene      |     9500.00 |    2461.61 | High         |
+|         164 | Mattea      | Marvins     |     7200.00 |     161.61 | High         |
+|         165 | David       | Lee         |     6800.00 |    -238.39 | Low          |
+|         166 | Sunder      | Ande        |     6400.00 |    -638.39 | Low          |
+|         167 | Amit        | Banda       |     6200.00 |    -838.39 | Low          |
+|         168 | Lisa        | Ozer        |    11500.00 |    4461.61 | High         |
+|         169 | Harrison    | Bloom       |    10000.00 |    2961.61 | High         |
+|         170 | Tayler      | Fox         |     9600.00 |    2561.61 | High         |
+|         171 | William     | Smith       |     7400.00 |     361.61 | High         |
+|         172 | Sundita     | Kumar       |     7300.00 |     261.61 | High         |
+|         173 | Elizabeth   | Bates       |     6100.00 |    -938.39 | Low          |
+|         174 | Ellen       | Abel        |    11000.00 |    3961.61 | High         |
+|         175 | Alyssa      | Hutton      |     8800.00 |    1761.61 | High         |
+|         176 | Jonathon    | Taylor      |     8600.00 |    1561.61 | High         |
+|         177 | Jack        | Livingston  |     8400.00 |    1361.61 | High         |
+|         178 | Kimberely   | Grant       |     7000.00 |     -38.39 | Low          |
+|         179 | Charles     | Johnson     |     6200.00 |    -838.39 | Low          |
+|         180 | Winston     | Taylor      |     3200.00 |   -3838.39 | Low          |
+|         181 | Jean        | Fleaur      |     3100.00 |   -3938.39 | Low          |
+|         182 | Martha      | Sullivan    |     2500.00 |   -4538.39 | Low          |
+|         183 | Girard      | Geoni       |     2800.00 |   -4238.39 | Low          |
+|         184 | Nandita     | Sarchand    |     4200.00 |   -2838.39 | Low          |
+|         185 | Alexis      | Bull        |     4100.00 |   -2938.39 | Low          |
+|         186 | Julia       | Dellinger   |     3400.00 |   -3638.39 | Low          |
+|         187 | Anthony     | Cabrio      |     3000.00 |   -4038.39 | Low          |
+|         188 | Kelly       | Chung       |     3800.00 |   -3238.39 | Low          |
+|         189 | Jennifer    | Dilly       |     3600.00 |   -3438.39 | Low          |
+|         190 | Timothy     | Gates       |     2900.00 |   -4138.39 | Low          |
+|         191 | Randall     | Perkins     |     2500.00 |   -4538.39 | Low          |
+|         192 | Sarah       | Bell        |     4000.00 |   -3038.39 | Low          |
+|         193 | Britney     | Everett     |     3900.00 |   -3138.39 | Low          |
+|         194 | Samuel      | McCain      |     3200.00 |   -3838.39 | Low          |
+|         195 | Vance       | Jones       |     2800.00 |   -4238.39 | Low          |
+|         196 | Alana       | Walsh       |     3100.00 |   -3938.39 | Low          |
+|         197 | Kevin       | Feeney      |     3000.00 |   -4038.39 | Low          |
+|         198 | Donald      | OConnell    |     2600.00 |   -4438.39 | Low          |
+|         199 | Douglas     | Grant       |     2600.00 |   -4438.39 | Low          |
+|         200 | Jennifer    | Whalen      |     4400.00 |   -2638.39 | Low          |
+|         201 | Michael     | Hartstein   |    13000.00 |    5961.61 | High         |
+|         202 | Pat         | Fay         |     6000.00 |   -1038.39 | Low          |
+|         203 | Susan       | Mavris      |     6500.00 |    -538.39 | Low          |
+|         204 | Hermann     | Baer        |    10000.00 |    2961.61 | High         |
+|         205 | Shelley     | Higgins     |    12008.00 |    4969.61 | High         |
+|         206 | PAWAN       | YADAV       |    70000.00 |   62961.61 | High         |
++-------------+-------------+-------------+-------------+------------+--------------+
+107 rows in set (0.01 sec)
+
+mysql> select * from departments limit 3;
++---------------+------------+------------+-------------+
+| department_id | name       | manager_id | location_id |
++---------------+------------+------------+-------------+
+|            10 | Admin      |        200 |        1700 |
+|            20 | Marketing  |        201 |        1800 |
+|            30 | Purchasing |        114 |        1700 |
++---------------+------------+------------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> select name department_name from departments where department_id in (select distinct department
+_id from employees);
++------------------+
+| department_name  |
++------------------+
+| Admin            |
+| Marketing        |
+| Purchasing       |
+| HR               |
+| Shipping         |
+| IT               |
+| Public Relations |
+| Sales            |
+| Executive        |
+| Finance          |
+| Accounting       |
++------------------+
+11 rows in set (0.03 sec)
+
+mysql> select * from locations limit 3;
++-------------+-------------------------+-------------+--------+------------------+------------+
+| location_id | address                 | postal_code | city   | state_province   | country_id |
++-------------+-------------------------+-------------+--------+------------------+------------+
+|        1000 | 1297 Via COla di Rie    |         989 | Roma   |                  | IT         |
+|        1100 | 93091 Calle della Testa |       10934 | Venice |                  | IT         |
+|        1200 | 2017 Shinjuku-ku        |        1689 | Tokyo  | Tokyo Prefecture | JP         |
++-------------+-------------------------+-------------+--------+------------------+------------+
+3 rows in set (0.02 sec)
+
+mysql> select fname from employees where department_id in (select department_id from departments where
+ location_id in (select location_id from locations where country_id ='UK'));
++-------------+
+| fname       |
++-------------+
+| John        |
+| Karen       |
+| Alberto     |
+| Gerald      |
+| Eleni       |
+| Peter       |
+| David       |
+| Peter       |
+| Christopher |
+| Nanette     |
+| Oliver      |
+| Janette     |
+| Patrick     |
+| Allan       |
+| Lindsey     |
+| Louise      |
+| Sarath      |
+| Clara       |
+| Danielle    |
+| Mattea      |
+| David       |
+| Sunder      |
+| Amit        |
+| Lisa        |
+| Harrison    |
+| Tayler      |
+| William     |
+| Sundita     |
+| Elizabeth   |
+| Ellen       |
+| Alyssa      |
+| Jonathon    |
+| Jack        |
+| Kimberely   |
+| Charles     |
+| Susan       |
++-------------+
+36 rows in set (0.02 sec)
+
+mysql> SELECT first_name FROM employees WHERE department_id IN (SELECT department_id FROM departments WHERE location_id IN (SELECT location_id FROM locations WHERE country_id = (SELECT country_id FROM countries WHERE country_name='United Kingdom')));
+ERROR 1146 (42S02): Table 'db.countries' doesn't exist
+mysql> SELECT first_name FROM employees WHERE department_id IN (SELECT department_id FROM departments WHERE location_id IN (SELECT location_id FROM locations WHERE country_id = 'UK'));
+ERROR 1054 (42S22): Unknown column 'first_name' in 'field list'
+mysql> SELECT fname FROM employees WHERE department_id IN (SELECT department_id FROM departments WHERE
+ location_id IN (SELECT location_id FROM locations WHERE country_id = 'UK'));
++-------------+
+| fname       |
++-------------+
+| John        |
+| Karen       |
+| Alberto     |
+| Gerald      |
+| Eleni       |
+| Peter       |
+| David       |
+| Peter       |
+| Christopher |
+| Nanette     |
+| Oliver      |
+| Janette     |
+| Patrick     |
+| Allan       |
+| Lindsey     |
+| Louise      |
+| Sarath      |
+| Clara       |
+| Danielle    |
+| Mattea      |
+| David       |
+| Sunder      |
+| Amit        |
+| Lisa        |
+| Harrison    |
+| Tayler      |
+| William     |
+| Sundita     |
+| Elizabeth   |
+| Ellen       |
+| Alyssa      |
+| Jonathon    |
+| Jack        |
+| Kimberely   |
+| Charles     |
+| Susan       |
++-------------+
+36 rows in set (0.01 sec)
+
+mysql> select lname from employees where salary > (select avg(salary) from employees) and department_i
+d in (select department_id from departments where name='IT');
++--------+
+| lname  |
++--------+
+| Hunold |
++--------+
+1 row in set (0.01 sec)
+
+mysql> select lname from employees where salary > (select avg(salary) from employees) and department_id in (select department_id from departments where name like 'IT%');
++--------+
+| lname  |
++--------+
+| Hunold |
++--------+
+1 row in set (0.01 sec)
+
+mysql> select fname, lname, salary from employees where salary > (select salary from employees where l
+name='Ozer') order by lnmae;
+ERROR 1054 (42S22): Unknown column 'lnmae' in 'order clause'
+mysql> select fname, lname, salary from employees where salary > (select salary from employees where lname='Ozer') order by lname;
++---------+-----------+----------+
+| fname   | lname     | salary   |
++---------+-----------+----------+
+| Lex     | De Haan   | 17000.00 |
+| Alberto | Errazuriz | 12000.00 |
+| Nancy   | Greenberg | 12000.00 |
+| Michael | Hartstein | 13000.00 |
+| Shelley | Higgins   | 12008.00 |
+| Steven  | King      | 24000.00 |
+| Neena   | Kochhar   | 17000.00 |
+| Karen   | Partners  | 13500.00 |
+| John    | Russell   | 14000.00 |
+| PAWAN   | YADAV     | 70000.00 |
++---------+-----------+----------+
+10 rows in set (0.01 sec)
+
+mysql> select fname, lname from employees where employee_id in (select manager_id from departments where location_id in (select location_id from locations where country_id = 'US'));
++-----------+-----------+
+| fname     | lname     |
++-----------+-----------+
+| Steven    | King      |
+| Alexander | Hunold    |
+| Nancy     | Greenberg |
+| Den       | Raphaely  |
+| Adam      | Fripp     |
+| Jennifer  | Whalen    |
+| Shelley   | Higgins   |
++-----------+-----------+
+7 rows in set (0.01 sec)
+
+mysql> select fname, lname from employees where manager_id in(select employee_id froom employees where department_id in  (select department_id from departments where location_id in (select location_id fro
+m locations where country_id = 'US')));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'employees where department_id in  (select department_id from departments where l' at line 1
+mysql> select fname, lname from employees where manager_id in(select employee_id from employees where department_id in  (select department_id from departments where location_id in (select location_id from locations where country_id = 'US')));
++-------------+-------------+
+| fname       | lname       |
++-------------+-------------+
+| Neena       | Kochhar     |
+| Lex         | De Haan     |
+| Alexander   | Hunold      |
+| Bruce       | Ernst       |
+| David       | Austin      |
+| Valli       | Pataballa   |
+| Diana       | Lorentz     |
+| Nancy       | Greenberg   |
+| Daniel      | Faviet      |
+| John        | Chen        |
+| Ismael      | Sciarra     |
+| Jose Manuel | Urman       |
+| Luis        | Popp        |
+| Den         | Raphaely    |
+| Alexander   | Khoo        |
+| Shelli      | Baida       |
+| Sigal       | Tobias      |
+| Guy         | Himuro      |
+| Karen       | Colmenares  |
+| Matthew     | Weiss       |
+| Adam        | Fripp       |
+| Payam       | Kaufling    |
+| Shanta      | Vollman     |
+| Kevin       | Mourgos     |
+| Julia       | Nayer       |
+| Irene       | Mikkilineni |
+| James       | Landry      |
+| Steven      | Markle      |
+| Laura       | Bissot      |
+| Mozhe       | Atkinson    |
+| James       | Marlow      |
+| TJ          | Olson       |
+| Jason       | Mallin      |
+| Michael     | Rogers      |
+| Ki          | Gee         |
+| Hazel       | Philtanker  |
+| Renske      | Ladwig      |
+| Stephen     | Stiles      |
+| John        | Seo         |
+| Joshua      | Patel       |
+| Trenna      | Rajs        |
+| Curtis      | Davies      |
+| Randall     | Matos       |
+| Peter       | Vargas      |
+| John        | Russell     |
+| Karen       | Partners    |
+| Alberto     | Errazuriz   |
+| Gerald      | Cambrault   |
+| Eleni       | Zlotkey     |
+| Winston     | Taylor      |
+| Jean        | Fleaur      |
+| Martha      | Sullivan    |
+| Girard      | Geoni       |
+| Nandita     | Sarchand    |
+| Alexis      | Bull        |
+| Julia       | Dellinger   |
+| Anthony     | Cabrio      |
+| Kelly       | Chung       |
+| Jennifer    | Dilly       |
+| Timothy     | Gates       |
+| Randall     | Perkins     |
+| Sarah       | Bell        |
+| Britney     | Everett     |
+| Samuel      | McCain      |
+| Vance       | Jones       |
+| Alana       | Walsh       |
+| Kevin       | Feeney      |
+| Donald      | OConnell    |
+| Douglas     | Grant       |
+| Jennifer    | Whalen      |
+| Michael     | Hartstein   |
+| Susan       | Mavris      |
+| Hermann     | Baer        |
+| Shelley     | Higgins     |
+| PAWAN       | YADAV       |
++-------------+-------------+
+75 rows in set (0.01 sec)
+
+mysql> select a.fname,a.lname from employees a where a.salary >(select (sum(b.salary))*0.5 from employ
+ees b where a.department_id=b.department_id);
++----------+-----------+
+| fname    | lname     |
++----------+-----------+
+| Jennifer | Whalen    |
+| Michael  | Hartstein |
+| Susan    | Mavris    |
+| Hermann  | Baer      |
+| PAWAN    | YADAV     |
++----------+-----------+
+5 rows in set (0.02 sec)
+
+mysql> select * from employees where employee_id in (select distinct manager_id from employees;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> select * from employees where employee_id in (select distinct manager_id from employees);
++-------------+-----------+-----------+----------+-------------------+------------+---------+----------+------------+------------+---------------+
+| employee_id | fname     | lname     | email    | mobile            | hire_date  | job_id  | salary   | commission | manager_id | department_id |
++-------------+-----------+-----------+----------+-------------------+------------+---------+----------+------------+------------+---------------+
+|         100 | Steven    | King      | SKING    |     5151234567.00 | 2003-06-17 | AD_PRES | 24000.00 |       0.00 |          0 |            90 |
+|         101 | Neena     | Kochhar   | NKOCHHAR |     5151234568.00 | 2005-09-21 | AD_VP   | 17000.00 |       0.00 |        100 |            90 |
+|         102 | Lex       | De Haan   | LDEHAAN  |     5151234569.00 | 2001-01-13 | AD_VP   | 17000.00 |       0.00 |        100 |            90 |
+|         103 | Alexander | Hunold    | AHUNOLD  |     5904234567.00 | 2006-01-03 | IT_PROG |  9000.00 |       0.00 |        102 |            60 |
+|         108 | Nancy     | Greenberg | NGREENBE |     5151244569.00 | 2002-08-17 | FI_MGR  | 12000.00 |       0.00 |        101 |           100 |
+|         114 | Den       | Raphaely  | DRAPHEAL |     5151274561.00 | 2002-12-07 | PU_MAN  | 11000.00 |       0.00 |        100 |            30 |
+|         120 | Matthew   | Weiss     | MWEISS   |     6501231234.00 | 2004-07-18 | ST_MAN  |  8000.00 |       0.00 |        100 |            50 |
+|         121 | Adam      | Fripp     | AFRIPP   |     6501232234.00 | 2005-04-10 | ST_MAN  |  8200.00 |       0.00 |        100 |            50 |
+|         122 | Payam     | Kaufling  | PKAUFLIN |     6501233234.00 | 2003-05-01 | ST_MAN  |  7900.00 |       0.00 |        100 |            50 |
+|         123 | Shanta    | Vollman   | SVOLLMAN |     6501235234.00 | 2007-11-16 | ST_MAN  |  6500.00 |       0.00 |        100 |            50 |
+|         124 | Kevin     | Mourgos   | KMOURGOS |     6501234234.00 | 2005-10-10 | ST_MAN  |  5800.00 |       0.00 |        100 |            50 |
+|         145 | John      | Russell   | JRUSSEL  | 11441344429268.00 | 2004-10-01 | SA_MAN  | 14000.00 |       0.40 |        100 |            80 |
+|         146 | Karen     | Partners  | KPARTNER | 11441344467268.00 | 2005-01-05 | SA_MAN  | 13500.00 |       0.30 |        100 |            80 |
+|         147 | Alberto   | Errazuriz | AERRAZUR | 11441344429278.00 | 2005-03-10 | SA_MAN  | 12000.00 |       0.30 |        100 |            80 |
+|         148 | Gerald    | Cambrault | GCAMBRAU | 11441344619268.00 | 2007-10-15 | SA_MAN  | 11000.00 |       0.30 |        100 |            80 |
+|         149 | Eleni     | Zlotkey   | EZLOTKEY | 11441344429018.00 | 2008-01-29 | SA_MAN  | 10500.00 |       0.20 |        100 |            80 |
+|         201 | Michael   | Hartstein | MHARTSTE |     5151235555.00 | 2004-02-17 | MK_MAN  | 13000.00 |       0.00 |        100 |            20 |
+|         205 | Shelley   | Higgins   | SHIGGINS |     5151238080.00 | 2002-06-07 | AC_MGR  | 12008.00 |       0.00 |        101 |           110 |
++-------------+-----------+-----------+----------+-------------------+------------+---------+----------+------------+------------+---------------+
+18 rows in set (0.00 sec)
+
+mysql> select * from employees where employee_id = ANY (select manager_id from departments);
++-------------+-----------+-----------+----------+-------------------+------------+---------+----------+------------+------------+---------------+
+| employee_id | fname     | lname     | email    | mobile            | hire_date  | job_id  | salary   | commission | manager_id | department_id |
++-------------+-----------+-----------+----------+-------------------+------------+---------+----------+------------+------------+---------------+
+|         100 | Steven    | King      | SKING    |     5151234567.00 | 2003-06-17 | AD_PRES | 24000.00 |       0.00 |          0 |            90 |
+|         103 | Alexander | Hunold    | AHUNOLD  |     5904234567.00 | 2006-01-03 | IT_PROG |  9000.00 |       0.00 |        102 |            60 |
+|         108 | Nancy     | Greenberg | NGREENBE |     5151244569.00 | 2002-08-17 | FI_MGR  | 12000.00 |       0.00 |        101 |           100 |
+|         114 | Den       | Raphaely  | DRAPHEAL |     5151274561.00 | 2002-12-07 | PU_MAN  | 11000.00 |       0.00 |        100 |            30 |
+|         121 | Adam      | Fripp     | AFRIPP   |     6501232234.00 | 2005-04-10 | ST_MAN  |  8200.00 |       0.00 |        100 |            50 |
+|         145 | John      | Russell   | JRUSSEL  | 11441344429268.00 | 2004-10-01 | SA_MAN  | 14000.00 |       0.40 |        100 |            80 |
+|         200 | Jennifer  | Whalen    | JWHALEN  |     5151234444.00 | 2003-09-17 | AD_ASST |  4400.00 |       0.00 |        101 |            10 |
+|         201 | Michael   | Hartstein | MHARTSTE |     5151235555.00 | 2004-02-17 | MK_MAN  | 13000.00 |       0.00 |        100 |            20 |
+|         203 | Susan     | Mavris    | SMAVRIS  |     5151237777.00 | 2002-06-07 | HR_REP  |  6500.00 |       0.00 |        101 |            40 |
+|         204 | Hermann   | Baer      | HBAER    |     5151238888.00 | 2002-06-07 | PR_REP  | 10000.00 |       0.00 |        101 |            70 |
+|         205 | Shelley   | Higgins   | SHIGGINS |     5151238080.00 | 2002-06-07 | AC_MGR  | 12008.00 |       0.00 |        101 |           110 |
++-------------+-----------+-----------+----------+-------------------+------------+---------+----------+------------+------------+---------------+
+11 rows in set (0.01 sec)
+
+mysql> select a.employee_id, a.fname,a.lname,a.salary,b.name,c.city from employees a,departments b,locations c where a.salary in (select max(salary) from employees) and a.date between '2002-01-01' and '2003-12-31';
+ERROR 1054 (42S22): Unknown column 'a.date' in 'IN/ALL/ANY subquery'
+mysql> select a.employee_id, a.fname,a.lname,a.salary,b.name,c.city from employees a,departments b,locations c where a.salary in (select max(salary) from employees where date between '2002-01-01' and '200
+3-12-31');
+ERROR 1054 (42S22): Unknown column 'date' in 'where clause'
+mysql> select a.employee_id, a.fname,a.lname,a.salary,b.name,c.city from employees a,departments b,locations c where a.salary in (select max(salary) from employees where hire_date between '2002-01-01' and
+ '2003-12-31');
++-------------+--------+-------+----------+----------------------+---------------------+
+| employee_id | fname  | lname | salary   | name                 | city                |
++-------------+--------+-------+----------+----------------------+---------------------+
+|         100 | Steven | King  | 24000.00 | Payroll              | Roma                |
+|         100 | Steven | King  | 24000.00 | Payroll              | Venice              |
+|         100 | Steven | King  | 24000.00 | Payroll              | Tokyo               |
+|         100 | Steven | King  | 24000.00 | Payroll              | Hiroshima           |
+|         100 | Steven | King  | 24000.00 | Payroll              | Southlake           |
+|         100 | Steven | King  | 24000.00 | Payroll              | South San Francisco |
+|         100 | Steven | King  | 24000.00 | Payroll              | South Brunswick     |
+|         100 | Steven | King  | 24000.00 | Payroll              | Seattle             |
+|         100 | Steven | King  | 24000.00 | Payroll              | Toronto             |
+|         100 | Steven | King  | 24000.00 | Payroll              | Whitehorse          |
+|         100 | Steven | King  | 24000.00 | Payroll              | Beijing             |
+|         100 | Steven | King  | 24000.00 | Payroll              | Bombay              |
+|         100 | Steven | King  | 24000.00 | Payroll              | Sydney              |
+|         100 | Steven | King  | 24000.00 | Payroll              | Singapore           |
+|         100 | Steven | King  | 24000.00 | Payroll              | London              |
+|         100 | Steven | King  | 24000.00 | Payroll              | Oxford              |
+|         100 | Steven | King  | 24000.00 | Payroll              | Stretford           |
+|         100 | Steven | King  | 24000.00 | Payroll              | Munich              |
+|         100 | Steven | King  | 24000.00 | Payroll              | Sao Paulo           |
+|         100 | Steven | King  | 24000.00 | Payroll              | Geneva              |
+|         100 | Steven | King  | 24000.00 | Payroll              | Bern                |
+|         100 | Steven | King  | 24000.00 | Payroll              | Utrecht             |
+|         100 | Steven | King  | 24000.00 | Payroll              | Mexico City         |
+|         100 | Steven | King  | 24000.00 | Recruiting           | Roma                |
+|         100 | Steven | King  | 24000.00 | Recruiting           | Venice              |
+|         100 | Steven | King  | 24000.00 | Recruiting           | Tokyo               |
+|         100 | Steven | King  | 24000.00 | Recruiting           | Hiroshima           |
+|         100 | Steven | King  | 24000.00 | Recruiting           | Southlake           |
+|         100 | Steven | King  | 24000.00 | Recruiting           | South San Francisco |
+|         100 | Steven | King  | 24000.00 | Recruiting           | South Brunswick     |
+|         100 | Steven | King  | 24000.00 | Recruiting           | Seattle             |
+|         100 | Steven | King  | 24000.00 | Recruiting           | Toronto             |
+|         100 | Steven | King  | 24000.00 | Recruiting           | Whitehorse          |
+|         100 | Steven | King  | 24000.00 | Recruiting           | Beijing             |
+|         100 | Steven | King  | 24000.00 | Recruiting           | Bombay              |
+|         100 | Steven | King  | 24000.00 | Recruiting           | Sydney              |
+|         100 | Steven | King  | 24000.00 | Recruiting           | Singapore           |
+|         100 | Steven | King  | 24000.00 | Recruiting           | London              |
+|         100 | Steven | King  | 24000.00 | Recruiting           | Oxford              |
+|         100 | Steven | King  | 24000.00 | Recruiting           | Stretford           |
+|         100 | Steven | King  | 24000.00 | Recruiting           | Munich              |
+|         100 | Steven | King  | 24000.00 | Recruiting           | Sao Paulo           |
+|         100 | Steven | King  | 24000.00 | Recruiting           | Geneva              |
+|         100 | Steven | King  | 24000.00 | Recruiting           | Bern                |
+|         100 | Steven | King  | 24000.00 | Recruiting           | Utrecht             |
+|         100 | Steven | King  | 24000.00 | Recruiting           | Mexico City         |
+|         100 | Steven | King  | 24000.00 | Retail Sales         | Roma                |
+|         100 | Steven | King  | 24000.00 | Retail Sales         | Venice              |
+|         100 | Steven | King  | 24000.00 | Retail Sales         | Tokyo               |
+|         100 | Steven | King  | 24000.00 | Retail Sales         | Hiroshima           |
+|         100 | Steven | King  | 24000.00 | Retail Sales         | Southlake           |
+|         100 | Steven | King  | 24000.00 | Retail Sales         | South San Francisco |
+|         100 | Steven | King  | 24000.00 | Retail Sales         | South Brunswick     |
+|         100 | Steven | King  | 24000.00 | Retail Sales         | Seattle             |
+|         100 | Steven | King  | 24000.00 | Retail Sales         | Toronto             |
+|         100 | Steven | King  | 24000.00 | Retail Sales         | Whitehorse          |
+|         100 | Steven | King  | 24000.00 | Retail Sales         | Beijing             |
+|         100 | Steven | King  | 24000.00 | Retail Sales         | Bombay              |
+|         100 | Steven | King  | 24000.00 | Retail Sales         | Sydney              |
+|         100 | Steven | King  | 24000.00 | Retail Sales         | Singapore           |
+|         100 | Steven | King  | 24000.00 | Retail Sales         | London              |
+|         100 | Steven | King  | 24000.00 | Retail Sales         | Oxford              |
+|         100 | Steven | King  | 24000.00 | Retail Sales         | Stretford           |
+|         100 | Steven | King  | 24000.00 | Retail Sales         | Munich              |
+|         100 | Steven | King  | 24000.00 | Retail Sales         | Sao Paulo           |
+|         100 | Steven | King  | 24000.00 | Retail Sales         | Geneva              |
+|         100 | Steven | King  | 24000.00 | Retail Sales         | Bern                |
+|         100 | Steven | King  | 24000.00 | Retail Sales         | Utrecht             |
+|         100 | Steven | King  | 24000.00 | Retail Sales         | Mexico City         |
+|         100 | Steven | King  | 24000.00 | Government Sales     | Roma                |
+|         100 | Steven | King  | 24000.00 | Government Sales     | Venice              |
+|         100 | Steven | King  | 24000.00 | Government Sales     | Tokyo               |
+|         100 | Steven | King  | 24000.00 | Government Sales     | Hiroshima           |
+|         100 | Steven | King  | 24000.00 | Government Sales     | Southlake           |
+|         100 | Steven | King  | 24000.00 | Government Sales     | South San Francisco |
+|         100 | Steven | King  | 24000.00 | Government Sales     | South Brunswick     |
+|         100 | Steven | King  | 24000.00 | Government Sales     | Seattle             |
+|         100 | Steven | King  | 24000.00 | Government Sales     | Toronto             |
+|         100 | Steven | King  | 24000.00 | Government Sales     | Whitehorse          |
+|         100 | Steven | King  | 24000.00 | Government Sales     | Beijing             |
+|         100 | Steven | King  | 24000.00 | Government Sales     | Bombay              |
+|         100 | Steven | King  | 24000.00 | Government Sales     | Sydney              |
+|         100 | Steven | King  | 24000.00 | Government Sales     | Singapore           |
+|         100 | Steven | King  | 24000.00 | Government Sales     | London              |
+|         100 | Steven | King  | 24000.00 | Government Sales     | Oxford              |
+|         100 | Steven | King  | 24000.00 | Government Sales     | Stretford           |
+|         100 | Steven | King  | 24000.00 | Government Sales     | Munich              |
+|         100 | Steven | King  | 24000.00 | Government Sales     | Sao Paulo           |
+|         100 | Steven | King  | 24000.00 | Government Sales     | Geneva              |
+|         100 | Steven | King  | 24000.00 | Government Sales     | Bern                |
+|         100 | Steven | King  | 24000.00 | Government Sales     | Utrecht             |
+|         100 | Steven | King  | 24000.00 | Government Sales     | Mexico City         |
+|         100 | Steven | King  | 24000.00 | IT Helpdesk          | Roma                |
+|         100 | Steven | King  | 24000.00 | IT Helpdesk          | Venice              |
+|         100 | Steven | King  | 24000.00 | IT Helpdesk          | Tokyo               |
+|         100 | Steven | King  | 24000.00 | IT Helpdesk          | Hiroshima           |
+|         100 | Steven | King  | 24000.00 | IT Helpdesk          | Southlake           |
+|         100 | Steven | King  | 24000.00 | IT Helpdesk          | South San Francisco |
+|         100 | Steven | King  | 24000.00 | IT Helpdesk          | South Brunswick     |
+|         100 | Steven | King  | 24000.00 | IT Helpdesk          | Seattle             |
+|         100 | Steven | King  | 24000.00 | IT Helpdesk          | Toronto             |
+|         100 | Steven | King  | 24000.00 | IT Helpdesk          | Whitehorse          |
+|         100 | Steven | King  | 24000.00 | IT Helpdesk          | Beijing             |
+|         100 | Steven | King  | 24000.00 | IT Helpdesk          | Bombay              |
+|         100 | Steven | King  | 24000.00 | IT Helpdesk          | Sydney              |
+|         100 | Steven | King  | 24000.00 | IT Helpdesk          | Singapore           |
+|         100 | Steven | King  | 24000.00 | IT Helpdesk          | London              |
+|         100 | Steven | King  | 24000.00 | IT Helpdesk          | Oxford              |
+|         100 | Steven | King  | 24000.00 | IT Helpdesk          | Stretford           |
+|         100 | Steven | King  | 24000.00 | IT Helpdesk          | Munich              |
+|         100 | Steven | King  | 24000.00 | IT Helpdesk          | Sao Paulo           |
+|         100 | Steven | King  | 24000.00 | IT Helpdesk          | Geneva              |
+|         100 | Steven | King  | 24000.00 | IT Helpdesk          | Bern                |
+|         100 | Steven | King  | 24000.00 | IT Helpdesk          | Utrecht             |
+|         100 | Steven | King  | 24000.00 | IT Helpdesk          | Mexico City         |
+|         100 | Steven | King  | 24000.00 | NOC                  | Roma                |
+|         100 | Steven | King  | 24000.00 | NOC                  | Venice              |
+|         100 | Steven | King  | 24000.00 | NOC                  | Tokyo               |
+|         100 | Steven | King  | 24000.00 | NOC                  | Hiroshima           |
+|         100 | Steven | King  | 24000.00 | NOC                  | Southlake           |
+|         100 | Steven | King  | 24000.00 | NOC                  | South San Francisco |
+|         100 | Steven | King  | 24000.00 | NOC                  | South Brunswick     |
+|         100 | Steven | King  | 24000.00 | NOC                  | Seattle             |
+|         100 | Steven | King  | 24000.00 | NOC                  | Toronto             |
+|         100 | Steven | King  | 24000.00 | NOC                  | Whitehorse          |
+|         100 | Steven | King  | 24000.00 | NOC                  | Beijing             |
+|         100 | Steven | King  | 24000.00 | NOC                  | Bombay              |
+|         100 | Steven | King  | 24000.00 | NOC                  | Sydney              |
+|         100 | Steven | King  | 24000.00 | NOC                  | Singapore           |
+|         100 | Steven | King  | 24000.00 | NOC                  | London              |
+|         100 | Steven | King  | 24000.00 | NOC                  | Oxford              |
+|         100 | Steven | King  | 24000.00 | NOC                  | Stretford           |
+|         100 | Steven | King  | 24000.00 | NOC                  | Munich              |
+|         100 | Steven | King  | 24000.00 | NOC                  | Sao Paulo           |
+|         100 | Steven | King  | 24000.00 | NOC                  | Geneva              |
+|         100 | Steven | King  | 24000.00 | NOC                  | Bern                |
+|         100 | Steven | King  | 24000.00 | NOC                  | Utrecht             |
+|         100 | Steven | King  | 24000.00 | NOC                  | Mexico City         |
+|         100 | Steven | King  | 24000.00 | IT Supports          | Roma                |
+|         100 | Steven | King  | 24000.00 | IT Supports          | Venice              |
+|         100 | Steven | King  | 24000.00 | IT Supports          | Tokyo               |
+|         100 | Steven | King  | 24000.00 | IT Supports          | Hiroshima           |
+|         100 | Steven | King  | 24000.00 | IT Supports          | Southlake           |
+|         100 | Steven | King  | 24000.00 | IT Supports          | South San Francisco |
+|         100 | Steven | King  | 24000.00 | IT Supports          | South Brunswick     |
+|         100 | Steven | King  | 24000.00 | IT Supports          | Seattle             |
+|         100 | Steven | King  | 24000.00 | IT Supports          | Toronto             |
+|         100 | Steven | King  | 24000.00 | IT Supports          | Whitehorse          |
+|         100 | Steven | King  | 24000.00 | IT Supports          | Beijing             |
+|         100 | Steven | King  | 24000.00 | IT Supports          | Bombay              |
+|         100 | Steven | King  | 24000.00 | IT Supports          | Sydney              |
+|         100 | Steven | King  | 24000.00 | IT Supports          | Singapore           |
+|         100 | Steven | King  | 24000.00 | IT Supports          | London              |
+|         100 | Steven | King  | 24000.00 | IT Supports          | Oxford              |
+|         100 | Steven | King  | 24000.00 | IT Supports          | Stretford           |
+|         100 | Steven | King  | 24000.00 | IT Supports          | Munich              |
+|         100 | Steven | King  | 24000.00 | IT Supports          | Sao Paulo           |
+|         100 | Steven | King  | 24000.00 | IT Supports          | Geneva              |
+|         100 | Steven | King  | 24000.00 | IT Supports          | Bern                |
+|         100 | Steven | King  | 24000.00 | IT Supports          | Utrecht             |
+|         100 | Steven | King  | 24000.00 | IT Supports          | Mexico City         |
+|         100 | Steven | King  | 24000.00 | Operations           | Roma                |
+|         100 | Steven | King  | 24000.00 | Operations           | Venice              |
+|         100 | Steven | King  | 24000.00 | Operations           | Tokyo               |
+|         100 | Steven | King  | 24000.00 | Operations           | Hiroshima           |
+|         100 | Steven | King  | 24000.00 | Operations           | Southlake           |
+|         100 | Steven | King  | 24000.00 | Operations           | South San Francisco |
+|         100 | Steven | King  | 24000.00 | Operations           | South Brunswick     |
+|         100 | Steven | King  | 24000.00 | Operations           | Seattle             |
+|         100 | Steven | King  | 24000.00 | Operations           | Toronto             |
+|         100 | Steven | King  | 24000.00 | Operations           | Whitehorse          |
+|         100 | Steven | King  | 24000.00 | Operations           | Beijing             |
+|         100 | Steven | King  | 24000.00 | Operations           | Bombay              |
+|         100 | Steven | King  | 24000.00 | Operations           | Sydney              |
+|         100 | Steven | King  | 24000.00 | Operations           | Singapore           |
+|         100 | Steven | King  | 24000.00 | Operations           | London              |
+|         100 | Steven | King  | 24000.00 | Operations           | Oxford              |
+|         100 | Steven | King  | 24000.00 | Operations           | Stretford           |
+|         100 | Steven | King  | 24000.00 | Operations           | Munich              |
+|         100 | Steven | King  | 24000.00 | Operations           | Sao Paulo           |
+|         100 | Steven | King  | 24000.00 | Operations           | Geneva              |
+|         100 | Steven | King  | 24000.00 | Operations           | Bern                |
+|         100 | Steven | King  | 24000.00 | Operations           | Utrecht             |
+|         100 | Steven | King  | 24000.00 | Operations           | Mexico City         |
+|         100 | Steven | King  | 24000.00 | Contracting          | Roma                |
+|         100 | Steven | King  | 24000.00 | Contracting          | Venice              |
+|         100 | Steven | King  | 24000.00 | Contracting          | Tokyo               |
+|         100 | Steven | King  | 24000.00 | Contracting          | Hiroshima           |
+|         100 | Steven | King  | 24000.00 | Contracting          | Southlake           |
+|         100 | Steven | King  | 24000.00 | Contracting          | South San Francisco |
+|         100 | Steven | King  | 24000.00 | Contracting          | South Brunswick     |
+|         100 | Steven | King  | 24000.00 | Contracting          | Seattle             |
+|         100 | Steven | King  | 24000.00 | Contracting          | Toronto             |
+|         100 | Steven | King  | 24000.00 | Contracting          | Whitehorse          |
+|         100 | Steven | King  | 24000.00 | Contracting          | Beijing             |
+|         100 | Steven | King  | 24000.00 | Contracting          | Bombay              |
+|         100 | Steven | King  | 24000.00 | Contracting          | Sydney              |
+|         100 | Steven | King  | 24000.00 | Contracting          | Singapore           |
+|         100 | Steven | King  | 24000.00 | Contracting          | London              |
+|         100 | Steven | King  | 24000.00 | Contracting          | Oxford              |
+|         100 | Steven | King  | 24000.00 | Contracting          | Stretford           |
+|         100 | Steven | King  | 24000.00 | Contracting          | Munich              |
+|         100 | Steven | King  | 24000.00 | Contracting          | Sao Paulo           |
+|         100 | Steven | King  | 24000.00 | Contracting          | Geneva              |
+|         100 | Steven | King  | 24000.00 | Contracting          | Bern                |
+|         100 | Steven | King  | 24000.00 | Contracting          | Utrecht             |
+|         100 | Steven | King  | 24000.00 | Contracting          | Mexico City         |
+|         100 | Steven | King  | 24000.00 | Construction         | Roma                |
+|         100 | Steven | King  | 24000.00 | Construction         | Venice              |
+|         100 | Steven | King  | 24000.00 | Construction         | Tokyo               |
+|         100 | Steven | King  | 24000.00 | Construction         | Hiroshima           |
+|         100 | Steven | King  | 24000.00 | Construction         | Southlake           |
+|         100 | Steven | King  | 24000.00 | Construction         | South San Francisco |
+|         100 | Steven | King  | 24000.00 | Construction         | South Brunswick     |
+|         100 | Steven | King  | 24000.00 | Construction         | Seattle             |
+|         100 | Steven | King  | 24000.00 | Construction         | Toronto             |
+|         100 | Steven | King  | 24000.00 | Construction         | Whitehorse          |
+|         100 | Steven | King  | 24000.00 | Construction         | Beijing             |
+|         100 | Steven | King  | 24000.00 | Construction         | Bombay              |
+|         100 | Steven | King  | 24000.00 | Construction         | Sydney              |
+|         100 | Steven | King  | 24000.00 | Construction         | Singapore           |
+|         100 | Steven | King  | 24000.00 | Construction         | London              |
+|         100 | Steven | King  | 24000.00 | Construction         | Oxford              |
+|         100 | Steven | King  | 24000.00 | Construction         | Stretford           |
+|         100 | Steven | King  | 24000.00 | Construction         | Munich              |
+|         100 | Steven | King  | 24000.00 | Construction         | Sao Paulo           |
+|         100 | Steven | King  | 24000.00 | Construction         | Geneva              |
+|         100 | Steven | King  | 24000.00 | Construction         | Bern                |
+|         100 | Steven | King  | 24000.00 | Construction         | Utrecht             |
+|         100 | Steven | King  | 24000.00 | Construction         | Mexico City         |
+|         100 | Steven | King  | 24000.00 | Manufacturing        | Roma                |
+|         100 | Steven | King  | 24000.00 | Manufacturing        | Venice              |
+|         100 | Steven | King  | 24000.00 | Manufacturing        | Tokyo               |
+|         100 | Steven | King  | 24000.00 | Manufacturing        | Hiroshima           |
+|         100 | Steven | King  | 24000.00 | Manufacturing        | Southlake           |
+|         100 | Steven | King  | 24000.00 | Manufacturing        | South San Francisco |
+|         100 | Steven | King  | 24000.00 | Manufacturing        | South Brunswick     |
+|         100 | Steven | King  | 24000.00 | Manufacturing        | Seattle             |
+|         100 | Steven | King  | 24000.00 | Manufacturing        | Toronto             |
+|         100 | Steven | King  | 24000.00 | Manufacturing        | Whitehorse          |
+|         100 | Steven | King  | 24000.00 | Manufacturing        | Beijing             |
+|         100 | Steven | King  | 24000.00 | Manufacturing        | Bombay              |
+|         100 | Steven | King  | 24000.00 | Manufacturing        | Sydney              |
+|         100 | Steven | King  | 24000.00 | Manufacturing        | Singapore           |
+|         100 | Steven | King  | 24000.00 | Manufacturing        | London              |
+|         100 | Steven | King  | 24000.00 | Manufacturing        | Oxford              |
+|         100 | Steven | King  | 24000.00 | Manufacturing        | Stretford           |
+|         100 | Steven | King  | 24000.00 | Manufacturing        | Munich              |
+|         100 | Steven | King  | 24000.00 | Manufacturing        | Sao Paulo           |
+|         100 | Steven | King  | 24000.00 | Manufacturing        | Geneva              |
+|         100 | Steven | King  | 24000.00 | Manufacturing        | Bern                |
+|         100 | Steven | King  | 24000.00 | Manufacturing        | Utrecht             |
+|         100 | Steven | King  | 24000.00 | Manufacturing        | Mexico City         |
+|         100 | Steven | King  | 24000.00 | Benifits             | Roma                |
+|         100 | Steven | King  | 24000.00 | Benifits             | Venice              |
+|         100 | Steven | King  | 24000.00 | Benifits             | Tokyo               |
+|         100 | Steven | King  | 24000.00 | Benifits             | Hiroshima           |
+|         100 | Steven | King  | 24000.00 | Benifits             | Southlake           |
+|         100 | Steven | King  | 24000.00 | Benifits             | South San Francisco |
+|         100 | Steven | King  | 24000.00 | Benifits             | South Brunswick     |
+|         100 | Steven | King  | 24000.00 | Benifits             | Seattle             |
+|         100 | Steven | King  | 24000.00 | Benifits             | Toronto             |
+|         100 | Steven | King  | 24000.00 | Benifits             | Whitehorse          |
+|         100 | Steven | King  | 24000.00 | Benifits             | Beijing             |
+|         100 | Steven | King  | 24000.00 | Benifits             | Bombay              |
+|         100 | Steven | King  | 24000.00 | Benifits             | Sydney              |
+|         100 | Steven | King  | 24000.00 | Benifits             | Singapore           |
+|         100 | Steven | King  | 24000.00 | Benifits             | London              |
+|         100 | Steven | King  | 24000.00 | Benifits             | Oxford              |
+|         100 | Steven | King  | 24000.00 | Benifits             | Stretford           |
+|         100 | Steven | King  | 24000.00 | Benifits             | Munich              |
+|         100 | Steven | King  | 24000.00 | Benifits             | Sao Paulo           |
+|         100 | Steven | King  | 24000.00 | Benifits             | Geneva              |
+|         100 | Steven | King  | 24000.00 | Benifits             | Bern                |
+|         100 | Steven | King  | 24000.00 | Benifits             | Utrecht             |
+|         100 | Steven | King  | 24000.00 | Benifits             | Mexico City         |
+|         100 | Steven | King  | 24000.00 | Shareholder Services | Roma                |
+|         100 | Steven | King  | 24000.00 | Shareholder Services | Venice              |
+|         100 | Steven | King  | 24000.00 | Shareholder Services | Tokyo               |
+|         100 | Steven | King  | 24000.00 | Shareholder Services | Hiroshima           |
+|         100 | Steven | King  | 24000.00 | Shareholder Services | Southlake           |
+|         100 | Steven | King  | 24000.00 | Shareholder Services | South San Francisco |
+|         100 | Steven | King  | 24000.00 | Shareholder Services | South Brunswick     |
+|         100 | Steven | King  | 24000.00 | Shareholder Services | Seattle             |
+|         100 | Steven | King  | 24000.00 | Shareholder Services | Toronto             |
+|         100 | Steven | King  | 24000.00 | Shareholder Services | Whitehorse          |
+|         100 | Steven | King  | 24000.00 | Shareholder Services | Beijing             |
+|         100 | Steven | King  | 24000.00 | Shareholder Services | Bombay              |
+|         100 | Steven | King  | 24000.00 | Shareholder Services | Sydney              |
+|         100 | Steven | King  | 24000.00 | Shareholder Services | Singapore           |
+|         100 | Steven | King  | 24000.00 | Shareholder Services | London              |
+|         100 | Steven | King  | 24000.00 | Shareholder Services | Oxford              |
+|         100 | Steven | King  | 24000.00 | Shareholder Services | Stretford           |
+|         100 | Steven | King  | 24000.00 | Shareholder Services | Munich              |
+|         100 | Steven | King  | 24000.00 | Shareholder Services | Sao Paulo           |
+|         100 | Steven | King  | 24000.00 | Shareholder Services | Geneva              |
+|         100 | Steven | King  | 24000.00 | Shareholder Services | Bern                |
+|         100 | Steven | King  | 24000.00 | Shareholder Services | Utrecht             |
+|         100 | Steven | King  | 24000.00 | Shareholder Services | Mexico City         |
+|         100 | Steven | King  | 24000.00 | Control and Credit   | Roma                |
+|         100 | Steven | King  | 24000.00 | Control and Credit   | Venice              |
+|         100 | Steven | King  | 24000.00 | Control and Credit   | Tokyo               |
+|         100 | Steven | King  | 24000.00 | Control and Credit   | Hiroshima           |
+|         100 | Steven | King  | 24000.00 | Control and Credit   | Southlake           |
+|         100 | Steven | King  | 24000.00 | Control and Credit   | South San Francisco |
+|         100 | Steven | King  | 24000.00 | Control and Credit   | South Brunswick     |
+|         100 | Steven | King  | 24000.00 | Control and Credit   | Seattle             |
+|         100 | Steven | King  | 24000.00 | Control and Credit   | Toronto             |
+|         100 | Steven | King  | 24000.00 | Control and Credit   | Whitehorse          |
+|         100 | Steven | King  | 24000.00 | Control and Credit   | Beijing             |
+|         100 | Steven | King  | 24000.00 | Control and Credit   | Bombay              |
+|         100 | Steven | King  | 24000.00 | Control and Credit   | Sydney              |
+|         100 | Steven | King  | 24000.00 | Control and Credit   | Singapore           |
+|         100 | Steven | King  | 24000.00 | Control and Credit   | London              |
+|         100 | Steven | King  | 24000.00 | Control and Credit   | Oxford              |
+|         100 | Steven | King  | 24000.00 | Control and Credit   | Stretford           |
+|         100 | Steven | King  | 24000.00 | Control and Credit   | Munich              |
+|         100 | Steven | King  | 24000.00 | Control and Credit   | Sao Paulo           |
+|         100 | Steven | King  | 24000.00 | Control and Credit   | Geneva              |
+|         100 | Steven | King  | 24000.00 | Control and Credit   | Bern                |
+|         100 | Steven | King  | 24000.00 | Control and Credit   | Utrecht             |
+|         100 | Steven | King  | 24000.00 | Control and Credit   | Mexico City         |
+|         100 | Steven | King  | 24000.00 | Corporate Tax        | Roma                |
+|         100 | Steven | King  | 24000.00 | Corporate Tax        | Venice              |
+|         100 | Steven | King  | 24000.00 | Corporate Tax        | Tokyo               |
+|         100 | Steven | King  | 24000.00 | Corporate Tax        | Hiroshima           |
+|         100 | Steven | King  | 24000.00 | Corporate Tax        | Southlake           |
+|         100 | Steven | King  | 24000.00 | Corporate Tax        | South San Francisco |
+|         100 | Steven | King  | 24000.00 | Corporate Tax        | South Brunswick     |
+|         100 | Steven | King  | 24000.00 | Corporate Tax        | Seattle             |
+|         100 | Steven | King  | 24000.00 | Corporate Tax        | Toronto             |
+|         100 | Steven | King  | 24000.00 | Corporate Tax        | Whitehorse          |
+|         100 | Steven | King  | 24000.00 | Corporate Tax        | Beijing             |
+|         100 | Steven | King  | 24000.00 | Corporate Tax        | Bombay              |
+|         100 | Steven | King  | 24000.00 | Corporate Tax        | Sydney              |
+|         100 | Steven | King  | 24000.00 | Corporate Tax        | Singapore           |
+|         100 | Steven | King  | 24000.00 | Corporate Tax        | London              |
+|         100 | Steven | King  | 24000.00 | Corporate Tax        | Oxford              |
+|         100 | Steven | King  | 24000.00 | Corporate Tax        | Stretford           |
+|         100 | Steven | King  | 24000.00 | Corporate Tax        | Munich              |
+|         100 | Steven | King  | 24000.00 | Corporate Tax        | Sao Paulo           |
+|         100 | Steven | King  | 24000.00 | Corporate Tax        | Geneva              |
+|         100 | Steven | King  | 24000.00 | Corporate Tax        | Bern                |
+|         100 | Steven | King  | 24000.00 | Corporate Tax        | Utrecht             |
+|         100 | Steven | King  | 24000.00 | Corporate Tax        | Mexico City         |
+|         100 | Steven | King  | 24000.00 | Treasury             | Roma                |
+|         100 | Steven | King  | 24000.00 | Treasury             | Venice              |
+|         100 | Steven | King  | 24000.00 | Treasury             | Tokyo               |
+|         100 | Steven | King  | 24000.00 | Treasury             | Hiroshima           |
+|         100 | Steven | King  | 24000.00 | Treasury             | Southlake           |
+|         100 | Steven | King  | 24000.00 | Treasury             | South San Francisco |
+|         100 | Steven | King  | 24000.00 | Treasury             | South Brunswick     |
+|         100 | Steven | King  | 24000.00 | Treasury             | Seattle             |
+|         100 | Steven | King  | 24000.00 | Treasury             | Toronto             |
+|         100 | Steven | King  | 24000.00 | Treasury             | Whitehorse          |
+|         100 | Steven | King  | 24000.00 | Treasury             | Beijing             |
+|         100 | Steven | King  | 24000.00 | Treasury             | Bombay              |
+|         100 | Steven | King  | 24000.00 | Treasury             | Sydney              |
+|         100 | Steven | King  | 24000.00 | Treasury             | Singapore           |
+|         100 | Steven | King  | 24000.00 | Treasury             | London              |
+|         100 | Steven | King  | 24000.00 | Treasury             | Oxford              |
+|         100 | Steven | King  | 24000.00 | Treasury             | Stretford           |
+|         100 | Steven | King  | 24000.00 | Treasury             | Munich              |
+|         100 | Steven | King  | 24000.00 | Treasury             | Sao Paulo           |
+|         100 | Steven | King  | 24000.00 | Treasury             | Geneva              |
+|         100 | Steven | King  | 24000.00 | Treasury             | Bern                |
+|         100 | Steven | King  | 24000.00 | Treasury             | Utrecht             |
+|         100 | Steven | King  | 24000.00 | Treasury             | Mexico City         |
+|         100 | Steven | King  | 24000.00 | Accounting           | Roma                |
+|         100 | Steven | King  | 24000.00 | Accounting           | Venice              |
+|         100 | Steven | King  | 24000.00 | Accounting           | Tokyo               |
+|         100 | Steven | King  | 24000.00 | Accounting           | Hiroshima           |
+|         100 | Steven | King  | 24000.00 | Accounting           | Southlake           |
+|         100 | Steven | King  | 24000.00 | Accounting           | South San Francisco |
+|         100 | Steven | King  | 24000.00 | Accounting           | South Brunswick     |
+|         100 | Steven | King  | 24000.00 | Accounting           | Seattle             |
+|         100 | Steven | King  | 24000.00 | Accounting           | Toronto             |
+|         100 | Steven | King  | 24000.00 | Accounting           | Whitehorse          |
+|         100 | Steven | King  | 24000.00 | Accounting           | Beijing             |
+|         100 | Steven | King  | 24000.00 | Accounting           | Bombay              |
+|         100 | Steven | King  | 24000.00 | Accounting           | Sydney              |
+|         100 | Steven | King  | 24000.00 | Accounting           | Singapore           |
+|         100 | Steven | King  | 24000.00 | Accounting           | London              |
+|         100 | Steven | King  | 24000.00 | Accounting           | Oxford              |
+|         100 | Steven | King  | 24000.00 | Accounting           | Stretford           |
+|         100 | Steven | King  | 24000.00 | Accounting           | Munich              |
+|         100 | Steven | King  | 24000.00 | Accounting           | Sao Paulo           |
+|         100 | Steven | King  | 24000.00 | Accounting           | Geneva              |
+|         100 | Steven | King  | 24000.00 | Accounting           | Bern                |
+|         100 | Steven | King  | 24000.00 | Accounting           | Utrecht             |
+|         100 | Steven | King  | 24000.00 | Accounting           | Mexico City         |
+|         100 | Steven | King  | 24000.00 | Finance              | Roma                |
+|         100 | Steven | King  | 24000.00 | Finance              | Venice              |
+|         100 | Steven | King  | 24000.00 | Finance              | Tokyo               |
+|         100 | Steven | King  | 24000.00 | Finance              | Hiroshima           |
+|         100 | Steven | King  | 24000.00 | Finance              | Southlake           |
+|         100 | Steven | King  | 24000.00 | Finance              | South San Francisco |
+|         100 | Steven | King  | 24000.00 | Finance              | South Brunswick     |
+|         100 | Steven | King  | 24000.00 | Finance              | Seattle             |
+|         100 | Steven | King  | 24000.00 | Finance              | Toronto             |
+|         100 | Steven | King  | 24000.00 | Finance              | Whitehorse          |
+|         100 | Steven | King  | 24000.00 | Finance              | Beijing             |
+|         100 | Steven | King  | 24000.00 | Finance              | Bombay              |
+|         100 | Steven | King  | 24000.00 | Finance              | Sydney              |
+|         100 | Steven | King  | 24000.00 | Finance              | Singapore           |
+|         100 | Steven | King  | 24000.00 | Finance              | London              |
+|         100 | Steven | King  | 24000.00 | Finance              | Oxford              |
+|         100 | Steven | King  | 24000.00 | Finance              | Stretford           |
+|         100 | Steven | King  | 24000.00 | Finance              | Munich              |
+|         100 | Steven | King  | 24000.00 | Finance              | Sao Paulo           |
+|         100 | Steven | King  | 24000.00 | Finance              | Geneva              |
+|         100 | Steven | King  | 24000.00 | Finance              | Bern                |
+|         100 | Steven | King  | 24000.00 | Finance              | Utrecht             |
+|         100 | Steven | King  | 24000.00 | Finance              | Mexico City         |
+|         100 | Steven | King  | 24000.00 | Executive            | Roma                |
+|         100 | Steven | King  | 24000.00 | Executive            | Venice              |
+|         100 | Steven | King  | 24000.00 | Executive            | Tokyo               |
+|         100 | Steven | King  | 24000.00 | Executive            | Hiroshima           |
+|         100 | Steven | King  | 24000.00 | Executive            | Southlake           |
+|         100 | Steven | King  | 24000.00 | Executive            | South San Francisco |
+|         100 | Steven | King  | 24000.00 | Executive            | South Brunswick     |
+|         100 | Steven | King  | 24000.00 | Executive            | Seattle             |
+|         100 | Steven | King  | 24000.00 | Executive            | Toronto             |
+|         100 | Steven | King  | 24000.00 | Executive            | Whitehorse          |
+|         100 | Steven | King  | 24000.00 | Executive            | Beijing             |
+|         100 | Steven | King  | 24000.00 | Executive            | Bombay              |
+|         100 | Steven | King  | 24000.00 | Executive            | Sydney              |
+|         100 | Steven | King  | 24000.00 | Executive            | Singapore           |
+|         100 | Steven | King  | 24000.00 | Executive            | London              |
+|         100 | Steven | King  | 24000.00 | Executive            | Oxford              |
+|         100 | Steven | King  | 24000.00 | Executive            | Stretford           |
+|         100 | Steven | King  | 24000.00 | Executive            | Munich              |
+|         100 | Steven | King  | 24000.00 | Executive            | Sao Paulo           |
+|         100 | Steven | King  | 24000.00 | Executive            | Geneva              |
+|         100 | Steven | King  | 24000.00 | Executive            | Bern                |
+|         100 | Steven | King  | 24000.00 | Executive            | Utrecht             |
+|         100 | Steven | King  | 24000.00 | Executive            | Mexico City         |
+|         100 | Steven | King  | 24000.00 | Sales                | Roma                |
+|         100 | Steven | King  | 24000.00 | Sales                | Venice              |
+|         100 | Steven | King  | 24000.00 | Sales                | Tokyo               |
+|         100 | Steven | King  | 24000.00 | Sales                | Hiroshima           |
+|         100 | Steven | King  | 24000.00 | Sales                | Southlake           |
+|         100 | Steven | King  | 24000.00 | Sales                | South San Francisco |
+|         100 | Steven | King  | 24000.00 | Sales                | South Brunswick     |
+|         100 | Steven | King  | 24000.00 | Sales                | Seattle             |
+|         100 | Steven | King  | 24000.00 | Sales                | Toronto             |
+|         100 | Steven | King  | 24000.00 | Sales                | Whitehorse          |
+|         100 | Steven | King  | 24000.00 | Sales                | Beijing             |
+|         100 | Steven | King  | 24000.00 | Sales                | Bombay              |
+|         100 | Steven | King  | 24000.00 | Sales                | Sydney              |
+|         100 | Steven | King  | 24000.00 | Sales                | Singapore           |
+|         100 | Steven | King  | 24000.00 | Sales                | London              |
+|         100 | Steven | King  | 24000.00 | Sales                | Oxford              |
+|         100 | Steven | King  | 24000.00 | Sales                | Stretford           |
+|         100 | Steven | King  | 24000.00 | Sales                | Munich              |
+|         100 | Steven | King  | 24000.00 | Sales                | Sao Paulo           |
+|         100 | Steven | King  | 24000.00 | Sales                | Geneva              |
+|         100 | Steven | King  | 24000.00 | Sales                | Bern                |
+|         100 | Steven | King  | 24000.00 | Sales                | Utrecht             |
+|         100 | Steven | King  | 24000.00 | Sales                | Mexico City         |
+|         100 | Steven | King  | 24000.00 | Public Relations     | Roma                |
+|         100 | Steven | King  | 24000.00 | Public Relations     | Venice              |
+|         100 | Steven | King  | 24000.00 | Public Relations     | Tokyo               |
+|         100 | Steven | King  | 24000.00 | Public Relations     | Hiroshima           |
+|         100 | Steven | King  | 24000.00 | Public Relations     | Southlake           |
+|         100 | Steven | King  | 24000.00 | Public Relations     | South San Francisco |
+|         100 | Steven | King  | 24000.00 | Public Relations     | South Brunswick     |
+|         100 | Steven | King  | 24000.00 | Public Relations     | Seattle             |
+|         100 | Steven | King  | 24000.00 | Public Relations     | Toronto             |
+|         100 | Steven | King  | 24000.00 | Public Relations     | Whitehorse          |
+|         100 | Steven | King  | 24000.00 | Public Relations     | Beijing             |
+|         100 | Steven | King  | 24000.00 | Public Relations     | Bombay              |
+|         100 | Steven | King  | 24000.00 | Public Relations     | Sydney              |
+|         100 | Steven | King  | 24000.00 | Public Relations     | Singapore           |
+|         100 | Steven | King  | 24000.00 | Public Relations     | London              |
+|         100 | Steven | King  | 24000.00 | Public Relations     | Oxford              |
+|         100 | Steven | King  | 24000.00 | Public Relations     | Stretford           |
+|         100 | Steven | King  | 24000.00 | Public Relations     | Munich              |
+|         100 | Steven | King  | 24000.00 | Public Relations     | Sao Paulo           |
+|         100 | Steven | King  | 24000.00 | Public Relations     | Geneva              |
+|         100 | Steven | King  | 24000.00 | Public Relations     | Bern                |
+|         100 | Steven | King  | 24000.00 | Public Relations     | Utrecht             |
+|         100 | Steven | King  | 24000.00 | Public Relations     | Mexico City         |
+|         100 | Steven | King  | 24000.00 | IT                   | Roma                |
+|         100 | Steven | King  | 24000.00 | IT                   | Venice              |
+|         100 | Steven | King  | 24000.00 | IT                   | Tokyo               |
+|         100 | Steven | King  | 24000.00 | IT                   | Hiroshima           |
+|         100 | Steven | King  | 24000.00 | IT                   | Southlake           |
+|         100 | Steven | King  | 24000.00 | IT                   | South San Francisco |
+|         100 | Steven | King  | 24000.00 | IT                   | South Brunswick     |
+|         100 | Steven | King  | 24000.00 | IT                   | Seattle             |
+|         100 | Steven | King  | 24000.00 | IT                   | Toronto             |
+|         100 | Steven | King  | 24000.00 | IT                   | Whitehorse          |
+|         100 | Steven | King  | 24000.00 | IT                   | Beijing             |
+|         100 | Steven | King  | 24000.00 | IT                   | Bombay              |
+|         100 | Steven | King  | 24000.00 | IT                   | Sydney              |
+|         100 | Steven | King  | 24000.00 | IT                   | Singapore           |
+|         100 | Steven | King  | 24000.00 | IT                   | London              |
+|         100 | Steven | King  | 24000.00 | IT                   | Oxford              |
+|         100 | Steven | King  | 24000.00 | IT                   | Stretford           |
+|         100 | Steven | King  | 24000.00 | IT                   | Munich              |
+|         100 | Steven | King  | 24000.00 | IT                   | Sao Paulo           |
+|         100 | Steven | King  | 24000.00 | IT                   | Geneva              |
+|         100 | Steven | King  | 24000.00 | IT                   | Bern                |
+|         100 | Steven | King  | 24000.00 | IT                   | Utrecht             |
+|         100 | Steven | King  | 24000.00 | IT                   | Mexico City         |
+|         100 | Steven | King  | 24000.00 | Shipping             | Roma                |
+|         100 | Steven | King  | 24000.00 | Shipping             | Venice              |
+|         100 | Steven | King  | 24000.00 | Shipping             | Tokyo               |
+|         100 | Steven | King  | 24000.00 | Shipping             | Hiroshima           |
+|         100 | Steven | King  | 24000.00 | Shipping             | Southlake           |
+|         100 | Steven | King  | 24000.00 | Shipping             | South San Francisco |
+|         100 | Steven | King  | 24000.00 | Shipping             | South Brunswick     |
+|         100 | Steven | King  | 24000.00 | Shipping             | Seattle             |
+|         100 | Steven | King  | 24000.00 | Shipping             | Toronto             |
+|         100 | Steven | King  | 24000.00 | Shipping             | Whitehorse          |
+|         100 | Steven | King  | 24000.00 | Shipping             | Beijing             |
+|         100 | Steven | King  | 24000.00 | Shipping             | Bombay              |
+|         100 | Steven | King  | 24000.00 | Shipping             | Sydney              |
+|         100 | Steven | King  | 24000.00 | Shipping             | Singapore           |
+|         100 | Steven | King  | 24000.00 | Shipping             | London              |
+|         100 | Steven | King  | 24000.00 | Shipping             | Oxford              |
+|         100 | Steven | King  | 24000.00 | Shipping             | Stretford           |
+|         100 | Steven | King  | 24000.00 | Shipping             | Munich              |
+|         100 | Steven | King  | 24000.00 | Shipping             | Sao Paulo           |
+|         100 | Steven | King  | 24000.00 | Shipping             | Geneva              |
+|         100 | Steven | King  | 24000.00 | Shipping             | Bern                |
+|         100 | Steven | King  | 24000.00 | Shipping             | Utrecht             |
+|         100 | Steven | King  | 24000.00 | Shipping             | Mexico City         |
+|         100 | Steven | King  | 24000.00 | HR                   | Roma                |
+|         100 | Steven | King  | 24000.00 | HR                   | Venice              |
+|         100 | Steven | King  | 24000.00 | HR                   | Tokyo               |
+|         100 | Steven | King  | 24000.00 | HR                   | Hiroshima           |
+|         100 | Steven | King  | 24000.00 | HR                   | Southlake           |
+|         100 | Steven | King  | 24000.00 | HR                   | South San Francisco |
+|         100 | Steven | King  | 24000.00 | HR                   | South Brunswick     |
+|         100 | Steven | King  | 24000.00 | HR                   | Seattle             |
+|         100 | Steven | King  | 24000.00 | HR                   | Toronto             |
+|         100 | Steven | King  | 24000.00 | HR                   | Whitehorse          |
+|         100 | Steven | King  | 24000.00 | HR                   | Beijing             |
+|         100 | Steven | King  | 24000.00 | HR                   | Bombay              |
+|         100 | Steven | King  | 24000.00 | HR                   | Sydney              |
+|         100 | Steven | King  | 24000.00 | HR                   | Singapore           |
+|         100 | Steven | King  | 24000.00 | HR                   | London              |
+|         100 | Steven | King  | 24000.00 | HR                   | Oxford              |
+|         100 | Steven | King  | 24000.00 | HR                   | Stretford           |
+|         100 | Steven | King  | 24000.00 | HR                   | Munich              |
+|         100 | Steven | King  | 24000.00 | HR                   | Sao Paulo           |
+|         100 | Steven | King  | 24000.00 | HR                   | Geneva              |
+|         100 | Steven | King  | 24000.00 | HR                   | Bern                |
+|         100 | Steven | King  | 24000.00 | HR                   | Utrecht             |
+|         100 | Steven | King  | 24000.00 | HR                   | Mexico City         |
+|         100 | Steven | King  | 24000.00 | Purchasing           | Roma                |
+|         100 | Steven | King  | 24000.00 | Purchasing           | Venice              |
+|         100 | Steven | King  | 24000.00 | Purchasing           | Tokyo               |
+|         100 | Steven | King  | 24000.00 | Purchasing           | Hiroshima           |
+|         100 | Steven | King  | 24000.00 | Purchasing           | Southlake           |
+|         100 | Steven | King  | 24000.00 | Purchasing           | South San Francisco |
+|         100 | Steven | King  | 24000.00 | Purchasing           | South Brunswick     |
+|         100 | Steven | King  | 24000.00 | Purchasing           | Seattle             |
+|         100 | Steven | King  | 24000.00 | Purchasing           | Toronto             |
+|         100 | Steven | King  | 24000.00 | Purchasing           | Whitehorse          |
+|         100 | Steven | King  | 24000.00 | Purchasing           | Beijing             |
+|         100 | Steven | King  | 24000.00 | Purchasing           | Bombay              |
+|         100 | Steven | King  | 24000.00 | Purchasing           | Sydney              |
+|         100 | Steven | King  | 24000.00 | Purchasing           | Singapore           |
+|         100 | Steven | King  | 24000.00 | Purchasing           | London              |
+|         100 | Steven | King  | 24000.00 | Purchasing           | Oxford              |
+|         100 | Steven | King  | 24000.00 | Purchasing           | Stretford           |
+|         100 | Steven | King  | 24000.00 | Purchasing           | Munich              |
+|         100 | Steven | King  | 24000.00 | Purchasing           | Sao Paulo           |
+|         100 | Steven | King  | 24000.00 | Purchasing           | Geneva              |
+|         100 | Steven | King  | 24000.00 | Purchasing           | Bern                |
+|         100 | Steven | King  | 24000.00 | Purchasing           | Utrecht             |
+|         100 | Steven | King  | 24000.00 | Purchasing           | Mexico City         |
+|         100 | Steven | King  | 24000.00 | Marketing            | Roma                |
+|         100 | Steven | King  | 24000.00 | Marketing            | Venice              |
+|         100 | Steven | King  | 24000.00 | Marketing            | Tokyo               |
+|         100 | Steven | King  | 24000.00 | Marketing            | Hiroshima           |
+|         100 | Steven | King  | 24000.00 | Marketing            | Southlake           |
+|         100 | Steven | King  | 24000.00 | Marketing            | South San Francisco |
+|         100 | Steven | King  | 24000.00 | Marketing            | South Brunswick     |
+|         100 | Steven | King  | 24000.00 | Marketing            | Seattle             |
+|         100 | Steven | King  | 24000.00 | Marketing            | Toronto             |
+|         100 | Steven | King  | 24000.00 | Marketing            | Whitehorse          |
+|         100 | Steven | King  | 24000.00 | Marketing            | Beijing             |
+|         100 | Steven | King  | 24000.00 | Marketing            | Bombay              |
+|         100 | Steven | King  | 24000.00 | Marketing            | Sydney              |
+|         100 | Steven | King  | 24000.00 | Marketing            | Singapore           |
+|         100 | Steven | King  | 24000.00 | Marketing            | London              |
+|         100 | Steven | King  | 24000.00 | Marketing            | Oxford              |
+|         100 | Steven | King  | 24000.00 | Marketing            | Stretford           |
+|         100 | Steven | King  | 24000.00 | Marketing            | Munich              |
+|         100 | Steven | King  | 24000.00 | Marketing            | Sao Paulo           |
+|         100 | Steven | King  | 24000.00 | Marketing            | Geneva              |
+|         100 | Steven | King  | 24000.00 | Marketing            | Bern                |
+|         100 | Steven | King  | 24000.00 | Marketing            | Utrecht             |
+|         100 | Steven | King  | 24000.00 | Marketing            | Mexico City         |
+|         100 | Steven | King  | 24000.00 | Admin                | Roma                |
+|         100 | Steven | King  | 24000.00 | Admin                | Venice              |
+|         100 | Steven | King  | 24000.00 | Admin                | Tokyo               |
+|         100 | Steven | King  | 24000.00 | Admin                | Hiroshima           |
+|         100 | Steven | King  | 24000.00 | Admin                | Southlake           |
+|         100 | Steven | King  | 24000.00 | Admin                | South San Francisco |
+|         100 | Steven | King  | 24000.00 | Admin                | South Brunswick     |
+|         100 | Steven | King  | 24000.00 | Admin                | Seattle             |
+|         100 | Steven | King  | 24000.00 | Admin                | Toronto             |
+|         100 | Steven | King  | 24000.00 | Admin                | Whitehorse          |
+|         100 | Steven | King  | 24000.00 | Admin                | Beijing             |
+|         100 | Steven | King  | 24000.00 | Admin                | Bombay              |
+|         100 | Steven | King  | 24000.00 | Admin                | Sydney              |
+|         100 | Steven | King  | 24000.00 | Admin                | Singapore           |
+|         100 | Steven | King  | 24000.00 | Admin                | London              |
+|         100 | Steven | King  | 24000.00 | Admin                | Oxford              |
+|         100 | Steven | King  | 24000.00 | Admin                | Stretford           |
+|         100 | Steven | King  | 24000.00 | Admin                | Munich              |
+|         100 | Steven | King  | 24000.00 | Admin                | Sao Paulo           |
+|         100 | Steven | King  | 24000.00 | Admin                | Geneva              |
+|         100 | Steven | King  | 24000.00 | Admin                | Bern                |
+|         100 | Steven | King  | 24000.00 | Admin                | Utrecht             |
+|         100 | Steven | King  | 24000.00 | Admin                | Mexico City         |
++-------------+--------+-------+----------+----------------------+---------------------+
+621 rows in set (0.03 sec)
+
+mysql> select a.employee_id, a.fname,a.lname,a.salary,b.name,c.city from employees a,departments b,locations c where a.salary in (select max(salary) from employees) and a.hire_date between '2002-01-01' an
+d '2003-12-31';
+Empty set (0.00 sec)
+
+mysql> select a.employee_id, a.fname,a.lname,a.salary,b.name,c.city from employees a,departments b,locations c where a.salary = (select max(salary) from employees where hire_date between '2002-01-01' and
+'2003-12-31') and a.department_id = b.department_id and b.location_id=c.location_id;
++-------------+--------+-------+----------+-----------+---------+
+| employee_id | fname  | lname | salary   | name      | city    |
++-------------+--------+-------+----------+-----------+---------+
+|         100 | Steven | King  | 24000.00 | Executive | Seattle |
++-------------+--------+-------+----------+-----------+---------+
+1 row in set (0.01 sec)
+
+mysql> select department_id,name from departments where location_id in (select location_id from locati
+ons where city='London');
++---------------+------+
+| department_id | name |
++---------------+------+
+|            40 | HR   |
++---------------+------+
+1 row in set (0.00 sec)
+
+mysql> select fname,lname,salary,department_id from employees where salary > (select avg(salary) from
+employees) order by salary desc;
++-------------+------------+----------+---------------+
+| fname       | lname      | salary   | department_id |
++-------------+------------+----------+---------------+
+| PAWAN       | YADAV      | 70000.00 |           110 |
+| Steven      | King       | 24000.00 |            90 |
+| Neena       | Kochhar    | 17000.00 |            90 |
+| Lex         | De Haan    | 17000.00 |            90 |
+| John        | Russell    | 14000.00 |            80 |
+| Karen       | Partners   | 13500.00 |            80 |
+| Michael     | Hartstein  | 13000.00 |            20 |
+| Shelley     | Higgins    | 12008.00 |           110 |
+| Nancy       | Greenberg  | 12000.00 |           100 |
+| Alberto     | Errazuriz  | 12000.00 |            80 |
+| Lisa        | Ozer       | 11500.00 |            80 |
+| Den         | Raphaely   | 11000.00 |            30 |
+| Gerald      | Cambrault  | 11000.00 |            80 |
+| Ellen       | Abel       | 11000.00 |            80 |
+| Clara       | Vishney    | 10500.00 |            80 |
+| Eleni       | Zlotkey    | 10500.00 |            80 |
+| Janette     | King       | 10000.00 |            80 |
+| Harrison    | Bloom      | 10000.00 |            80 |
+| Peter       | Tucker     | 10000.00 |            80 |
+| Hermann     | Baer       | 10000.00 |            70 |
+| Tayler      | Fox        |  9600.00 |            80 |
+| Danielle    | Greene     |  9500.00 |            80 |
+| Patrick     | Sully      |  9500.00 |            80 |
+| David       | Bernstein  |  9500.00 |            80 |
+| Alexander   | Hunold     |  9000.00 |            60 |
+| Peter       | Hall       |  9000.00 |            80 |
+| Daniel      | Faviet     |  9000.00 |           100 |
+| Allan       | McEwen     |  9000.00 |            80 |
+| Alyssa      | Hutton     |  8800.00 |            80 |
+| Jonathon    | Taylor     |  8600.00 |            80 |
+| Jack        | Livingston |  8400.00 |            80 |
+| Adam        | Fripp      |  8200.00 |            50 |
+| John        | Chen       |  8200.00 |           100 |
+| Matthew     | Weiss      |  8000.00 |            50 |
+| Christopher | Olsen      |  8000.00 |            80 |
+| Lindsey     | Smith      |  8000.00 |            80 |
+| Payam       | Kaufling   |  7900.00 |            50 |
+| Jose Manuel | Urman      |  7800.00 |           100 |
+| Ismael      | Sciarra    |  7700.00 |           100 |
+| Nanette     | Cambrault  |  7500.00 |            80 |
+| Louise      | Doran      |  7500.00 |            80 |
+| William     | Smith      |  7400.00 |            80 |
+| Sundita     | Kumar      |  7300.00 |            80 |
+| Mattea      | Marvins    |  7200.00 |            80 |
++-------------+------------+----------+---------------+
+44 rows in set (0.00 sec)
+
+mysql> select fname,lname,department_id from employees where salary >(select max(salary) from employee
+s where department_id=40);
++-------------+------------+---------------+
+| fname       | lname      | department_id |
++-------------+------------+---------------+
+| Steven      | King       |            90 |
+| Neena       | Kochhar    |            90 |
+| Lex         | De Haan    |            90 |
+| Alexander   | Hunold     |            60 |
+| Nancy       | Greenberg  |           100 |
+| Daniel      | Faviet     |           100 |
+| John        | Chen       |           100 |
+| Ismael      | Sciarra    |           100 |
+| Jose Manuel | Urman      |           100 |
+| Luis        | Popp       |           100 |
+| Den         | Raphaely   |            30 |
+| Matthew     | Weiss      |            50 |
+| Adam        | Fripp      |            50 |
+| Payam       | Kaufling   |            50 |
+| John        | Russell    |            80 |
+| Karen       | Partners   |            80 |
+| Alberto     | Errazuriz  |            80 |
+| Gerald      | Cambrault  |            80 |
+| Eleni       | Zlotkey    |            80 |
+| Peter       | Tucker     |            80 |
+| David       | Bernstein  |            80 |
+| Peter       | Hall       |            80 |
+| Christopher | Olsen      |            80 |
+| Nanette     | Cambrault  |            80 |
+| Oliver      | Tuvault    |            80 |
+| Janette     | King       |            80 |
+| Patrick     | Sully      |            80 |
+| Allan       | McEwen     |            80 |
+| Lindsey     | Smith      |            80 |
+| Louise      | Doran      |            80 |
+| Sarath      | Sewall     |            80 |
+| Clara       | Vishney    |            80 |
+| Danielle    | Greene     |            80 |
+| Mattea      | Marvins    |            80 |
+| David       | Lee        |            80 |
+| Lisa        | Ozer       |            80 |
+| Harrison    | Bloom      |            80 |
+| Tayler      | Fox        |            80 |
+| William     | Smith      |            80 |
+| Sundita     | Kumar      |            80 |
+| Ellen       | Abel       |            80 |
+| Alyssa      | Hutton     |            80 |
+| Jonathon    | Taylor     |            80 |
+| Jack        | Livingston |            80 |
+| Kimberely   | Grant      |            80 |
+| Michael     | Hartstein  |            20 |
+| Hermann     | Baer       |            70 |
+| Shelley     | Higgins    |           110 |
+| PAWAN       | YADAV      |           110 |
++-------------+------------+---------------+
+49 rows in set (0.01 sec)
+
+mysql> select fname,lname,department_id from employees where salary > all(select max(salary) from empl
+oyees where department_id=40);
++-------------+------------+---------------+
+| fname       | lname      | department_id |
++-------------+------------+---------------+
+| Steven      | King       |            90 |
+| Neena       | Kochhar    |            90 |
+| Lex         | De Haan    |            90 |
+| Alexander   | Hunold     |            60 |
+| Nancy       | Greenberg  |           100 |
+| Daniel      | Faviet     |           100 |
+| John        | Chen       |           100 |
+| Ismael      | Sciarra    |           100 |
+| Jose Manuel | Urman      |           100 |
+| Luis        | Popp       |           100 |
+| Den         | Raphaely   |            30 |
+| Matthew     | Weiss      |            50 |
+| Adam        | Fripp      |            50 |
+| Payam       | Kaufling   |            50 |
+| John        | Russell    |            80 |
+| Karen       | Partners   |            80 |
+| Alberto     | Errazuriz  |            80 |
+| Gerald      | Cambrault  |            80 |
+| Eleni       | Zlotkey    |            80 |
+| Peter       | Tucker     |            80 |
+| David       | Bernstein  |            80 |
+| Peter       | Hall       |            80 |
+| Christopher | Olsen      |            80 |
+| Nanette     | Cambrault  |            80 |
+| Oliver      | Tuvault    |            80 |
+| Janette     | King       |            80 |
+| Patrick     | Sully      |            80 |
+| Allan       | McEwen     |            80 |
+| Lindsey     | Smith      |            80 |
+| Louise      | Doran      |            80 |
+| Sarath      | Sewall     |            80 |
+| Clara       | Vishney    |            80 |
+| Danielle    | Greene     |            80 |
+| Mattea      | Marvins    |            80 |
+| David       | Lee        |            80 |
+| Lisa        | Ozer       |            80 |
+| Harrison    | Bloom      |            80 |
+| Tayler      | Fox        |            80 |
+| William     | Smith      |            80 |
+| Sundita     | Kumar      |            80 |
+| Ellen       | Abel       |            80 |
+| Alyssa      | Hutton     |            80 |
+| Jonathon    | Taylor     |            80 |
+| Jack        | Livingston |            80 |
+| Kimberely   | Grant      |            80 |
+| Michael     | Hartstein  |            20 |
+| Hermann     | Baer       |            70 |
+| Shelley     | Higgins    |           110 |
+| PAWAN       | YADAV      |           110 |
++-------------+------------+---------------+
+49 rows in set (0.01 sec)
+
+mysql> select name, department_id from departments where location_id in = (select location_id from dep
+artments where department_id = 30);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '= (select location_id from departments where department_id = 30)' at line 1
+mysql> select name, department_id from departments where location_id = (select location_id from depart
+ments where department_id = 30);
++----------------------+---------------+
+| name                 | department_id |
++----------------------+---------------+
+| Admin                |            10 |
+| Purchasing           |            30 |
+| Executive            |            90 |
+| Finance              |           100 |
+| Accounting           |           110 |
+| Treasury             |           120 |
+| Corporate Tax        |           130 |
+| Control and Credit   |           140 |
+| Shareholder Services |           150 |
+| Benifits             |           160 |
+| Manufacturing        |           170 |
+| Construction         |           180 |
+| Contracting          |           190 |
+| Operations           |           200 |
+| IT Supports          |           210 |
+| NOC                  |           220 |
+| IT Helpdesk          |           230 |
+| Government Sales     |           240 |
+| Retail Sales         |           250 |
+| Recruiting           |           260 |
+| Payroll              |           270 |
++----------------------+---------------+
+21 rows in set (0.01 sec)
+
+mysql> select fname,lname,salary,department_id from employees where department_id = (select department
+_id from employees where employee_id=);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+mysql> select fname,lname,salary,department_id from employees where department_id = (select department_id from employees where employee_id=201);
++---------+-----------+----------+---------------+
+| fname   | lname     | salary   | department_id |
++---------+-----------+----------+---------------+
+| Michael | Hartstein | 13000.00 |            20 |
+| Pat     | Fay       |  6000.00 |            20 |
++---------+-----------+----------+---------------+
+2 rows in set (0.06 sec)
+
+mysql> select fname,lname,salary,department_id from employees where salary = (select salary from emplo
+yees where department_id=40);
++--------+---------+---------+---------------+
+| fname  | lname   | salary  | department_id |
++--------+---------+---------+---------------+
+| Shanta | Vollman | 6500.00 |            50 |
+| Susan  | Mavris  | 6500.00 |            40 |
++--------+---------+---------+---------------+
+2 rows in set (0.00 sec)
+
+mysql> select fname,lname,salary,department_id from employees where salary in (select salary from empl
+oyees where department_id=40);
++--------+---------+---------+---------------+
+| fname  | lname   | salary  | department_id |
++--------+---------+---------+---------------+
+| Shanta | Vollman | 6500.00 |            50 |
+| Susan  | Mavris  | 6500.00 |            40 |
++--------+---------+---------+---------------+
+2 rows in set (0.02 sec)
+
+mysql> select fname,lname,department_id from employees where department_id in (select department_id from departments where name='Marketing');
++---------+-----------+---------------+
+| fname   | lname     | department_id |
++---------+-----------+---------------+
+| Michael | Hartstein |            20 |
+| Pat     | Fay       |            20 |
++---------+-----------+---------------+
+2 rows in set (0.02 sec)
+
+mysql> select fname,lname,salary,department_id from employees where salary > (select min(salary) from
+employees where department_id=40);
++-------------+------------+----------+---------------+
+| fname       | lname      | salary   | department_id |
++-------------+------------+----------+---------------+
+| Steven      | King       | 24000.00 |            90 |
+| Neena       | Kochhar    | 17000.00 |            90 |
+| Lex         | De Haan    | 17000.00 |            90 |
+| Alexander   | Hunold     |  9000.00 |            60 |
+| Nancy       | Greenberg  | 12000.00 |           100 |
+| Daniel      | Faviet     |  9000.00 |           100 |
+| John        | Chen       |  8200.00 |           100 |
+| Ismael      | Sciarra    |  7700.00 |           100 |
+| Jose Manuel | Urman      |  7800.00 |           100 |
+| Luis        | Popp       |  6900.00 |           100 |
+| Den         | Raphaely   | 11000.00 |            30 |
+| Matthew     | Weiss      |  8000.00 |            50 |
+| Adam        | Fripp      |  8200.00 |            50 |
+| Payam       | Kaufling   |  7900.00 |            50 |
+| John        | Russell    | 14000.00 |            80 |
+| Karen       | Partners   | 13500.00 |            80 |
+| Alberto     | Errazuriz  | 12000.00 |            80 |
+| Gerald      | Cambrault  | 11000.00 |            80 |
+| Eleni       | Zlotkey    | 10500.00 |            80 |
+| Peter       | Tucker     | 10000.00 |            80 |
+| David       | Bernstein  |  9500.00 |            80 |
+| Peter       | Hall       |  9000.00 |            80 |
+| Christopher | Olsen      |  8000.00 |            80 |
+| Nanette     | Cambrault  |  7500.00 |            80 |
+| Oliver      | Tuvault    |  7000.00 |            80 |
+| Janette     | King       | 10000.00 |            80 |
+| Patrick     | Sully      |  9500.00 |            80 |
+| Allan       | McEwen     |  9000.00 |            80 |
+| Lindsey     | Smith      |  8000.00 |            80 |
+| Louise      | Doran      |  7500.00 |            80 |
+| Sarath      | Sewall     |  7000.00 |            80 |
+| Clara       | Vishney    | 10500.00 |            80 |
+| Danielle    | Greene     |  9500.00 |            80 |
+| Mattea      | Marvins    |  7200.00 |            80 |
+| David       | Lee        |  6800.00 |            80 |
+| Lisa        | Ozer       | 11500.00 |            80 |
+| Harrison    | Bloom      | 10000.00 |            80 |
+| Tayler      | Fox        |  9600.00 |            80 |
+| William     | Smith      |  7400.00 |            80 |
+| Sundita     | Kumar      |  7300.00 |            80 |
+| Ellen       | Abel       | 11000.00 |            80 |
+| Alyssa      | Hutton     |  8800.00 |            80 |
+| Jonathon    | Taylor     |  8600.00 |            80 |
+| Jack        | Livingston |  8400.00 |            80 |
+| Kimberely   | Grant      |  7000.00 |            80 |
+| Michael     | Hartstein  | 13000.00 |            20 |
+| Hermann     | Baer       | 10000.00 |            70 |
+| Shelley     | Higgins    | 12008.00 |           110 |
+| PAWAN       | YADAV      | 70000.00 |           110 |
++-------------+------------+----------+---------------+
+49 rows in set (0.01 sec)
+
+mysql> select fname,lname,hire_date from employees where hire_date > ( select hire_date from employees where department_id=165);
+Empty set (0.01 sec)
+
+mysql> select fname,lname,hire_date from employees where hire_date > ( select hire_date from employees where employee_id=165);
++-----------+--------+------------+
+| fname     | lname  | hire_date  |
++-----------+--------+------------+
+| Steven    | Markle | 2008-03-08 |
+| Sunder    | Ande   | 2008-03-24 |
+| Amit      | Banda  | 2008-04-21 |
+| Elizabeth | Bates  | 2008-04-21 |
++-----------+--------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select fname,lname,salary,department_id from employees where salary < (select min(salary) from
+employees where department_id=70);
++-------------+-------------+---------+---------------+
+| fname       | lname       | salary  | department_id |
++-------------+-------------+---------+---------------+
+| Alexander   | Hunold      | 9000.00 |            60 |
+| Bruce       | Ernst       | 6000.00 |            60 |
+| David       | Austin      | 4800.00 |            60 |
+| Valli       | Pataballa   | 4800.00 |            60 |
+| Diana       | Lorentz     | 4200.00 |            60 |
+| Daniel      | Faviet      | 9000.00 |           100 |
+| John        | Chen        | 8200.00 |           100 |
+| Ismael      | Sciarra     | 7700.00 |           100 |
+| Jose Manuel | Urman       | 7800.00 |           100 |
+| Luis        | Popp        | 6900.00 |           100 |
+| Alexander   | Khoo        | 3100.00 |            30 |
+| Shelli      | Baida       | 2900.00 |            30 |
+| Sigal       | Tobias      | 2800.00 |            30 |
+| Guy         | Himuro      | 2600.00 |            30 |
+| Karen       | Colmenares  | 2500.00 |            30 |
+| Matthew     | Weiss       | 8000.00 |            50 |
+| Adam        | Fripp       | 8200.00 |            50 |
+| Payam       | Kaufling    | 7900.00 |            50 |
+| Shanta      | Vollman     | 6500.00 |            50 |
+| Kevin       | Mourgos     | 5800.00 |            50 |
+| Julia       | Nayer       | 3200.00 |            50 |
+| Irene       | Mikkilineni | 2700.00 |            50 |
+| James       | Landry      | 2400.00 |            50 |
+| Steven      | Markle      | 2200.00 |            50 |
+| Laura       | Bissot      | 3300.00 |            50 |
+| Mozhe       | Atkinson    | 2800.00 |            50 |
+| James       | Marlow      | 2500.00 |            50 |
+| TJ          | Olson       | 2100.00 |            50 |
+| Jason       | Mallin      | 3300.00 |            50 |
+| Michael     | Rogers      | 2900.00 |            50 |
+| Ki          | Gee         | 2400.00 |            50 |
+| Hazel       | Philtanker  | 2200.00 |            50 |
+| Renske      | Ladwig      | 3600.00 |            50 |
+| Stephen     | Stiles      | 3200.00 |            50 |
+| John        | Seo         | 2700.00 |            50 |
+| Joshua      | Patel       | 2500.00 |            50 |
+| Trenna      | Rajs        | 3500.00 |            50 |
+| Curtis      | Davies      | 3100.00 |            50 |
+| Randall     | Matos       | 2600.00 |            50 |
+| Peter       | Vargas      | 2500.00 |            50 |
+| David       | Bernstein   | 9500.00 |            80 |
+| Peter       | Hall        | 9000.00 |            80 |
+| Christopher | Olsen       | 8000.00 |            80 |
+| Nanette     | Cambrault   | 7500.00 |            80 |
+| Oliver      | Tuvault     | 7000.00 |            80 |
+| Patrick     | Sully       | 9500.00 |            80 |
+| Allan       | McEwen      | 9000.00 |            80 |
+| Lindsey     | Smith       | 8000.00 |            80 |
+| Louise      | Doran       | 7500.00 |            80 |
+| Sarath      | Sewall      | 7000.00 |            80 |
+| Danielle    | Greene      | 9500.00 |            80 |
+| Mattea      | Marvins     | 7200.00 |            80 |
+| David       | Lee         | 6800.00 |            80 |
+| Sunder      | Ande        | 6400.00 |            80 |
+| Amit        | Banda       | 6200.00 |            80 |
+| Tayler      | Fox         | 9600.00 |            80 |
+| William     | Smith       | 7400.00 |            80 |
+| Sundita     | Kumar       | 7300.00 |            80 |
+| Elizabeth   | Bates       | 6100.00 |            80 |
+| Alyssa      | Hutton      | 8800.00 |            80 |
+| Jonathon    | Taylor      | 8600.00 |            80 |
+| Jack        | Livingston  | 8400.00 |            80 |
+| Kimberely   | Grant       | 7000.00 |            80 |
+| Charles     | Johnson     | 6200.00 |            80 |
+| Winston     | Taylor      | 3200.00 |            50 |
+| Jean        | Fleaur      | 3100.00 |            50 |
+| Martha      | Sullivan    | 2500.00 |            50 |
+| Girard      | Geoni       | 2800.00 |            50 |
+| Nandita     | Sarchand    | 4200.00 |            50 |
+| Alexis      | Bull        | 4100.00 |            50 |
+| Julia       | Dellinger   | 3400.00 |            50 |
+| Anthony     | Cabrio      | 3000.00 |            50 |
+| Kelly       | Chung       | 3800.00 |            50 |
+| Jennifer    | Dilly       | 3600.00 |            50 |
+| Timothy     | Gates       | 2900.00 |            50 |
+| Randall     | Perkins     | 2500.00 |            50 |
+| Sarah       | Bell        | 4000.00 |            50 |
+| Britney     | Everett     | 3900.00 |            50 |
+| Samuel      | McCain      | 3200.00 |            50 |
+| Vance       | Jones       | 2800.00 |            50 |
+| Alana       | Walsh       | 3100.00 |            50 |
+| Kevin       | Feeney      | 3000.00 |            50 |
+| Donald      | OConnell    | 2600.00 |            50 |
+| Douglas     | Grant       | 2600.00 |            50 |
+| Jennifer    | Whalen      | 4400.00 |            10 |
+| Pat         | Fay         | 6000.00 |            20 |
+| Susan       | Mavris      | 6500.00 |            40 |
++-------------+-------------+---------+---------------+
+87 rows in set (0.00 sec)
+
+mysql> select fname,lname,salary,department_id from employees where salary < (select avg(salary) from
+employees where department_id=(select department_id from employees where fname='Laura'));
++-----------+-------------+---------+---------------+
+| fname     | lname       | salary  | department_id |
++-----------+-------------+---------+---------------+
+| Alexander | Khoo        | 3100.00 |            30 |
+| Shelli    | Baida       | 2900.00 |            30 |
+| Sigal     | Tobias      | 2800.00 |            30 |
+| Guy       | Himuro      | 2600.00 |            30 |
+| Karen     | Colmenares  | 2500.00 |            30 |
+| Julia     | Nayer       | 3200.00 |            50 |
+| Irene     | Mikkilineni | 2700.00 |            50 |
+| James     | Landry      | 2400.00 |            50 |
+| Steven    | Markle      | 2200.00 |            50 |
+| Laura     | Bissot      | 3300.00 |            50 |
+| Mozhe     | Atkinson    | 2800.00 |            50 |
+| James     | Marlow      | 2500.00 |            50 |
+| TJ        | Olson       | 2100.00 |            50 |
+| Jason     | Mallin      | 3300.00 |            50 |
+| Michael   | Rogers      | 2900.00 |            50 |
+| Ki        | Gee         | 2400.00 |            50 |
+| Hazel     | Philtanker  | 2200.00 |            50 |
+| Stephen   | Stiles      | 3200.00 |            50 |
+| John      | Seo         | 2700.00 |            50 |
+| Joshua    | Patel       | 2500.00 |            50 |
+| Curtis    | Davies      | 3100.00 |            50 |
+| Randall   | Matos       | 2600.00 |            50 |
+| Peter     | Vargas      | 2500.00 |            50 |
+| Winston   | Taylor      | 3200.00 |            50 |
+| Jean      | Fleaur      | 3100.00 |            50 |
+| Martha    | Sullivan    | 2500.00 |            50 |
+| Girard    | Geoni       | 2800.00 |            50 |
+| Julia     | Dellinger   | 3400.00 |            50 |
+| Anthony   | Cabrio      | 3000.00 |            50 |
+| Timothy   | Gates       | 2900.00 |            50 |
+| Randall   | Perkins     | 2500.00 |            50 |
+| Samuel    | McCain      | 3200.00 |            50 |
+| Vance     | Jones       | 2800.00 |            50 |
+| Alana     | Walsh       | 3100.00 |            50 |
+| Kevin     | Feeney      | 3000.00 |            50 |
+| Donald    | OConnell    | 2600.00 |            50 |
+| Douglas   | Grant       | 2600.00 |            50 |
++-----------+-------------+---------+---------------+
+37 rows in set (0.01 sec)
+
+mysql> select fname,lname,salary,department_id from employees where salary < (select avg(salary) from employees) and department_id=(select department_id from employees where fname='Laura');
++----------+-------------+---------+---------------+
+| fname    | lname       | salary  | department_id |
++----------+-------------+---------+---------------+
+| Shanta   | Vollman     | 6500.00 |            50 |
+| Kevin    | Mourgos     | 5800.00 |            50 |
+| Julia    | Nayer       | 3200.00 |            50 |
+| Irene    | Mikkilineni | 2700.00 |            50 |
+| James    | Landry      | 2400.00 |            50 |
+| Steven   | Markle      | 2200.00 |            50 |
+| Laura    | Bissot      | 3300.00 |            50 |
+| Mozhe    | Atkinson    | 2800.00 |            50 |
+| James    | Marlow      | 2500.00 |            50 |
+| TJ       | Olson       | 2100.00 |            50 |
+| Jason    | Mallin      | 3300.00 |            50 |
+| Michael  | Rogers      | 2900.00 |            50 |
+| Ki       | Gee         | 2400.00 |            50 |
+| Hazel    | Philtanker  | 2200.00 |            50 |
+| Renske   | Ladwig      | 3600.00 |            50 |
+| Stephen  | Stiles      | 3200.00 |            50 |
+| John     | Seo         | 2700.00 |            50 |
+| Joshua   | Patel       | 2500.00 |            50 |
+| Trenna   | Rajs        | 3500.00 |            50 |
+| Curtis   | Davies      | 3100.00 |            50 |
+| Randall  | Matos       | 2600.00 |            50 |
+| Peter    | Vargas      | 2500.00 |            50 |
+| Winston  | Taylor      | 3200.00 |            50 |
+| Jean     | Fleaur      | 3100.00 |            50 |
+| Martha   | Sullivan    | 2500.00 |            50 |
+| Girard   | Geoni       | 2800.00 |            50 |
+| Nandita  | Sarchand    | 4200.00 |            50 |
+| Alexis   | Bull        | 4100.00 |            50 |
+| Julia    | Dellinger   | 3400.00 |            50 |
+| Anthony  | Cabrio      | 3000.00 |            50 |
+| Kelly    | Chung       | 3800.00 |            50 |
+| Jennifer | Dilly       | 3600.00 |            50 |
+| Timothy  | Gates       | 2900.00 |            50 |
+| Randall  | Perkins     | 2500.00 |            50 |
+| Sarah    | Bell        | 4000.00 |            50 |
+| Britney  | Everett     | 3900.00 |            50 |
+| Samuel   | McCain      | 3200.00 |            50 |
+| Vance    | Jones       | 2800.00 |            50 |
+| Alana    | Walsh       | 3100.00 |            50 |
+| Kevin    | Feeney      | 3000.00 |            50 |
+| Donald   | OConnell    | 2600.00 |            50 |
+| Douglas  | Grant       | 2600.00 |            50 |
++----------+-------------+---------+---------------+
+42 rows in set (0.00 sec)
+
+mysql> select fname,lname,salary,department_id from employees where department_id in (select department_id from departments where location_id = (select location_id from locations where city ='London'));
++-------+--------+---------+---------------+
+| fname | lname  | salary  | department_id |
++-------+--------+---------+---------------+
+| Susan | Mavris | 6500.00 |            40 |
++-------+--------+---------+---------------+
+1 row in set (0.01 sec)
+
+mysql> select city from locations where location_id in (select location_id from departments where depa
+rtment_id in (select department_id from employees where employee_id  = 134));
++---------------------+
+| city                |
++---------------------+
+| South San Francisco |
++---------------------+
+1 row in set (0.01 sec)
+
+mysql> select city from locations where location_id = (select location_id from departments where depar
+tment_id = (select department_id from employees where employee_id  = 134));
++---------------------+
+| city                |
++---------------------+
+| South San Francisco |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> select * from departments where department_id = (select department_id from employees where max(salary
+    -> 0;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '0' at line 2
+mysql> select * from departments where department_id in (select department_id from employees where employee_id in (select employee_id from job_history group by employee_id having count (employee_id)>1) gr
+oup by department_id having max(salary)>7000);
+ERROR 1630 (42000): FUNCTION db.count does not exist. Check the 'Function Name Parsing and Resolution' section in the Reference Manual
+mysql> select * from departments where department_id in (select department_id from employees where employee_id in (select employee_id from job_history group by employee_id having count (employee_id)>1) group by department_id having max(salary)>7000);
+ERROR 1630 (42000): FUNCTION db.count does not exist. Check the 'Function Name Parsing and Resolution' section in the Reference Manual
+mysql> select * from job_history limit 3;
++------+------------+------------+------------+---------------+
+| id   | start_date | end_date   | job_id     | department_id |
++------+------------+------------+------------+---------------+
+|  102 | 2001-01-13 | 2006-07-24 | IT_PROG    |            60 |
+|  101 | 1997-09-21 | 2001-10-27 | AC_ACCOUNT |           110 |
+|  101 | 2001-10-28 | 2005-03-15 | AC_MGR     |           110 |
++------+------------+------------+------------+---------------+
+3 rows in set (0.02 sec)
+
+mysql> select * from departments where department_id in (select department_id from employees where employee_id in (select id from job_history group by id having count (id)>1) group by department_id having
+ max(salary)>7000);
+ERROR 1630 (42000): FUNCTION db.count does not exist. Check the 'Function Name Parsing and Resolution' section in the Reference Manual
+mysql> select * from departments where department_id in (select department_id from employees where employee_id in (select id from job_history group by id having count(id)>1) group by department_id having
+max(salary)>7000);
++---------------+-----------+------------+-------------+
+| department_id | name      | manager_id | location_id |
++---------------+-----------+------------+-------------+
+|            80 | Sales     |        145 |        2500 |
+|            90 | Executive |        100 |        1700 |
++---------------+-----------+------------+-------------+
+2 rows in set (0.01 sec)
+
+mysql> select * from departments where department_id in (select department_id from employees where sal
+ary >= 8000);
++---------------+------------------+------------+-------------+
+| department_id | name             | manager_id | location_id |
++---------------+------------------+------------+-------------+
+|            20 | Marketing        |        201 |        1800 |
+|            30 | Purchasing       |        114 |        1700 |
+|            50 | Shipping         |        121 |        1500 |
+|            60 | IT               |        103 |        1400 |
+|            70 | Public Relations |        204 |        2700 |
+|            80 | Sales            |        145 |        2500 |
+|            90 | Executive        |        100 |        1700 |
+|           100 | Finance          |        108 |        1700 |
+|           110 | Accounting       |        205 |        1700 |
++---------------+------------------+------------+-------------+
+9 rows in set (0.00 sec)
+
+mysql> select * from departments where department_id in (select department_id from employees group by department_id having min(salary) >= 8000);
++---------------+------------------+------------+-------------+
+| department_id | name             | manager_id | location_id |
++---------------+------------------+------------+-------------+
+|            70 | Public Relations |        204 |        2700 |
+|            90 | Executive        |        100 |        1700 |
+|           110 | Accounting       |        205 |        1700 |
++---------------+------------------+------------+-------------+
+3 rows in set (0.01 sec)
+
+mysql> select concat(fname,' ',lname) as manager_name,department_id from employees where employee_id i
+n (select manager_id from employees group by manager_id having count(*)>=4);
++-------------------+---------------+
+| manager_name      | department_id |
++-------------------+---------------+
+| Steven King       |            90 |
+| Neena Kochhar     |            90 |
+| Alexander Hunold  |            60 |
+| Nancy Greenberg   |           100 |
+| Den Raphaely      |            30 |
+| Matthew Weiss     |            50 |
+| Adam Fripp        |            50 |
+| Payam Kaufling    |            50 |
+| Shanta Vollman    |            50 |
+| Kevin Mourgos     |            50 |
+| John Russell      |            80 |
+| Karen Partners    |            80 |
+| Alberto Errazuriz |            80 |
+| Gerald Cambrault  |            80 |
+| Eleni Zlotkey     |            80 |
++-------------------+---------------+
+15 rows in set (0.01 sec)
+
+mysql> select * from job limit 3;
++---------+-------------------------------+------------+------------+
+| id      | title                         | min_salary | max_salary |
++---------+-------------------------------+------------+------------+
+| AD_PRES | President                     |      20080 |      40000 |
+| AD_VP   | Administration Vice President |      15000 |      30000 |
+| AD_ASST | Administration Assistant      |       3000 |       6000 |
++---------+-------------------------------+------------+------------+
+3 rows in set (0.03 sec)
+
+mysql> select * from job where job_id = (select job_id from employees where hire_date <(select start_d
+ate from job_history where job_id = 'SA_REP');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> select * from job where job_id = (select job_id from employees where hire_date <(select start_d
+ate from job_history where job_id = 'SA_REP'));
+ERROR 1054 (42S22): Unknown column 'job_id' in 'where clause'
+mysql> select * from job_history limit 3;
++------+------------+------------+------------+---------------+
+| id   | start_date | end_date   | job_id     | department_id |
++------+------------+------------+------------+---------------+
+|  102 | 2001-01-13 | 2006-07-24 | IT_PROG    |            60 |
+|  101 | 1997-09-21 | 2001-10-27 | AC_ACCOUNT |           110 |
+|  101 | 2001-10-28 | 2005-03-15 | AC_MGR     |           110 |
++------+------------+------------+------------+---------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from job where id = (select job_id from employees where hire_date <(select start_date
+from job_history where job_id = 'SA_REP'));
+ERROR 1242 (21000): Subquery returns more than 1 row
+mysql> select * from job where id in(select job_id from employees where hire_date <(select start_date
+from job_history where job_id = 'SA_REP'));
++------------+---------------------------------+------------+------------+
+| id         | title                           | min_salary | max_salary |
++------------+---------------------------------+------------+------------+
+| AD_PRES    | President                       |      20080 |      40000 |
+| AD_VP      | Administration Vice President   |      15000 |      30000 |
+| AD_ASST    | Administration Assistant        |       3000 |       6000 |
+| FI_MGR     | Finance Manager                 |       8200 |      16000 |
+| FI_ACCOUNT | Accountant                      |       4200 |       9000 |
+| AC_MGR     | Accounting Manager              |       8200 |      16000 |
+| AC_ACCOUNT | Public Accountant               |       4200 |       9000 |
+| SA_MAN     | Sales Manager                   |      10000 |      20080 |
+| SA_REP     | Sales Representative            |       6000 |      12008 |
+| PU_MAN     | Purchasing Manager              |       8000 |      15000 |
+| ST_MAN     | Stock Manager                   |       5500 |       8500 |
+| ST_CLERK   | Stock Clerk                     |       2008 |       5000 |
+| SH_CLERK   | Shipping Clerk                  |       2500 |       5500 |
+| IT_PROG    | Programmer                      |       4000 |      10000 |
+| MK_MAN     | Marketing Manager               |       9000 |      15000 |
+| MK_REP     | Marketing Representative        |       4000 |       9000 |
+| HR_REP     | Human Resources Representative  |       4000 |       9000 |
+| PR_REP     | Public Relations Representative |       4500 |      10500 |
++------------+---------------------------------+------------+------------+
+18 rows in set (0.00 sec)
+
+mysql> select * from job where id in (select job_id from employees where employee_id in (select employee_id from job_history where job_id = 'SA_REP'));
++------------+---------------------------------+------------+------------+
+| id         | title                           | min_salary | max_salary |
++------------+---------------------------------+------------+------------+
+| AD_PRES    | President                       |      20080 |      40000 |
+| AD_VP      | Administration Vice President   |      15000 |      30000 |
+| AD_ASST    | Administration Assistant        |       3000 |       6000 |
+| FI_MGR     | Finance Manager                 |       8200 |      16000 |
+| FI_ACCOUNT | Accountant                      |       4200 |       9000 |
+| AC_MGR     | Accounting Manager              |       8200 |      16000 |
+| AC_ACCOUNT | Public Accountant               |       4200 |       9000 |
+| SA_MAN     | Sales Manager                   |      10000 |      20080 |
+| SA_REP     | Sales Representative            |       6000 |      12008 |
+| PU_MAN     | Purchasing Manager              |       8000 |      15000 |
+| ST_MAN     | Stock Manager                   |       5500 |       8500 |
+| ST_CLERK   | Stock Clerk                     |       2008 |       5000 |
+| SH_CLERK   | Shipping Clerk                  |       2500 |       5500 |
+| IT_PROG    | Programmer                      |       4000 |      10000 |
+| MK_MAN     | Marketing Manager               |       9000 |      15000 |
+| MK_REP     | Marketing Representative        |       4000 |       9000 |
+| HR_REP     | Human Resources Representative  |       4000 |       9000 |
+| PR_REP     | Public Relations Representative |       4500 |      10500 |
++------------+---------------------------------+------------+------------+
+18 rows in set (0.00 sec)
+
+mysql> select * from job where id in (select job_id from employees where employee_id in (select employ
+ee_id from job_history where job_id = 'SA_REP'));
++------------+---------------------------------+------------+------------+
+| id         | title                           | min_salary | max_salary |
++------------+---------------------------------+------------+------------+
+| AD_PRES    | President                       |      20080 |      40000 |
+| AD_VP      | Administration Vice President   |      15000 |      30000 |
+| AD_ASST    | Administration Assistant        |       3000 |       6000 |
+| FI_MGR     | Finance Manager                 |       8200 |      16000 |
+| FI_ACCOUNT | Accountant                      |       4200 |       9000 |
+| AC_MGR     | Accounting Manager              |       8200 |      16000 |
+| AC_ACCOUNT | Public Accountant               |       4200 |       9000 |
+| SA_MAN     | Sales Manager                   |      10000 |      20080 |
+| SA_REP     | Sales Representative            |       6000 |      12008 |
+| PU_MAN     | Purchasing Manager              |       8000 |      15000 |
+| ST_MAN     | Stock Manager                   |       5500 |       8500 |
+| ST_CLERK   | Stock Clerk                     |       2008 |       5000 |
+| SH_CLERK   | Shipping Clerk                  |       2500 |       5500 |
+| IT_PROG    | Programmer                      |       4000 |      10000 |
+| MK_MAN     | Marketing Manager               |       9000 |      15000 |
+| MK_REP     | Marketing Representative        |       4000 |       9000 |
+| HR_REP     | Human Resources Representative  |       4000 |       9000 |
+| PR_REP     | Public Relations Representative |       4500 |      10500 |
++------------+---------------------------------+------------+------------+
+18 rows in set (0.00 sec)
+
+mysql> SELECT * FROM job WHERE id IN (SELECT job_id FROM employees WHERE employee_id IN (SELECT employ
+ee_id FROM job_history WHERE job_id='SA_REP'));
++------------+---------------------------------+------------+------------+
+| id         | title                           | min_salary | max_salary |
++------------+---------------------------------+------------+------------+
+| AD_PRES    | President                       |      20080 |      40000 |
+| AD_VP      | Administration Vice President   |      15000 |      30000 |
+| AD_ASST    | Administration Assistant        |       3000 |       6000 |
+| FI_MGR     | Finance Manager                 |       8200 |      16000 |
+| FI_ACCOUNT | Accountant                      |       4200 |       9000 |
+| AC_MGR     | Accounting Manager              |       8200 |      16000 |
+| AC_ACCOUNT | Public Accountant               |       4200 |       9000 |
+| SA_MAN     | Sales Manager                   |      10000 |      20080 |
+| SA_REP     | Sales Representative            |       6000 |      12008 |
+| PU_MAN     | Purchasing Manager              |       8000 |      15000 |
+| ST_MAN     | Stock Manager                   |       5500 |       8500 |
+| ST_CLERK   | Stock Clerk                     |       2008 |       5000 |
+| SH_CLERK   | Shipping Clerk                  |       2500 |       5500 |
+| IT_PROG    | Programmer                      |       4000 |      10000 |
+| MK_MAN     | Marketing Manager               |       9000 |      15000 |
+| MK_REP     | Marketing Representative        |       4000 |       9000 |
+| HR_REP     | Human Resources Representative  |       4000 |       9000 |
+| PR_REP     | Public Relations Representative |       4500 |      10500 |
++------------+---------------------------------+------------+------------+
+18 rows in set (0.00 sec)
+
+mysql> select * from jobs limit 3;
++------+------------+------------+------------+---------------+
+| id   | s_date     | e_date     | job_id     | department_id |
++------+------------+------------+------------+---------------+
+|  102 | 2001-01-13 | 2006-07-24 | IT_Prog    |            60 |
+|  101 | 1997-09-21 | 2001-10-27 | AC_Account |           110 |
+|  101 | 2010-10-28 | 2005-03-15 | AC_Mgr     |           110 |
++------+------------+------------+------------+---------------+
+3 rows in set (0.03 sec)
+
+mysql> SELECT * FROM job WHERE id IN (SELECT job_id FROM employees WHERE employee_id IN (SELECT employee_id FROM job_history WHERE job_id='SA_REP'));
++------------+---------------------------------+------------+------------+
+| id         | title                           | min_salary | max_salary |
++------------+---------------------------------+------------+------------+
+| AD_PRES    | President                       |      20080 |      40000 |
+| AD_VP      | Administration Vice President   |      15000 |      30000 |
+| AD_ASST    | Administration Assistant        |       3000 |       6000 |
+| FI_MGR     | Finance Manager                 |       8200 |      16000 |
+| FI_ACCOUNT | Accountant                      |       4200 |       9000 |
+| AC_MGR     | Accounting Manager              |       8200 |      16000 |
+| AC_ACCOUNT | Public Accountant               |       4200 |       9000 |
+| SA_MAN     | Sales Manager                   |      10000 |      20080 |
+| SA_REP     | Sales Representative            |       6000 |      12008 |
+| PU_MAN     | Purchasing Manager              |       8000 |      15000 |
+| ST_MAN     | Stock Manager                   |       5500 |       8500 |
+| ST_CLERK   | Stock Clerk                     |       2008 |       5000 |
+| SH_CLERK   | Shipping Clerk                  |       2500 |       5500 |
+| IT_PROG    | Programmer                      |       4000 |      10000 |
+| MK_MAN     | Marketing Manager               |       9000 |      15000 |
+| MK_REP     | Marketing Representative        |       4000 |       9000 |
+| HR_REP     | Human Resources Representative  |       4000 |       9000 |
+| PR_REP     | Public Relations Representative |       4500 |      10500 |
++------------+---------------------------------+------------+------------+
+18 rows in set (0.00 sec)
+
+mysql> SELECT DISTINCT j.*
+    -> FROM jobs j
+    -> JOIN employees e ON j.job_id = e.job_id
+    -> JOIN job_history jh ON e.employee_id = jh.employee_id
+    -> WHERE jh.job_id = 'SA_REP';
+ERROR 1054 (42S22): Unknown column 'jh.employee_id' in 'on clause'
+mysql> SELECT DISTINCT j.*FROM jobs j JOIN employees e ON j.job_id = e.job_id JOIN job_history jh ON e.employee_id = jh.employee_id WHERE jh.job_id = 'SA_REP';
+ERROR 1054 (42S22): Unknown column 'jh.employee_id' in 'on clause'
+mysql> SELECT DISTINCT j.*FROM job j JOIN employees e ON j.id = e.job_id JOIN job_history jh ON e.empl
+oyee_id = jh.employee_id WHERE jh.job_id = 'SA_REP';
+ERROR 1054 (42S22): Unknown column 'jh.employee_id' in 'on clause'
+mysql> SELECT DISTINCT j.*FROM job j JOIN employees e ON j.id = e.job_id JOIN job_history h ON e.emplo
+yee_id = h.employee_id WHERE h.job_id = 'SA_REP';
+ERROR 1054 (42S22): Unknown column 'h.employee_id' in 'on clause'
+mysql> SELECT * FROM job WHERE id IN (SELECT job_id FROM employees WHERE employee_id IN (SELECT id FRO
+M job_history WHERE job_id='SA_REP'));
++--------+----------------------+------------+------------+
+| id     | title                | min_salary | max_salary |
++--------+----------------------+------------+------------+
+| SA_REP | Sales Representative |       6000 |      12008 |
++--------+----------------------+------------+------------+
+1 row in set (0.00 sec)
+
+mysql> select * from employees where salary =(select min(salary) from employees where salary > (select
+ min(salary) from employees));
++-------------+--------+------------+----------+---------------+------------+----------+---------+------------+------------+---------------+
+| employee_id | fname  | lname      | email    | mobile        | hire_date  | job_id   | salary  | commission | manager_id | department_id |
++-------------+--------+------------+----------+---------------+------------+----------+---------+------------+------------+---------------+
+|         128 | Steven | Markle     | SMARKLE  | 6501241434.00 | 2008-03-08 | ST_CLERK | 2200.00 |       0.00 |        120 |            50 |
+|         136 | Hazel  | Philtanker | HPHILTAN | 6501271634.00 | 2008-02-06 | ST_CLERK | 2200.00 |       0.00 |        122 |            50 |
++-------------+--------+------------+----------+---------------+------------+----------+---------+------------+------------+---------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from departments where department_id = (select department_id from employees where empl
+oyee_id in (select manager_id from employees where fname='Susan'));
++---------------+-----------+------------+-------------+
+| department_id | name      | manager_id | location_id |
++---------------+-----------+------------+-------------+
+|            90 | Executive |        100 |        1700 |
++---------------+-----------+------------+-------------+
+1 row in set (0.00 sec)
+
+mysql> select * from departments where manager_id in (select employee_id from employees where fname='S
+usan');
++---------------+------+------------+-------------+
+| department_id | name | manager_id | location_id |
++---------------+------+------------+-------------+
+|            40 | HR   |        203 |        2400 |
++---------------+------+------------+-------------+
+1 row in set (0.00 sec)
+
+mysql> select department_id, concat(fname,' ',lname) as employee_name, salary from employees where department_id in (select department_id from employees where max(salary));
+ERROR 1111 (HY000): Invalid use of group function
+mysql> select department_id, concat(fname,' ',lname) as employee_name, salary from employees group by department_id having max(salary);
+ERROR 1055 (42000): Expression #2 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'db.employees.fname' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> select department_id, concat(fname,' ',lname) as employee_name, salary from employees where salary = (select max(salary) from employees where department_id = employees.department_id);
++---------------+---------------+----------+
+| department_id | employee_name | salary   |
++---------------+---------------+----------+
+|           110 | PAWAN YADAV   | 70000.00 |
++---------------+---------------+----------+
+1 row in set (0.01 sec)
+
+mysql> select department_id, concat(fname,' ',lname) as employee_name, salary from employees a where a.salary = (select max(salary) from employees where department_id = a.department_id);
++---------------+-------------------+----------+
+| department_id | employee_name     | salary   |
++---------------+-------------------+----------+
+|            90 | Steven King       | 24000.00 |
+|            60 | Alexander Hunold  |  9000.00 |
+|           100 | Nancy Greenberg   | 12000.00 |
+|            30 | Den Raphaely      | 11000.00 |
+|            50 | Adam Fripp        |  8200.00 |
+|            80 | John Russell      | 14000.00 |
+|            10 | Jennifer Whalen   |  4400.00 |
+|            20 | Michael Hartstein | 13000.00 |
+|            40 | Susan Mavris      |  6500.00 |
+|            70 | Hermann Baer      | 10000.00 |
+|           110 | PAWAN YADAV       | 70000.00 |
++---------------+-------------------+----------+
+11 rows in set (0.03 sec)
+
+mysql> select department_id, concat(fname,' ',lname) as employee_name, salary from employees a where a.salary = (select max(salary) from employees where department_id = a.department_id) order by salary;
++---------------+-------------------+----------+
+| department_id | employee_name     | salary   |
++---------------+-------------------+----------+
+|            10 | Jennifer Whalen   |  4400.00 |
+|            40 | Susan Mavris      |  6500.00 |
+|            50 | Adam Fripp        |  8200.00 |
+|            60 | Alexander Hunold  |  9000.00 |
+|            70 | Hermann Baer      | 10000.00 |
+|            30 | Den Raphaely      | 11000.00 |
+|           100 | Nancy Greenberg   | 12000.00 |
+|            20 | Michael Hartstein | 13000.00 |
+|            80 | John Russell      | 14000.00 |
+|            90 | Steven King       | 24000.00 |
+|           110 | PAWAN YADAV       | 70000.00 |
++---------------+-------------------+----------+
+11 rows in set (0.05 sec)
+
+mysql> select department_id, concat(fname,' ',lname) as employee_name, salary from employees a where a.salary = (select max(salary) from employees where department_id = a.department_id) order by department_id;
++---------------+-------------------+----------+
+| department_id | employee_name     | salary   |
++---------------+-------------------+----------+
+|            10 | Jennifer Whalen   |  4400.00 |
+|            20 | Michael Hartstein | 13000.00 |
+|            30 | Den Raphaely      | 11000.00 |
+|            40 | Susan Mavris      |  6500.00 |
+|            50 | Adam Fripp        |  8200.00 |
+|            60 | Alexander Hunold  |  9000.00 |
+|            70 | Hermann Baer      | 10000.00 |
+|            80 | John Russell      | 14000.00 |
+|            90 | Steven King       | 24000.00 |
+|           100 | Nancy Greenberg   | 12000.00 |
+|           110 | PAWAN YADAV       | 70000.00 |
++---------------+-------------------+----------+
+11 rows in set (0.04 sec)
+
+mysql> select * from employees where employee_id not in (select id from job_history);
++-------------+-------------+-------------+----------+-------------------+------------+------------+----------+------------+------------+---------------+
+| employee_id | fname       | lname       | email    | mobile            | hire_date  | job_id     | salary   | commission | manager_id | department_id |
++-------------+-------------+-------------+----------+-------------------+------------+------------+----------+------------+------------+---------------+
+|         100 | Steven      | King        | SKING    |     5151234567.00 | 2003-06-17 | AD_PRES    | 24000.00 |       0.00 |          0 |            90 |
+|         103 | Alexander   | Hunold      | AHUNOLD  |     5904234567.00 | 2006-01-03 | IT_PROG    |  9000.00 |       0.00 |        102 |            60 |
+|         104 | Bruce       | Ernst       | BERNST   |     5904234568.00 | 2007-05-21 | IT_PROG    |  6000.00 |       0.00 |        103 |            60 |
+|         105 | David       | Austin      | DAUSTIN  |     5904234569.00 | 2005-06-25 | IT_PROG    |  4800.00 |       0.00 |        103 |            60 |
+|         106 | Valli       | Pataballa   | VPATABAL |     5904234560.00 | 2006-02-05 | IT_PROG    |  4800.00 |       0.00 |        103 |            60 |
+|         107 | Diana       | Lorentz     | DLORENTZ |     5904235567.00 | 2007-02-07 | IT_PROG    |  4200.00 |       0.00 |        103 |            60 |
+|         108 | Nancy       | Greenberg   | NGREENBE |     5151244569.00 | 2002-08-17 | FI_MGR     | 12000.00 |       0.00 |        101 |           100 |
+|         109 | Daniel      | Faviet      | DFAVIET  |     5151244169.00 | 2002-08-16 | FI_ACCOUNT |  9000.00 |       0.00 |        108 |           100 |
+|         110 | John        | Chen        | JCHEN    |     5151244269.00 | 2005-09-28 | FI_ACCOUNT |  8200.00 |       0.00 |        108 |           100 |
+|         111 | Ismael      | Sciarra     | ISCIARRA |     5151244369.00 | 2005-09-30 | FI_ACCOUNT |  7700.00 |       0.00 |        108 |           100 |
+|         112 | Jose Manuel | Urman       | JMURMAN  |     5151244469.00 | 2006-03-07 | FI_ACCOUNT |  7800.00 |       0.00 |        108 |           100 |
+|         113 | Luis        | Popp        | LPOPP    |     5151244467.00 | 2007-12-07 | FI_ACCOUNT |  6900.00 |       0.00 |        108 |           100 |
+|         115 | Alexander   | Khoo        | AKHOO    |     5151274562.00 | 2003-05-18 | PU_CLEARK  |  3100.00 |       0.00 |        114 |            30 |
+|         116 | Shelli      | Baida       | SBAIDA   |     5151274563.00 | 2005-12-24 | PU_CLEARK  |  2900.00 |       0.00 |        114 |            30 |
+|         117 | Sigal       | Tobias      | STOBIAS  |     5151274564.00 | 2005-07-24 | PU_CLEARK  |  2800.00 |       0.00 |        114 |            30 |
+|         118 | Guy         | Himuro      | GHIMURO  |     5151274565.00 | 2006-11-15 | PU_CLEARK  |  2600.00 |       0.00 |        114 |            30 |
+|         119 | Karen       | Colmenares  | KCOLMENA |     5151274566.00 | 2007-08-10 | PU_CLEARK  |  2500.00 |       0.00 |        114 |            30 |
+|         120 | Matthew     | Weiss       | MWEISS   |     6501231234.00 | 2004-07-18 | ST_MAN     |  8000.00 |       0.00 |        100 |            50 |
+|         121 | Adam        | Fripp       | AFRIPP   |     6501232234.00 | 2005-04-10 | ST_MAN     |  8200.00 |       0.00 |        100 |            50 |
+|         123 | Shanta      | Vollman     | SVOLLMAN |     6501235234.00 | 2007-11-16 | ST_MAN     |  6500.00 |       0.00 |        100 |            50 |
+|         124 | Kevin       | Mourgos     | KMOURGOS |     6501234234.00 | 2005-10-10 | ST_MAN     |  5800.00 |       0.00 |        100 |            50 |
+|         125 | Julia       | Nayer       | JNAYER   |     6501241214.00 | 2005-07-16 | ST_CLERK   |  3200.00 |       0.00 |        120 |            50 |
+|         126 | Irene       | Mikkilineni | IMIKKILI |     6501241224.00 | 2006-09-28 | ST_CLERK   |  2700.00 |       0.00 |        120 |            50 |
+|         127 | James       | Landry      | JLANDRY  |     6501241334.00 | 2007-01-14 | ST_CLERK   |  2400.00 |       0.00 |        120 |            50 |
+|         128 | Steven      | Markle      | SMARKLE  |     6501241434.00 | 2008-03-08 | ST_CLERK   |  2200.00 |       0.00 |        120 |            50 |
+|         129 | Laura       | Bissot      | LBISSOT  |     6501245234.00 | 2005-08-20 | ST_CLERK   |  3300.00 |       0.00 |        121 |            50 |
+|         130 | Mozhe       | Atkinson    | MATKINSO |     6501246234.00 | 2005-10-30 | ST_CLERK   |  2800.00 |       0.00 |        121 |            50 |
+|         131 | James       | Marlow      | JAMRLOW  |     6501247234.00 | 2005-02-16 | ST_CLERK   |  2500.00 |       0.00 |        121 |            50 |
+|         132 | TJ          | Olson       | TJOLSON  |     6501248234.00 | 2007-04-10 | ST_CLERK   |  2100.00 |       0.00 |        121 |            50 |
+|         133 | Jason       | Mallin      | JMALLIN  |     6501271934.00 | 2004-06-14 | ST_CLERK   |  3300.00 |       0.00 |        122 |            50 |
+|         134 | Michael     | Rogers      | MROGERS  |     6501271834.00 | 2006-08-26 | ST_CLERK   |  2900.00 |       0.00 |        122 |            50 |
+|         135 | Ki          | Gee         | KGEE     |     6501271734.00 | 2007-12-12 | ST_CLERK   |  2400.00 |       0.00 |        122 |            50 |
+|         136 | Hazel       | Philtanker  | HPHILTAN |     6501271634.00 | 2008-02-06 | ST_CLERK   |  2200.00 |       0.00 |        122 |            50 |
+|         137 | Renske      | Ladwig      | RLADWIG  |     6501211234.00 | 2003-07-14 | ST_CLERK   |  3600.00 |       0.00 |        123 |            50 |
+|         138 | Stephen     | Stiles      | SSTILES  |     6501212034.00 | 2005-10-26 | ST_CLERK   |  3200.00 |       0.00 |        123 |            50 |
+|         139 | John        | Seo         | JSEO     |     6501212019.00 | 2006-02-12 | ST_CLERK   |  2700.00 |       0.00 |        123 |            50 |
+|         140 | Joshua      | Patel       | JPATEL   |     6501211834.00 | 2006-04-06 | ST_CLERK   |  2500.00 |       0.00 |        123 |            50 |
+|         141 | Trenna      | Rajs        | TRAJS    |     6501218009.00 | 2003-10-17 | ST_CLERK   |  3500.00 |       0.00 |        124 |            50 |
+|         142 | Curtis      | Davies      | CDAVIES  |     6501212994.00 | 2005-01-29 | ST_CLERK   |  3100.00 |       0.00 |        124 |            50 |
+|         143 | Randall     | Matos       | RMATOS   |     6501212874.00 | 2006-03-15 | ST_CLERK   |  2600.00 |       0.00 |        124 |            50 |
+|         144 | Peter       | Vargas      | PVARGAS  |     6501212004.00 | 2006-07-09 | ST_CLERK   |  2500.00 |       0.00 |        124 |            50 |
+|         145 | John        | Russell     | JRUSSEL  | 11441344429268.00 | 2004-10-01 | SA_MAN     | 14000.00 |       0.40 |        100 |            80 |
+|         146 | Karen       | Partners    | KPARTNER | 11441344467268.00 | 2005-01-05 | SA_MAN     | 13500.00 |       0.30 |        100 |            80 |
+|         147 | Alberto     | Errazuriz   | AERRAZUR | 11441344429278.00 | 2005-03-10 | SA_MAN     | 12000.00 |       0.30 |        100 |            80 |
+|         148 | Gerald      | Cambrault   | GCAMBRAU | 11441344619268.00 | 2007-10-15 | SA_MAN     | 11000.00 |       0.30 |        100 |            80 |
+|         149 | Eleni       | Zlotkey     | EZLOTKEY | 11441344429018.00 | 2008-01-29 | SA_MAN     | 10500.00 |       0.20 |        100 |            80 |
+|         150 | Peter       | Tucker      | PTUCKER  | 11441344129268.00 | 2005-01-30 | SA_REP     | 10000.00 |       0.30 |        145 |            80 |
+|         151 | David       | Bernstein   | DBERNSTE | 11441344345268.00 | 2005-03-24 | SA_REP     |  9500.00 |       0.25 |        145 |            80 |
+|         152 | Peter       | Hall        | PHALL    | 11441344478968.00 | 2005-08-20 | SA_REP     |  9000.00 |       0.25 |        145 |            80 |
+|         153 | Christopher | Olsen       | COLSEN   | 11441344498718.00 | 2006-03-30 | SA_REP     |  8000.00 |       0.20 |        145 |            80 |
+|         154 | Nanette     | Cambrault   | NCAMBRAU | 11441344987668.00 | 2006-12-09 | SA_REP     |  7500.00 |       0.20 |        145 |            80 |
+|         155 | Oliver      | Tuvault     | OTUVAULT | 11441344486508.00 | 2007-11-23 | SA_REP     |  7000.00 |       0.15 |        145 |            80 |
+|         156 | Janette     | King        | JKING    | 11441345429268.00 | 2004-01-30 | SA_REP     | 10000.00 |       0.35 |        146 |            80 |
+|         157 | Patrick     | Sully       | PSULLY   | 11441345929268.00 | 2004-03-04 | SA_REP     |  9500.00 |       0.35 |        146 |            80 |
+|         158 | Allan       | McEwen      | AMCEWEN  | 11441345829268.00 | 2004-08-01 | SA_REP     |  9000.00 |       0.35 |        146 |            80 |
+|         159 | Lindsey     | Smith       | LSMITH   | 11441345729268.00 | 2005-03-10 | SA_REP     |  8000.00 |       0.30 |        146 |            80 |
+|         160 | Louise      | Doran       | LDORAN   | 11441345629268.00 | 2005-12-15 | SA_REP     |  7500.00 |       0.30 |        146 |            80 |
+|         161 | Sarath      | Sewall      | SSEWALL  | 11441345529268.00 | 2006-11-03 | SA_REP     |  7000.00 |       0.25 |        146 |            80 |
+|         162 | Clara       | Vishney     | CVISHNEY | 11441346129268.00 | 2005-11-11 | SA_REP     | 10500.00 |       0.25 |        147 |            80 |
+|         163 | Danielle    | Greene      | DGREENE  | 11441346229268.00 | 2007-03-19 | SA_REP     |  9500.00 |       0.15 |        147 |            80 |
+|         164 | Mattea      | Marvins     | MMARVINS | 11441346329268.00 | 2008-01-24 | SA_REP     |  7200.00 |       0.10 |        147 |            80 |
+|         165 | David       | Lee         | DLEE     | 11441346529268.00 | 2008-02-23 | SA_REP     |  6800.00 |       0.10 |        147 |            80 |
+|         166 | Sunder      | Ande        | SANDE    | 11441346629268.00 | 2008-03-24 | SA_REP     |  6400.00 |       0.10 |        147 |            80 |
+|         167 | Amit        | Banda       | ABANDA   | 11441346729268.00 | 2008-04-21 | SA_REP     |  6200.00 |       0.10 |        147 |            80 |
+|         168 | Lisa        | Ozer        | LOZER    | 11441343929268.00 | 2005-03-11 | SA_REP     | 11500.00 |       0.25 |        148 |            80 |
+|         169 | Harrison    | Bloom       | HBLOOM   | 11441343829268.00 | 2006-03-23 | SA_REP     | 10000.00 |       0.20 |        148 |            80 |
+|         170 | Tayler      | Fox         | TFOX     | 11441343729268.00 | 2006-01-24 | SA_REP     |  9600.00 |       0.20 |        148 |            80 |
+|         171 | William     | Smith       | WSMITH   | 11441343629268.00 | 2007-02-23 | SA_REP     |  7400.00 |       0.15 |        148 |            80 |
+|         172 | Sundita     | Kumar       | SKUMAR   | 11441343529268.00 | 2007-03-24 | SA_REP     |  7300.00 |       0.15 |        148 |            80 |
+|         173 | Elizabeth   | Bates       | EBATES   | 11441343329268.00 | 2008-04-21 | SA_REP     |  6100.00 |       0.10 |        148 |            80 |
+|         174 | Ellen       | Abel        | EABEL    | 11441644429267.00 | 2004-05-11 | SA_REP     | 11000.00 |       0.30 |        149 |            80 |
+|         175 | Alyssa      | Hutton      | AHUTTON  | 11441644429266.00 | 2005-03-19 | SA_REP     |  8800.00 |       0.25 |        149 |            80 |
+|         177 | Jack        | Livingston  | JLIVINGS | 11441644429264.00 | 2006-04-23 | SA_REP     |  8400.00 |       0.20 |        149 |            80 |
+|         178 | Kimberely   | Grant       | KGRANT   | 11441644429263.00 | 2007-05-24 | SA_REP     |  7000.00 |       0.15 |        149 |            80 |
+|         179 | Charles     | Johnson     | CJOHNSON | 11441644429262.00 | 2008-01-04 | SA_REP     |  6200.00 |       0.10 |        149 |            80 |
+|         180 | Winston     | Taylor      | WTAYLOR  |     6505079876.00 | 2006-01-24 | SH_CLERK   |  3200.00 |       0.00 |        120 |            50 |
+|         181 | Jean        | Fleaur      | JFLEAUR  |     6505079877.00 | 2006-02-23 | SH_CLERK   |  3100.00 |       0.00 |        120 |            50 |
+|         182 | Martha      | Sullivan    | MSULLIVA |     6505079878.00 | 2007-06-21 | SH_CLERK   |  2500.00 |       0.00 |        120 |            50 |
+|         183 | Girard      | Geoni       | GGEONI   |     6505079879.00 | 2008-02-03 | SH_CLERK   |  2800.00 |       0.00 |        120 |            50 |
+|         184 | Nandita     | Sarchand    | NSARCHAN |     6505091876.00 | 2004-01-27 | SH_CLERK   |  4200.00 |       0.00 |        121 |            50 |
+|         185 | Alexis      | Bull        | ABULL    |     6505092876.00 | 2005-02-20 | SH_CLERK   |  4100.00 |       0.00 |        121 |            50 |
+|         186 | Julia       | Dellinger   | JDELLING |     6505093876.00 | 2006-06-24 | SH_CLERK   |  3400.00 |       0.00 |        121 |            50 |
+|         187 | Anthony     | Cabrio      | ACABRIO  |     6505094876.00 | 2007-02-07 | SH_CLERK   |  3000.00 |       0.00 |        121 |            50 |
+|         188 | Kelly       | Chung       | KCHUNG   |     6505051876.00 | 2005-06-14 | SH_CLERK   |  3800.00 |       0.00 |        122 |            50 |
+|         189 | Jennifer    | Dilly       | JDILLY   |     6505052876.00 | 2005-08-13 | SH_CLERK   |  3600.00 |       0.00 |        122 |            50 |
+|         190 | Timothy     | Gates       | TGATES   |     6505053876.00 | 2006-07-11 | SH_CLERK   |  2900.00 |       0.00 |        122 |            50 |
+|         191 | Randall     | Perkins     | RPERKINS |     6505054876.00 | 2007-12-19 | SH_CLERK   |  2500.00 |       0.00 |        122 |            50 |
+|         192 | Sarah       | Bell        | SBELL    |     6505011876.00 | 2004-02-04 | SH_CLERK   |  4000.00 |       0.00 |        123 |            50 |
+|         193 | Britney     | Everett     | BEVERETT |     6505012876.00 | 2005-03-03 | SH_CLERK   |  3900.00 |       0.00 |        123 |            50 |
+|         194 | Samuel      | McCain      | SMCCAIN  |     6505013876.00 | 2006-07-01 | SH_CLERK   |  3200.00 |       0.00 |        123 |            50 |
+|         195 | Vance       | Jones       | VJONES   |     6505014876.00 | 2007-03-17 | SH_CLERK   |  2800.00 |       0.00 |        123 |            50 |
+|         196 | Alana       | Walsh       | AWALSH   |     6505079811.00 | 2006-04-24 | SH_CLERK   |  3100.00 |       0.00 |        124 |            50 |
+|         197 | Kevin       | Feeney      | KFEENEY  |     6505079822.00 | 2006-05-23 | SH_CLERK   |  3000.00 |       0.00 |        124 |            50 |
+|         198 | Donald      | OConnell    | DOCONNEL |     6505079833.00 | 2007-06-21 | SH_CLERK   |  2600.00 |       0.00 |        124 |            50 |
+|         199 | Douglas     | Grant       | DGRANT   |     6505079844.00 | 2008-01-13 | SH_CLERK   |  2600.00 |       0.00 |        124 |            50 |
+|         202 | Pat         | Fay         | PFAY     |     6031236666.00 | 2005-08-17 | MK_REP     |  6000.00 |       0.00 |        201 |            20 |
+|         203 | Susan       | Mavris      | SMAVRIS  |     5151237777.00 | 2002-06-07 | HR_REP     |  6500.00 |       0.00 |        101 |            40 |
+|         204 | Hermann     | Baer        | HBAER    |     5151238888.00 | 2002-06-07 | PR_REP     | 10000.00 |       0.00 |        101 |            70 |
+|         205 | Shelley     | Higgins     | SHIGGINS |     5151238080.00 | 2002-06-07 | AC_MGR     | 12008.00 |       0.00 |        101 |           110 |
+|         206 | PAWAN       | YADAV       | PYADAV   |     8882293337.00 | 2000-08-22 | AC_ACCOUNT | 70000.00 |       0.00 |        205 |           110 |
++-------------+-------------+-------------+----------+-------------------+------------+------------+----------+------------+------------+---------------+
+100 rows in set (0.01 sec)
+
+mysql> select * from employees;
++-------------+-------------+-------------+----------+-------------------+------------+------------+----------+------------+------------+---------------+
+| employee_id | fname       | lname       | email    | mobile            | hire_date  | job_id     | salary   | commission | manager_id | department_id |
++-------------+-------------+-------------+----------+-------------------+------------+------------+----------+------------+------------+---------------+
+|         100 | Steven      | King        | SKING    |     5151234567.00 | 2003-06-17 | AD_PRES    | 24000.00 |       0.00 |          0 |            90 |
+|         101 | Neena       | Kochhar     | NKOCHHAR |     5151234568.00 | 2005-09-21 | AD_VP      | 17000.00 |       0.00 |        100 |            90 |
+|         102 | Lex         | De Haan     | LDEHAAN  |     5151234569.00 | 2001-01-13 | AD_VP      | 17000.00 |       0.00 |        100 |            90 |
+|         103 | Alexander   | Hunold      | AHUNOLD  |     5904234567.00 | 2006-01-03 | IT_PROG    |  9000.00 |       0.00 |        102 |            60 |
+|         104 | Bruce       | Ernst       | BERNST   |     5904234568.00 | 2007-05-21 | IT_PROG    |  6000.00 |       0.00 |        103 |            60 |
+|         105 | David       | Austin      | DAUSTIN  |     5904234569.00 | 2005-06-25 | IT_PROG    |  4800.00 |       0.00 |        103 |            60 |
+|         106 | Valli       | Pataballa   | VPATABAL |     5904234560.00 | 2006-02-05 | IT_PROG    |  4800.00 |       0.00 |        103 |            60 |
+|         107 | Diana       | Lorentz     | DLORENTZ |     5904235567.00 | 2007-02-07 | IT_PROG    |  4200.00 |       0.00 |        103 |            60 |
+|         108 | Nancy       | Greenberg   | NGREENBE |     5151244569.00 | 2002-08-17 | FI_MGR     | 12000.00 |       0.00 |        101 |           100 |
+|         109 | Daniel      | Faviet      | DFAVIET  |     5151244169.00 | 2002-08-16 | FI_ACCOUNT |  9000.00 |       0.00 |        108 |           100 |
+|         110 | John        | Chen        | JCHEN    |     5151244269.00 | 2005-09-28 | FI_ACCOUNT |  8200.00 |       0.00 |        108 |           100 |
+|         111 | Ismael      | Sciarra     | ISCIARRA |     5151244369.00 | 2005-09-30 | FI_ACCOUNT |  7700.00 |       0.00 |        108 |           100 |
+|         112 | Jose Manuel | Urman       | JMURMAN  |     5151244469.00 | 2006-03-07 | FI_ACCOUNT |  7800.00 |       0.00 |        108 |           100 |
+|         113 | Luis        | Popp        | LPOPP    |     5151244467.00 | 2007-12-07 | FI_ACCOUNT |  6900.00 |       0.00 |        108 |           100 |
+|         114 | Den         | Raphaely    | DRAPHEAL |     5151274561.00 | 2002-12-07 | PU_MAN     | 11000.00 |       0.00 |        100 |            30 |
+|         115 | Alexander   | Khoo        | AKHOO    |     5151274562.00 | 2003-05-18 | PU_CLEARK  |  3100.00 |       0.00 |        114 |            30 |
+|         116 | Shelli      | Baida       | SBAIDA   |     5151274563.00 | 2005-12-24 | PU_CLEARK  |  2900.00 |       0.00 |        114 |            30 |
+|         117 | Sigal       | Tobias      | STOBIAS  |     5151274564.00 | 2005-07-24 | PU_CLEARK  |  2800.00 |       0.00 |        114 |            30 |
+|         118 | Guy         | Himuro      | GHIMURO  |     5151274565.00 | 2006-11-15 | PU_CLEARK  |  2600.00 |       0.00 |        114 |            30 |
+|         119 | Karen       | Colmenares  | KCOLMENA |     5151274566.00 | 2007-08-10 | PU_CLEARK  |  2500.00 |       0.00 |        114 |            30 |
+|         120 | Matthew     | Weiss       | MWEISS   |     6501231234.00 | 2004-07-18 | ST_MAN     |  8000.00 |       0.00 |        100 |            50 |
+|         121 | Adam        | Fripp       | AFRIPP   |     6501232234.00 | 2005-04-10 | ST_MAN     |  8200.00 |       0.00 |        100 |            50 |
+|         122 | Payam       | Kaufling    | PKAUFLIN |     6501233234.00 | 2003-05-01 | ST_MAN     |  7900.00 |       0.00 |        100 |            50 |
+|         123 | Shanta      | Vollman     | SVOLLMAN |     6501235234.00 | 2007-11-16 | ST_MAN     |  6500.00 |       0.00 |        100 |            50 |
+|         124 | Kevin       | Mourgos     | KMOURGOS |     6501234234.00 | 2005-10-10 | ST_MAN     |  5800.00 |       0.00 |        100 |            50 |
+|         125 | Julia       | Nayer       | JNAYER   |     6501241214.00 | 2005-07-16 | ST_CLERK   |  3200.00 |       0.00 |        120 |            50 |
+|         126 | Irene       | Mikkilineni | IMIKKILI |     6501241224.00 | 2006-09-28 | ST_CLERK   |  2700.00 |       0.00 |        120 |            50 |
+|         127 | James       | Landry      | JLANDRY  |     6501241334.00 | 2007-01-14 | ST_CLERK   |  2400.00 |       0.00 |        120 |            50 |
+|         128 | Steven      | Markle      | SMARKLE  |     6501241434.00 | 2008-03-08 | ST_CLERK   |  2200.00 |       0.00 |        120 |            50 |
+|         129 | Laura       | Bissot      | LBISSOT  |     6501245234.00 | 2005-08-20 | ST_CLERK   |  3300.00 |       0.00 |        121 |            50 |
+|         130 | Mozhe       | Atkinson    | MATKINSO |     6501246234.00 | 2005-10-30 | ST_CLERK   |  2800.00 |       0.00 |        121 |            50 |
+|         131 | James       | Marlow      | JAMRLOW  |     6501247234.00 | 2005-02-16 | ST_CLERK   |  2500.00 |       0.00 |        121 |            50 |
+|         132 | TJ          | Olson       | TJOLSON  |     6501248234.00 | 2007-04-10 | ST_CLERK   |  2100.00 |       0.00 |        121 |            50 |
+|         133 | Jason       | Mallin      | JMALLIN  |     6501271934.00 | 2004-06-14 | ST_CLERK   |  3300.00 |       0.00 |        122 |            50 |
+|         134 | Michael     | Rogers      | MROGERS  |     6501271834.00 | 2006-08-26 | ST_CLERK   |  2900.00 |       0.00 |        122 |            50 |
+|         135 | Ki          | Gee         | KGEE     |     6501271734.00 | 2007-12-12 | ST_CLERK   |  2400.00 |       0.00 |        122 |            50 |
+|         136 | Hazel       | Philtanker  | HPHILTAN |     6501271634.00 | 2008-02-06 | ST_CLERK   |  2200.00 |       0.00 |        122 |            50 |
+|         137 | Renske      | Ladwig      | RLADWIG  |     6501211234.00 | 2003-07-14 | ST_CLERK   |  3600.00 |       0.00 |        123 |            50 |
+|         138 | Stephen     | Stiles      | SSTILES  |     6501212034.00 | 2005-10-26 | ST_CLERK   |  3200.00 |       0.00 |        123 |            50 |
+|         139 | John        | Seo         | JSEO     |     6501212019.00 | 2006-02-12 | ST_CLERK   |  2700.00 |       0.00 |        123 |            50 |
+|         140 | Joshua      | Patel       | JPATEL   |     6501211834.00 | 2006-04-06 | ST_CLERK   |  2500.00 |       0.00 |        123 |            50 |
+|         141 | Trenna      | Rajs        | TRAJS    |     6501218009.00 | 2003-10-17 | ST_CLERK   |  3500.00 |       0.00 |        124 |            50 |
+|         142 | Curtis      | Davies      | CDAVIES  |     6501212994.00 | 2005-01-29 | ST_CLERK   |  3100.00 |       0.00 |        124 |            50 |
+|         143 | Randall     | Matos       | RMATOS   |     6501212874.00 | 2006-03-15 | ST_CLERK   |  2600.00 |       0.00 |        124 |            50 |
+|         144 | Peter       | Vargas      | PVARGAS  |     6501212004.00 | 2006-07-09 | ST_CLERK   |  2500.00 |       0.00 |        124 |            50 |
+|         145 | John        | Russell     | JRUSSEL  | 11441344429268.00 | 2004-10-01 | SA_MAN     | 14000.00 |       0.40 |        100 |            80 |
+|         146 | Karen       | Partners    | KPARTNER | 11441344467268.00 | 2005-01-05 | SA_MAN     | 13500.00 |       0.30 |        100 |            80 |
+|         147 | Alberto     | Errazuriz   | AERRAZUR | 11441344429278.00 | 2005-03-10 | SA_MAN     | 12000.00 |       0.30 |        100 |            80 |
+|         148 | Gerald      | Cambrault   | GCAMBRAU | 11441344619268.00 | 2007-10-15 | SA_MAN     | 11000.00 |       0.30 |        100 |            80 |
+|         149 | Eleni       | Zlotkey     | EZLOTKEY | 11441344429018.00 | 2008-01-29 | SA_MAN     | 10500.00 |       0.20 |        100 |            80 |
+|         150 | Peter       | Tucker      | PTUCKER  | 11441344129268.00 | 2005-01-30 | SA_REP     | 10000.00 |       0.30 |        145 |            80 |
+|         151 | David       | Bernstein   | DBERNSTE | 11441344345268.00 | 2005-03-24 | SA_REP     |  9500.00 |       0.25 |        145 |            80 |
+|         152 | Peter       | Hall        | PHALL    | 11441344478968.00 | 2005-08-20 | SA_REP     |  9000.00 |       0.25 |        145 |            80 |
+|         153 | Christopher | Olsen       | COLSEN   | 11441344498718.00 | 2006-03-30 | SA_REP     |  8000.00 |       0.20 |        145 |            80 |
+|         154 | Nanette     | Cambrault   | NCAMBRAU | 11441344987668.00 | 2006-12-09 | SA_REP     |  7500.00 |       0.20 |        145 |            80 |
+|         155 | Oliver      | Tuvault     | OTUVAULT | 11441344486508.00 | 2007-11-23 | SA_REP     |  7000.00 |       0.15 |        145 |            80 |
+|         156 | Janette     | King        | JKING    | 11441345429268.00 | 2004-01-30 | SA_REP     | 10000.00 |       0.35 |        146 |            80 |
+|         157 | Patrick     | Sully       | PSULLY   | 11441345929268.00 | 2004-03-04 | SA_REP     |  9500.00 |       0.35 |        146 |            80 |
+|         158 | Allan       | McEwen      | AMCEWEN  | 11441345829268.00 | 2004-08-01 | SA_REP     |  9000.00 |       0.35 |        146 |            80 |
+|         159 | Lindsey     | Smith       | LSMITH   | 11441345729268.00 | 2005-03-10 | SA_REP     |  8000.00 |       0.30 |        146 |            80 |
+|         160 | Louise      | Doran       | LDORAN   | 11441345629268.00 | 2005-12-15 | SA_REP     |  7500.00 |       0.30 |        146 |            80 |
+|         161 | Sarath      | Sewall      | SSEWALL  | 11441345529268.00 | 2006-11-03 | SA_REP     |  7000.00 |       0.25 |        146 |            80 |
+|         162 | Clara       | Vishney     | CVISHNEY | 11441346129268.00 | 2005-11-11 | SA_REP     | 10500.00 |       0.25 |        147 |            80 |
+|         163 | Danielle    | Greene      | DGREENE  | 11441346229268.00 | 2007-03-19 | SA_REP     |  9500.00 |       0.15 |        147 |            80 |
+|         164 | Mattea      | Marvins     | MMARVINS | 11441346329268.00 | 2008-01-24 | SA_REP     |  7200.00 |       0.10 |        147 |            80 |
+|         165 | David       | Lee         | DLEE     | 11441346529268.00 | 2008-02-23 | SA_REP     |  6800.00 |       0.10 |        147 |            80 |
+|         166 | Sunder      | Ande        | SANDE    | 11441346629268.00 | 2008-03-24 | SA_REP     |  6400.00 |       0.10 |        147 |            80 |
+|         167 | Amit        | Banda       | ABANDA   | 11441346729268.00 | 2008-04-21 | SA_REP     |  6200.00 |       0.10 |        147 |            80 |
+|         168 | Lisa        | Ozer        | LOZER    | 11441343929268.00 | 2005-03-11 | SA_REP     | 11500.00 |       0.25 |        148 |            80 |
+|         169 | Harrison    | Bloom       | HBLOOM   | 11441343829268.00 | 2006-03-23 | SA_REP     | 10000.00 |       0.20 |        148 |            80 |
+|         170 | Tayler      | Fox         | TFOX     | 11441343729268.00 | 2006-01-24 | SA_REP     |  9600.00 |       0.20 |        148 |            80 |
+|         171 | William     | Smith       | WSMITH   | 11441343629268.00 | 2007-02-23 | SA_REP     |  7400.00 |       0.15 |        148 |            80 |
+|         172 | Sundita     | Kumar       | SKUMAR   | 11441343529268.00 | 2007-03-24 | SA_REP     |  7300.00 |       0.15 |        148 |            80 |
+|         173 | Elizabeth   | Bates       | EBATES   | 11441343329268.00 | 2008-04-21 | SA_REP     |  6100.00 |       0.10 |        148 |            80 |
+|         174 | Ellen       | Abel        | EABEL    | 11441644429267.00 | 2004-05-11 | SA_REP     | 11000.00 |       0.30 |        149 |            80 |
+|         175 | Alyssa      | Hutton      | AHUTTON  | 11441644429266.00 | 2005-03-19 | SA_REP     |  8800.00 |       0.25 |        149 |            80 |
+|         176 | Jonathon    | Taylor      | JTAYLOR  | 11441644429265.00 | 2006-03-24 | SA_REP     |  8600.00 |       0.25 |        149 |            80 |
+|         177 | Jack        | Livingston  | JLIVINGS | 11441644429264.00 | 2006-04-23 | SA_REP     |  8400.00 |       0.20 |        149 |            80 |
+|         178 | Kimberely   | Grant       | KGRANT   | 11441644429263.00 | 2007-05-24 | SA_REP     |  7000.00 |       0.15 |        149 |            80 |
+|         179 | Charles     | Johnson     | CJOHNSON | 11441644429262.00 | 2008-01-04 | SA_REP     |  6200.00 |       0.10 |        149 |            80 |
+|         180 | Winston     | Taylor      | WTAYLOR  |     6505079876.00 | 2006-01-24 | SH_CLERK   |  3200.00 |       0.00 |        120 |            50 |
+|         181 | Jean        | Fleaur      | JFLEAUR  |     6505079877.00 | 2006-02-23 | SH_CLERK   |  3100.00 |       0.00 |        120 |            50 |
+|         182 | Martha      | Sullivan    | MSULLIVA |     6505079878.00 | 2007-06-21 | SH_CLERK   |  2500.00 |       0.00 |        120 |            50 |
+|         183 | Girard      | Geoni       | GGEONI   |     6505079879.00 | 2008-02-03 | SH_CLERK   |  2800.00 |       0.00 |        120 |            50 |
+|         184 | Nandita     | Sarchand    | NSARCHAN |     6505091876.00 | 2004-01-27 | SH_CLERK   |  4200.00 |       0.00 |        121 |            50 |
+|         185 | Alexis      | Bull        | ABULL    |     6505092876.00 | 2005-02-20 | SH_CLERK   |  4100.00 |       0.00 |        121 |            50 |
+|         186 | Julia       | Dellinger   | JDELLING |     6505093876.00 | 2006-06-24 | SH_CLERK   |  3400.00 |       0.00 |        121 |            50 |
+|         187 | Anthony     | Cabrio      | ACABRIO  |     6505094876.00 | 2007-02-07 | SH_CLERK   |  3000.00 |       0.00 |        121 |            50 |
+|         188 | Kelly       | Chung       | KCHUNG   |     6505051876.00 | 2005-06-14 | SH_CLERK   |  3800.00 |       0.00 |        122 |            50 |
+|         189 | Jennifer    | Dilly       | JDILLY   |     6505052876.00 | 2005-08-13 | SH_CLERK   |  3600.00 |       0.00 |        122 |            50 |
+|         190 | Timothy     | Gates       | TGATES   |     6505053876.00 | 2006-07-11 | SH_CLERK   |  2900.00 |       0.00 |        122 |            50 |
+|         191 | Randall     | Perkins     | RPERKINS |     6505054876.00 | 2007-12-19 | SH_CLERK   |  2500.00 |       0.00 |        122 |            50 |
+|         192 | Sarah       | Bell        | SBELL    |     6505011876.00 | 2004-02-04 | SH_CLERK   |  4000.00 |       0.00 |        123 |            50 |
+|         193 | Britney     | Everett     | BEVERETT |     6505012876.00 | 2005-03-03 | SH_CLERK   |  3900.00 |       0.00 |        123 |            50 |
+|         194 | Samuel      | McCain      | SMCCAIN  |     6505013876.00 | 2006-07-01 | SH_CLERK   |  3200.00 |       0.00 |        123 |            50 |
+|         195 | Vance       | Jones       | VJONES   |     6505014876.00 | 2007-03-17 | SH_CLERK   |  2800.00 |       0.00 |        123 |            50 |
+|         196 | Alana       | Walsh       | AWALSH   |     6505079811.00 | 2006-04-24 | SH_CLERK   |  3100.00 |       0.00 |        124 |            50 |
+|         197 | Kevin       | Feeney      | KFEENEY  |     6505079822.00 | 2006-05-23 | SH_CLERK   |  3000.00 |       0.00 |        124 |            50 |
+|         198 | Donald      | OConnell    | DOCONNEL |     6505079833.00 | 2007-06-21 | SH_CLERK   |  2600.00 |       0.00 |        124 |            50 |
+|         199 | Douglas     | Grant       | DGRANT   |     6505079844.00 | 2008-01-13 | SH_CLERK   |  2600.00 |       0.00 |        124 |            50 |
+|         200 | Jennifer    | Whalen      | JWHALEN  |     5151234444.00 | 2003-09-17 | AD_ASST    |  4400.00 |       0.00 |        101 |            10 |
+|         201 | Michael     | Hartstein   | MHARTSTE |     5151235555.00 | 2004-02-17 | MK_MAN     | 13000.00 |       0.00 |        100 |            20 |
+|         202 | Pat         | Fay         | PFAY     |     6031236666.00 | 2005-08-17 | MK_REP     |  6000.00 |       0.00 |        201 |            20 |
+|         203 | Susan       | Mavris      | SMAVRIS  |     5151237777.00 | 2002-06-07 | HR_REP     |  6500.00 |       0.00 |        101 |            40 |
+|         204 | Hermann     | Baer        | HBAER    |     5151238888.00 | 2002-06-07 | PR_REP     | 10000.00 |       0.00 |        101 |            70 |
+|         205 | Shelley     | Higgins     | SHIGGINS |     5151238080.00 | 2002-06-07 | AC_MGR     | 12008.00 |       0.00 |        101 |           110 |
+|         206 | PAWAN       | YADAV       | PYADAV   |     8882293337.00 | 2000-08-22 | AC_ACCOUNT | 70000.00 |       0.00 |        205 |           110 |
++-------------+-------------+-------------+----------+-------------------+------------+------------+----------+------------+------------+---------------+
+107 rows in set (0.01 sec)
+
+mysql> completed SQL Sub Queries
