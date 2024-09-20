@@ -1,0 +1,265 @@
+mysql> describe salesmen;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| sid      | varchar(5)  | NO   | PRI | NULL    |       |
+| s_name   | varchar(10) | NO   |     | NULL    |       |
+| city     | varchar(15) | NO   |     | NULL    |       |
+| salary   | int         | YES  |     | NULL    |       |
+| prodct   | varchar(20) | YES  |     | NULL    |       |
+| tgttoget | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> insert into salesmen values((1,'Pawan','Noida',20000,'Watch',50),(2,'Pankaj','Delhi',30000,'Mobile',80),(3,'Amit','G.Noida',15000,'TV',10),(4,'Ram','Noida',25000,'Laptop',15),(5,'Aman','Shimla',35000,'Monitor',60));
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into salesmen values(1,'Pawan','Noida',20000,'Watch',50),(2,'Pankaj','Delhi',30000,'Mobile',80),(3,'Amit','G.Noida',15000,'TV',10),(4,'Ram','Noida',25000,'Laptop',15),(5,'Aman','Shimla',35000,'Mo
+nitor',60);
+Query OK, 5 rows affected (0.35 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> describe customer;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| cid     | varchar(5)  | NO   | PRI | NULL    |       |
+| c_name  | varchar(20) | NO   |     | NULL    |       |
+| city    | varchar(15) | NO   |     | NULL    |       |
+| state   | varchar(15) | YES  |     | NULL    |       |
+| pincode | int         | YES  |     | NULL    |       |
+| product | varchar(20) | YES  |     | NULL    |       |
+| class   | char(1)     | YES  |     | A       |       |
++---------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> insert into customer values(1,'Raman','shimla','HP',171010,'Laptop','A'),(2,'Pawan','Noida','UP',201301,'Mobile','B'),(3,'Pankaj','Delhi','New_Delhi',110096,'Monitor','C'),(4,'Amit','G.Noida','UP',201310,'Watch','D'),(5,'Ram','Gurgaon','HR',310230,'TV','E');
+Query OK, 5 rows affected (0.35 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> describe orders;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| oid     | varchar(5)  | NO   | PRI | NULL    |       |
+| cid     | varchar(5)  | YES  | MUL | NULL    |       |
+| sid     | varchar(5)  | YES  | MUL | NULL    |       |
+| product | varchar(20) | YES  |     | NULL    |       |
+| qty     | int         | YES  |     | NULL    |       |
+| o_date  | date        | YES  |     | NULL    |       |
+| q_amt   | int         | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+7 rows in set (0.01 sec)
+
+mysql> insert into orders values(1,1,1,'Laptop',20,'2024-09-10',100000);
+Query OK, 1 row affected (0.14 sec)
+
+mysql> insert into orders values(2,2,2,'Mobile',15,'2024-08-15',150000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into orders values(3,3,3,'Monitor',12,'2024-06-05',205500);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into orders values(4,4,4,'Watch',17,'2024-08-07',250000);
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into orders values(5,5,5,'TV',22,'2024-08-19',350000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> update salesmen set product='Laptop' where sid=1;
+ERROR 1054 (42S22): Unknown column 'product' in 'field list'
+mysql> update salesmen set prodct='Laptop' where sid=1;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update salesmen set prodct='Monitor' where sid=3;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update salesmen set prodct='Watch' where sid=4;
+Query OK, 1 row affected (0.10 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update salesmen set prodct='TV' where sid=5;
+Query OK, 1 row affected (0.10 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from salesmen;
++-----+--------+---------+--------+---------+----------+
+| sid | s_name | city    | salary | prodct  | tgttoget |
++-----+--------+---------+--------+---------+----------+
+| 1   | Pawan  | Noida   |  20000 | Laptop  |       50 |
+| 2   | Pankaj | Delhi   |  30000 | Mobile  |       80 |
+| 3   | Amit   | G.Noida |  15000 | Monitor |       10 |
+| 4   | Ram    | Noida   |  25000 | Watch   |       15 |
+| 5   | Aman   | Shimla  |  35000 | TV      |       60 |
++-----+--------+---------+--------+---------+----------+
+5 rows in set (0.00 sec)
+
+mysql> alter table salesmen rename column prodct to product;
+Query OK, 0 rows affected (0.66 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from salesmen;
++-----+--------+---------+--------+---------+----------+
+| sid | s_name | city    | salary | product | tgttoget |
++-----+--------+---------+--------+---------+----------+
+| 1   | Pawan  | Noida   |  20000 | Laptop  |       50 |
+| 2   | Pankaj | Delhi   |  30000 | Mobile  |       80 |
+| 3   | Amit   | G.Noida |  15000 | Monitor |       10 |
+| 4   | Ram    | Noida   |  25000 | Watch   |       15 |
+| 5   | Aman   | Shimla  |  35000 | TV      |       60 |
++-----+--------+---------+--------+---------+----------+
+5 rows in set (0.00 sec)
+
+mysql> select * from salesmen where city !='Noida';
++-----+--------+---------+--------+---------+----------+
+| sid | s_name | city    | salary | product | tgttoget |
++-----+--------+---------+--------+---------+----------+
+| 2   | Pankaj | Delhi   |  30000 | Mobile  |       80 |
+| 3   | Amit   | G.Noida |  15000 | Monitor |       10 |
+| 5   | Aman   | Shimla  |  35000 | TV      |       60 |
++-----+--------+---------+--------+---------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select * from customer;
++-----+--------+---------+-----------+---------+---------+-------+
+| cid | c_name | city    | state     | pincode | product | class |
++-----+--------+---------+-----------+---------+---------+-------+
+| 1   | Raman  | shimla  | HP        |  171010 | Laptop  | A     |
+| 2   | Pawan  | Noida   | UP        |  201301 | Mobile  | B     |
+| 3   | Pankaj | Delhi   | New_Delhi |  110096 | Monitor | C     |
+| 4   | Amit   | G.Noida | UP        |  201310 | Watch   | D     |
+| 5   | Ram    | Gurgaon | HR        |  310230 | TV      | E     |
++-----+--------+---------+-----------+---------+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select cid,c_name from customer where clas='A';
+ERROR 1054 (42S22): Unknown column 'clas' in 'where clause'
+mysql> select cid,c_name from customer where claas='A';
+ERROR 1054 (42S22): Unknown column 'claas' in 'where clause'
+mysql> select cid,c_name from customer where class='A';
++-----+--------+
+| cid | c_name |
++-----+--------+
+| 1   | Raman  |
++-----+--------+
+1 row in set (0.00 sec)
+
+mysql> alter table salesmen add country varchar(5);
+Query OK, 0 rows affected (0.56 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table customer add country varchar(5);
+Query OK, 0 rows affected (0.37 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> update customer set city='Jaipur' where c_name='Pawan';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from customer where city ='Delhi';
++-----+--------+-------+-----------+---------+---------+-------+---------+
+| cid | c_name | city  | state     | pincode | product | class | country |
++-----+--------+-------+-----------+---------+---------+-------+---------+
+| 3   | Pankaj | Delhi | New_Delhi |  110096 | Monitor | C     | NULL    |
++-----+--------+-------+-----------+---------+---------+-------+---------+
+1 row in set (0.08 sec)
+
+mysql> select * from salesmen where salary >20000;
++-----+--------+--------+--------+---------+----------+---------+
+| sid | s_name | city   | salary | product | tgttoget | country |
++-----+--------+--------+--------+---------+----------+---------+
+| 2   | Pankaj | Delhi  |  30000 | Mobile  |       80 | NULL    |
+| 4   | Ram    | Noida  |  25000 | Watch   |       15 | NULL    |
+| 5   | Aman   | Shimla |  35000 | TV      |       60 | NULL    |
++-----+--------+--------+--------+---------+----------+---------+
+3 rows in set (0.01 sec)
+
+mysql> update orders set q_amt=90000 where oid=5;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select oid,o_date from orders where sid=4;
++-----+------------+
+| oid | o_date     |
++-----+------------+
+| 4   | 2024-08-07 |
++-----+------------+
+1 row in set (0.00 sec)
+
+mysql> select * from salesmen;
++-----+--------+---------+--------+---------+----------+---------+
+| sid | s_name | city    | salary | product | tgttoget | country |
++-----+--------+---------+--------+---------+----------+---------+
+| 1   | Pawan  | Noida   |  20000 | Laptop  |       50 | NULL    |
+| 2   | Pankaj | Delhi   |  30000 | Mobile  |       80 | NULL    |
+| 3   | Amit   | G.Noida |  15000 | Monitor |       10 | NULL    |
+| 4   | Ram    | Noida   |  25000 | Watch   |       15 | NULL    |
+| 5   | Aman   | Shimla  |  35000 | TV      |       60 | NULL    |
++-----+--------+---------+--------+---------+----------+---------+
+5 rows in set (0.00 sec)
+
+mysql> select * from customer;
++-----+--------+---------+-----------+---------+---------+-------+---------+
+| cid | c_name | city    | state     | pincode | product | class | country |
++-----+--------+---------+-----------+---------+---------+-------+---------+
+| 1   | Raman  | shimla  | HP        |  171010 | Laptop  | A     | NULL    |
+| 2   | Pawan  | Jaipur  | UP        |  201301 | Mobile  | B     | NULL    |
+| 3   | Pankaj | Delhi   | New_Delhi |  110096 | Monitor | C     | NULL    |
+| 4   | Amit   | G.Noida | UP        |  201310 | Watch   | D     | NULL    |
+| 5   | Ram    | Gurgaon | HR        |  310230 | TV      | E     | NULL    |
++-----+--------+---------+-----------+---------+---------+-------+---------+
+5 rows in set (0.00 sec)
+
+mysql> select * from orders;
++-----+------+------+---------+------+------------+--------+
+| oid | cid  | sid  | product | qty  | o_date     | q_amt  |
++-----+------+------+---------+------+------------+--------+
+| 1   | 1    | 1    | Laptop  |   20 | 2024-09-10 | 100000 |
+| 2   | 2    | 2    | Mobile  |   15 | 2024-08-15 | 150000 |
+| 3   | 3    | 3    | Monitor |   12 | 2024-06-05 | 205500 |
+| 4   | 4    | 4    | Watch   |   17 | 2024-08-07 | 250000 |
+| 5   | 5    | 5    | TV      |   22 | 2024-08-19 |  90000 |
++-----+------+------+---------+------+------------+--------+
+5 rows in set (0.00 sec)
+       ^A
+mysql>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
