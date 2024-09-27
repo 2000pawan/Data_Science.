@@ -1,0 +1,245 @@
+mysql> use company;
+Database changed
+mysql> select * from salesman where s_name like '%_a';
+Empty set (0.07 sec)
+
+mysql> select * from salesman where s_name like '_a%';
++-----+--------+-------+--------+---------+------------+---------+
+| sid | s_name | city  | salary | product | target_get | country |
++-----+--------+-------+--------+---------+------------+---------+
+| 105 | Pawan  | Noida |  50000 | Monitor |         35 | India   |
++-----+--------+-------+--------+---------+------------+---------+
+1 row in set (0.01 sec)
+
+mysql> update customer set  state ='Null' where cid=205;
+Query OK, 1 row affected (0.08 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from customer where state=Null;
+Empty set (0.01 sec)
+
+mysql> select * from customer ;
++-----+--------+---------+-----------+---------+---------+-------+---------+
+| cid | c_name | city    | state     | pincode | product | class | country |
++-----+--------+---------+-----------+---------+---------+-------+---------+
+| 201 | Aman   | Noida   | UP        |  201301 | Mobile  | A     | India   |
+| 202 | Amit   | Delhi   | New Delhi |  110096 | AC      | B     | India   |
+| 203 | Jhon   | Jaipur  | UP        |  201307 | Laptop  | C     | India   |
+| 204 | Anil   | Gurgaon | Haryana   |  301305 | Monitor | B     | India   |
+| 205 | Ayush  | Shimla  | Null      |  171010 | TV      | C     | India   |
++-----+--------+---------+-----------+---------+---------+-------+---------+
+5 rows in set (0.00 sec)
+
+mysql> select * from customer where state='Null';
++-----+--------+--------+-------+---------+---------+-------+---------+
+| cid | c_name | city   | state | pincode | product | class | country |
++-----+--------+--------+-------+---------+---------+-------+---------+
+| 205 | Ayush  | Shimla | Null  |  171010 | TV      | C     | India   |
++-----+--------+--------+-------+---------+---------+-------+---------+
+1 row in set (0.00 sec)
+
+mysql> update customer set  state =Null where cid=205;
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from customer where state=Null;
+Empty set (0.00 sec)
+
+mysql> select * from customer where state is Null;
++-----+--------+--------+-------+---------+---------+-------+---------+
+| cid | c_name | city   | state | pincode | product | class | country |
++-----+--------+--------+-------+---------+---------+-------+---------+
+| 205 | Ayush  | Shimla | NULL  |  171010 | TV      | C     | India   |
++-----+--------+--------+-------+---------+---------+-------+---------+
+1 row in set (0.00 sec)
+
+mysql> select * from customer order by s_name;
+ERROR 1054 (42S22): Unknown column 's_name' in 'order clause'
+mysql> select * from customer order by c_name desc;
++-----+--------+---------+-----------+---------+---------+-------+---------+
+| cid | c_name | city    | state     | pincode | product | class | country |
++-----+--------+---------+-----------+---------+---------+-------+---------+
+| 203 | Jhon   | Jaipur  | UP        |  201307 | Laptop  | C     | India   |
+| 205 | Ayush  | Shimla  | NULL      |  171010 | TV      | C     | India   |
+| 204 | Anil   | Gurgaon | Haryana   |  301305 | Monitor | B     | India   |
+| 202 | Amit   | Delhi   | New Delhi |  110096 | AC      | B     | India   |
+| 201 | Aman   | Noida   | UP        |  201301 | Mobile  | A     | India   |
++-----+--------+---------+-----------+---------+---------+-------+---------+
+5 rows in set (0.01 sec)
+
+mysql> update orders set amt=65000 where cid=503;
+Query OK, 0 rows affected (0.01 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> select * from orders where cid=503;
+Empty set (0.01 sec)
+
+mysql> select * from orders;
++-----+------+------+---------+------+------------+--------+
+| oid | cid  | sid  | product | qty  | o_date     | amt    |
++-----+------+------+---------+------+------------+--------+
+| 501 | 203  | 102  | Mobile  |   15 | 2024-08-26 |  70000 |
+| 502 | 202  | 101  | TV      |   16 | 2024-05-25 |  80000 |
+| 503 | 201  | 104  | Monitor |   25 | 2024-06-06 |  50000 |
+| 504 | 205  | 103  | AC      |   28 | 2023-09-08 | 155000 |
+| 505 | 204  | 105  | Laptop  |   48 | 2022-10-28 | 400000 |
++-----+------+------+---------+------+------------+--------+
+5 rows in set (0.00 sec)
+
+mysql> update orders set amt=65000 where cid=502;
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> select * from orders;
++-----+------+------+---------+------+------------+--------+
+| oid | cid  | sid  | product | qty  | o_date     | amt    |
++-----+------+------+---------+------+------------+--------+
+| 501 | 203  | 102  | Mobile  |   15 | 2024-08-26 |  70000 |
+| 502 | 202  | 101  | TV      |   16 | 2024-05-25 |  80000 |
+| 503 | 201  | 104  | Monitor |   25 | 2024-06-06 |  50000 |
+| 504 | 205  | 103  | AC      |   28 | 2023-09-08 | 155000 |
+| 505 | 204  | 105  | Laptop  |   48 | 2022-10-28 | 400000 |
++-----+------+------+---------+------+------------+--------+
+5 rows in set (0.00 sec)
+
+mysql> update orders set amt=65000 where oid=503;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from orders where oid=503;
++-----+------+------+---------+------+------------+-------+
+| oid | cid  | sid  | product | qty  | o_date     | amt   |
++-----+------+------+---------+------+------------+-------+
+| 503 | 201  | 104  | Monitor |   25 | 2024-06-06 | 65000 |
++-----+------+------+---------+------+------------+-------+
+1 row in set (0.00 sec)
+
+mysql> select city from customer where c_name like '%n';
++--------+
+| city   |
++--------+
+| Noida  |
+| Jaipur |
++--------+
+2 rows in set (0.00 sec)
+
+mysql> select * from orders where o_date='2024-06-06' and max(amt);
+ERROR 1111 (HY000): Invalid use of group function
+mysql> select * from orders grop by max(amt) where o_date='2024-06-06';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'by max(amt) where o_date='2024-06-06'' at line 1
+mysql> select * from orders group by max(amt) where o_date='2024-06-06';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where o_date='2024-06-06'' at line 1
+mysql> SELECT MAX(amt) AS max_amt
+    -> FROM orders
+    -> WHERE o_date = '2024-06-06';
++---------+
+| max_amt |
++---------+
+|   65000 |
++---------+
+1 row in set (0.02 sec)
+
+mysql> SELECT MAX(amt) AS max_amt from orders where o_date ='2024-06-06';
++---------+
+| max_amt |
++---------+
+|   65000 |
++---------+
+1 row in set (0.00 sec)
+
+mysql> select length(product) as length_product, avg(amt) as average_amt,max(amt) as max_amt,min(amt) as min_amt,sum(amt) sum_amt,lcase(product) as lowercase_product,ucase(product) as uppercase_product from or
+ders;
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #1 of SELECT list contains nonaggregated column 'company.orders.product'; this is incompatible with sql_mode=only_full_group_by
+mysql> select length(product) as length_product, avg(amt) as average_amt,max(amt) as max_amt,min(amt) as min_amt,sum(amt) sum_amt, from orders;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from orders' at line 1
+mysql> select avg(amt) as average_amt,max(amt) as max_amt,min(amt) as min_amt,sum(amt) sum_amt, from orders;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from orders' at line 1
+mysql> SELECT
+    ->     LENGTH(product) AS length_product,
+    ->     AVG(amt) AS average_amt,
+    ->     MAX(amt) AS max_amt,
+    ->     MIN(amt) AS min_amt,
+    ->     SUM(amt) AS sum_amt,
+    ->     LCASE(product) AS lowercase_product,
+    ->     UCASE(product) AS uppercase_product
+    -> FROM orders
+    -> GROUP BY product;
++----------------+-------------+---------+---------+---------+-------------------+-------------------+
+| length_product | average_amt | max_amt | min_amt | sum_amt | lowercase_product | uppercase_product |
++----------------+-------------+---------+---------+---------+-------------------+-------------------+
+|              6 |  70000.0000 |   70000 |   70000 |   70000 | mobile            | MOBILE            |
+|              2 |  80000.0000 |   80000 |   80000 |   80000 | tv                | TV                |
+|              7 |  65000.0000 |   65000 |   65000 |   65000 | monitor           | MONITOR           |
+|              2 | 155000.0000 |  155000 |  155000 |  155000 | ac                | AC                |
+|              6 | 400000.0000 |  400000 |  400000 |  400000 | laptop            | LAPTOP            |
++----------------+-------------+---------+---------+---------+-------------------+-------------------+
+5 rows in set (0.03 sec)
+
+mysql> SELECT length(product) as length_product,avg(amt) as average_amt,max(amt) as amt,min(amt) as min_amt,lcase(product) as lower_case,ucase(product) as upper_case from orders group by product;
++----------------+-------------+--------+---------+------------+------------+
+| length_product | average_amt | amt    | min_amt | lower_case | upper_case |
++----------------+-------------+--------+---------+------------+------------+
+|              6 |  70000.0000 |  70000 |   70000 | mobile     | MOBILE     |
+|              2 |  80000.0000 |  80000 |   80000 | tv         | TV         |
+|              7 |  65000.0000 |  65000 |   65000 | monitor    | MONITOR    |
+|              2 | 155000.0000 | 155000 |  155000 | ac         | AC         |
+|              6 | 400000.0000 | 400000 |  400000 | laptop     | LAPTOP     |
++----------------+-------------+--------+---------+------------+------------+
+5 rows in set (0.01 sec)
+
+mysql> select s_name from salesman where s_name like 'J%n';
++--------+
+| s_name |
++--------+
+| Jhon   |
++--------+
+1 row in set (0.01 sec)
+
+mysql> select avg(salary) as average_salary,max(salary) as max_salary,min(salary) as min_salary from salesman;
++----------------+------------+------------+
+| average_salary | max_salary | min_salary |
++----------------+------------+------------+
+|     27000.0000 |      50000 |      15000 |
++----------------+------------+------------+
+1 row in set (0.01 sec)
+
+mysql> select sid,cid from orders where o_date between('2024-06-06','2024-08-26') ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> select sid,cid from orders where o_date in between('2024-06-06','2024-08-26') ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'between('2024-06-06','2024-08-26')' at line 1
+mysql> select sid,cid from orders where o_date  between '2024-06-06' and '2024-08-26' ;
++------+------+
+| sid  | cid  |
++------+------+
+| 102  | 203  |
+| 104  | 201  |
++------+------+
+2 rows in set (0.00 sec)
+
+mysql> select qty from orders where max(qty) group by (oid);
+ERROR 1111 (HY000): Invalid use of group function
+mysql> select max(qty) from orders group by (oid);
++----------+
+| max(qty) |
++----------+
+|       15 |
+|       16 |
+|       25 |
+|       28 |
+|       48 |
++----------+
+5 rows in set (0.01 sec)
+
+mysql> select oid, max(qty) from orders group by (oid);
++-----+----------+
+| oid | max(qty) |
++-----+----------+
+| 501 |       15 |
+| 502 |       16 |
+| 503 |       25 |
+| 504 |       28 |
+| 505 |       48 |
++-----+----------+
+5 rows in set (0.00 sec)
+
+mysql>

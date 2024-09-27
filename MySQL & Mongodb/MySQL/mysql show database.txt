@@ -1,0 +1,100 @@
+mysql> show database
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'database' at line 1
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| altertable1        |
+| company            |
+| db                 |
+| information_schema |
+| mysql              |
+| performance_schema |
+| resturant          |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+10 rows in set (0.27 sec)
+
+mysql> drop company;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'company' at line 1
+mysql> use company
+Database changed
+mysql> show tabhles;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'tabhles' at line 1
+mysql> show tables;
++-------------------+
+| Tables_in_company |
++-------------------+
+| customer          |
+| orders            |
+| salesmen          |
++-------------------+
+3 rows in set (0.08 sec)
+
+mysql> describe customer;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| cid     | varchar(5)  | NO   | PRI | NULL    |       |
+| c_name  | varchar(20) | NO   |     | NULL    |       |
+| city    | varchar(15) | NO   |     | NULL    |       |
+| state   | varchar(15) | YES  |     | NULL    |       |
+| pincode | int         | YES  |     | NULL    |       |
+| product | varchar(20) | YES  |     | NULL    |       |
+| class   | char(1)     | YES  |     | A       |       |
+| country | varchar(5)  | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+8 rows in set (0.06 sec)
+
+mysql> describe orders;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| oid     | varchar(5)  | NO   | PRI | NULL    |       |
+| cid     | varchar(5)  | YES  | MUL | NULL    |       |
+| sid     | varchar(5)  | YES  | MUL | NULL    |       |
+| product | varchar(20) | YES  |     | NULL    |       |
+| qty     | int         | YES  |     | NULL    |       |
+| o_date  | date        | YES  |     | NULL    |       |
+| q_amt   | int         | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+7 rows in set (0.01 sec)
+
+mysql> describe salesmen;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| sid      | varchar(5)  | NO   | PRI | NULL    |       |
+| s_name   | varchar(10) | NO   |     | NULL    |       |
+| city     | varchar(15) | NO   |     | NULL    |       |
+| salary   | int         | YES  |     | NULL    |       |
+| product  | varchar(20) | YES  |     | NULL    |       |
+| tgttoget | int         | YES  |     | NULL    |       |
+| country  | varchar(5)  | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+7 rows in set (0.01 sec)
+
+mysql>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
