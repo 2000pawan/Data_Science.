@@ -1,0 +1,354 @@
+mysql> insert into salesmen values (101,'Jhon','London',15000,'Mobile',45,'UK');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into salesmen values (102,'Smith','Leeds',30000,'TV',25,'UK'),(103,'Bob','New York',25000,'Laptop',30,'USA');
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> insert into salesmen values (104,'Rohit','Rome',15000,'AC',60,'Itly'),(105,'Pawan','Noida',50000,'Monitor',35,'India');
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from salesmen;
++-----+--------+----------+--------+---------+------------+---------+
+| sid | s_name | city     | salary | product | target_get | country |
++-----+--------+----------+--------+---------+------------+---------+
+| 101 | Jhon   | London   |  15000 | Mobile  |         45 | UK      |
+| 102 | Smith  | Leeds    |  30000 | TV      |         25 | UK      |
+| 103 | Bob    | New York |  25000 | Laptop  |         30 | USA     |
+| 104 | Rohit  | Rome     |  15000 | AC      |         60 | Itly    |
+| 105 | Pawan  | Noida    |  50000 | Monitor |         35 | India   |
++-----+--------+----------+--------+---------+------------+---------+
+5 rows in set (0.00 sec)
+
+mysql> insert into customer values (201,'Aman','Noida','UP',201301,'Mobile','A','India'),(202,'Amit','Delhi','New Delhi',110096,'AC','B','India'),(203,'Jhon','Gr.Noida','UP',201307,'Laptop','C','India'),(204,'Anil','Gurgoan','Haryana',301305,'Monitor','B','India'),(205,'Ayush','Shimla','H.P',171010,'TV','C','India');
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from customer;
++-----+--------+----------+-----------+---------+---------+-------+---------+
+| cid | c_name | city     | state     | pincode | product | class | country |
++-----+--------+----------+-----------+---------+---------+-------+---------+
+| 201 | Aman   | Noida    | UP        |  201301 | Mobile  | A     | India   |
+| 202 | Amit   | Delhi    | New Delhi |  110096 | AC      | B     | India   |
+| 203 | Jhon   | Gr.Noida | UP        |  201307 | Laptop  | C     | India   |
+| 204 | Anil   | Gurgoan  | Haryana   |  301305 | Monitor | B     | India   |
+| 205 | Ayush  | Shimla   | H.P       |  171010 | TV      | C     | India   |
++-----+--------+----------+-----------+---------+---------+-------+---------+
+5 rows in set (0.00 sec)
+
+mysql> insert into orders values (501,203,102,'Mobile',15,'2024-08-26',70000),(502,202,101,'TV',16,'024-05-25',90000),(503,201,104,'Monitor',25,'2024-06-06',50000),(504,205,103,'AC',28,'2023-09-08',155000),(505,204,105,'Laptop',48,'2022-10-28',400000);
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from orders;
++-----+------+------+---------+------+------------+--------+
+| oid | cid  | sid  | product | qty  | o_date     | amt    |
++-----+------+------+---------+------+------------+--------+
+| 501 | 203  | 102  | Mobile  |   15 | 2024-08-26 |  70000 |
+| 502 | 202  | 101  | TV      |   16 | 0024-05-25 |  90000 |
+| 503 | 201  | 104  | Monitor |   25 | 2024-06-06 |  50000 |
+| 504 | 205  | 103  | AC      |   28 | 2023-09-08 | 155000 |
+| 505 | 204  | 105  | Laptop  |   48 | 2022-10-28 | 400000 |
++-----+------+------+---------+------+------------+--------+
+5 rows in set (0.00 sec)
+
+mysql> insert into salesmen values (106,'Ram','Rome',65000,'PenDrive',80,'Itly'),(107,'Raman','Noida',20000,'Ram',45,'India');
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select city as City,count(city),avg(salary) from salesmen group by (city);
++----------+-------------+-------------+
+| City     | count(city) | avg(salary) |
++----------+-------------+-------------+
+| London   |           1 |  15000.0000 |
+| Leeds    |           1 |  30000.0000 |
+| New York |           1 |  25000.0000 |
+| Rome     |           2 |  40000.0000 |
+| Noida    |           2 |  35000.0000 |
++----------+-------------+-------------+
+5 rows in set (0.01 sec)
+
+mysql> select city as City,count(city) as No_of_Salesmen,avg(salary) as Average_Salary from salesmen group by (city);
++----------+----------------+----------------+
+| City     | No_of_Salesmen | Average_Salary |
++----------+----------------+----------------+
+| London   |              1 |     15000.0000 |
+| Leeds    |              1 |     30000.0000 |
+| New York |              1 |     25000.0000 |
+| Rome     |              2 |     40000.0000 |
+| Noida    |              2 |     35000.0000 |
++----------+----------------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> select city as City,count(city) as No_of_Salesmen from salesmen group by (city) order by desc;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'desc' at line 1
+mysql> select city as City,count(city) as No_of_Salesmen from salesmen group by (city) order by city desc;
++----------+----------------+
+| City     | No_of_Salesmen |
++----------+----------------+
+| Rome     |              2 |
+| Noida    |              2 |
+| New York |              1 |
+| London   |              1 |
+| Leeds    |              1 |
++----------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> select count(city) as No_of_Salesmen,city as City from salesmen group by (city) order by city desc;
++----------------+----------+
+| No_of_Salesmen | City     |
++----------------+----------+
+|              2 | Rome     |
+|              2 | Noida    |
+|              1 | New York |
+|              1 | London   |
+|              1 | Leeds    |
++----------------+----------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT
+    ->     sid AS Salesman_ID,
+    ->     COUNT(product) AS Total_Products_Sold
+    -> FROM
+    ->     orders
+    -> GROUP BY
+    ->     sid
+    -> HAVING
+    ->     COUNT(product) > 2;
+Empty set (0.00 sec)
+
+mysql> select sid as Salesmen_Id,count(product) as Total_Products_Sold from orders group by sid;
++-------------+---------------------+
+| Salesmen_Id | Total_Products_Sold |
++-------------+---------------------+
+| 101         |                   1 |
+| 102         |                   1 |
+| 103         |                   1 |
+| 104         |                   1 |
+| 105         |                   1 |
++-------------+---------------------+
+5 rows in set (0.00 sec)
+
+mysql> select sid as Salesmen_Id,count(product) as Total_Products_Sold from orders group by sid having count(product)>2;
+Empty set (0.00 sec)
+
+mysql> insert into orders values (506,203,102,'Mobile',14,'2024-07-21',50002),(507,205,103,'AC',22,'2024-09-30',25680);
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select sid as Salesmen_Id,count(product) as Total_Products_Sold from orders group by sid having count(product)>2;
+Empty set (0.00 sec)
+
+mysql> select sid as Salesmen_Id,count(product) as Total_Products_Sold from orders group by sid having count(product)>2;
+Empty set (0.00 sec)
+
+mysql> select * from orders;
++-----+------+------+---------+------+------------+--------+
+| oid | cid  | sid  | product | qty  | o_date     | amt    |
++-----+------+------+---------+------+------------+--------+
+| 501 | 203  | 102  | Mobile  |   15 | 2024-08-26 |  70000 |
+| 502 | 202  | 101  | TV      |   16 | 0024-05-25 |  90000 |
+| 503 | 201  | 104  | Monitor |   25 | 2024-06-06 |  50000 |
+| 504 | 205  | 103  | AC      |   28 | 2023-09-08 | 155000 |
+| 505 | 204  | 105  | Laptop  |   48 | 2022-10-28 | 400000 |
+| 506 | 203  | 102  | Mobile  |   14 | 2024-07-21 |  50002 |
+| 507 | 205  | 103  | AC      |   22 | 2024-09-30 |  25680 |
++-----+------+------+---------+------+------------+--------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT sid AS Salesman_ID, COUNT(DISTINCT product) AS Total_Products_Sold FROM orders GROUP BY sid HAVING COUNT(DISTINCT product) > 2;
+Empty set (0.01 sec)
+
+mysql> SELECT sid AS Salesman_ID, COUNT(DISTINCT product) AS Total_Products_Sold FROM orders GROUP BY sid HAVING COUNT(product) > 2;
+Empty set (0.00 sec)
+
+mysql> SELECT sid AS Salesman_ID, COUNT(product) AS Total_Products_Sold FROM orders GROUP BY sid HAVING COUNT(product) > 2;
+Empty set (0.00 sec)
+
+mysql> SELECT sid AS Salesman_ID, COUNT(product) AS Total_Products_Sold FROM orders GROUP BY sid HAVING COUNT(product) > 1;
++-------------+---------------------+
+| Salesman_ID | Total_Products_Sold |
++-------------+---------------------+
+| 102         |                   2 |
+| 103         |                   2 |
++-------------+---------------------+
+2 rows in set (0.00 sec)
+
+mysql> select sid as Salesmen_Id,count(product) as Total_Products_Sold from orders group by sid having count(product)>=2;
++-------------+---------------------+
+| Salesmen_Id | Total_Products_Sold |
++-------------+---------------------+
+| 102         |                   2 |
+| 103         |                   2 |
++-------------+---------------------+
+2 rows in set (0.00 sec)
+
+mysql> select product as Products ,sid as Salesmen_Id,count(product) as Total_Products_Sold from orders group by sid having count(product)>=2;
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'company.orders.product' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> select product a,sid as Salesmen_Id,count(product) as Total_Products_Sold from orders group by sid having count(product)>=2;
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'company.orders.product' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> select * from orders;
++-----+------+------+---------+------+------------+--------+
+| oid | cid  | sid  | product | qty  | o_date     | amt    |
++-----+------+------+---------+------+------------+--------+
+| 501 | 203  | 102  | Mobile  |   15 | 2024-08-26 |  70000 |
+| 502 | 202  | 101  | TV      |   16 | 0024-05-25 |  90000 |
+| 503 | 201  | 104  | Monitor |   25 | 2024-06-06 |  50000 |
+| 504 | 205  | 103  | AC      |   28 | 2023-09-08 | 155000 |
+| 505 | 204  | 105  | Laptop  |   48 | 2022-10-28 | 400000 |
+| 506 | 203  | 102  | Mobile  |   14 | 2024-07-21 |  50002 |
+| 507 | 205  | 103  | AC      |   22 | 2024-09-30 |  25680 |
++-----+------+------+---------+------+------------+--------+
+7 rows in set (0.00 sec)
+
+mysql> select sid as Salesmen_Id,count(product) as Total_Products_Sold from orders group by sid having count(product)>=2;
++-------------+---------------------+
+| Salesmen_Id | Total_Products_Sold |
++-------------+---------------------+
+| 102         |                   2 |
+| 103         |                   2 |
++-------------+---------------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from salesmen;
++-----+--------+----------+--------+----------+------------+---------+
+| sid | s_name | city     | salary | product  | target_get | country |
++-----+--------+----------+--------+----------+------------+---------+
+| 101 | Jhon   | London   |  15000 | Mobile   |         45 | UK      |
+| 102 | Smith  | Leeds    |  30000 | TV       |         25 | UK      |
+| 103 | Bob    | New York |  25000 | Laptop   |         30 | USA     |
+| 104 | Rohit  | Rome     |  15000 | AC       |         60 | Itly    |
+| 105 | Pawan  | Noida    |  50000 | Monitor  |         35 | India   |
+| 106 | Ram    | Rome     |  65000 | PenDrive |         80 | Itly    |
+| 107 | Raman  | Noida    |  20000 | Ram      |         45 | India   |
++-----+--------+----------+--------+----------+------------+---------+
+7 rows in set (0.00 sec)
+
+mysql> insert into salesmen values (109,'Smith','Leeds',48000,'TV',25,'UK'),(110,'Bob','New York',65000,'Laptop',30,'USA');
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from salesmen;
++-----+--------+----------+--------+----------+------------+---------+
+| sid | s_name | city     | salary | product  | target_get | country |
++-----+--------+----------+--------+----------+------------+---------+
+| 101 | Jhon   | London   |  15000 | Mobile   |         45 | UK      |
+| 102 | Smith  | Leeds    |  30000 | TV       |         25 | UK      |
+| 103 | Bob    | New York |  25000 | Laptop   |         30 | USA     |
+| 104 | Rohit  | Rome     |  15000 | AC       |         60 | Itly    |
+| 105 | Pawan  | Noida    |  50000 | Monitor  |         35 | India   |
+| 106 | Ram    | Rome     |  65000 | PenDrive |         80 | Itly    |
+| 107 | Raman  | Noida    |  20000 | Ram      |         45 | India   |
+| 109 | Smith  | Leeds    |  48000 | TV       |         25 | UK      |
+| 110 | Bob    | New York |  65000 | Laptop   |         30 | USA     |
++-----+--------+----------+--------+----------+------------+---------+
+9 rows in set (0.00 sec)
+
+mysql> select sum(salary) as Sum_Of_Salary,s_name as Name from salesmen;
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #2 of SELECT list contains nonaggregated column 'company.salesmen.s_name'; this is incompatible with sql_mode=only_full_group_by
+mysql> select sum(salary) as Sum_Of_Salary,s_name as Name from salesmen group by s_name;
++---------------+-------+
+| Sum_Of_Salary | Name  |
++---------------+-------+
+|         15000 | Jhon  |
+|         78000 | Smith |
+|         90000 | Bob   |
+|         15000 | Rohit |
+|         50000 | Pawan |
+|         65000 | Ram   |
+|         20000 | Raman |
++---------------+-------+
+7 rows in set (0.00 sec)
+
+mysql> select s_name as Name,sum(salary) as Total_Salary from salesmen group by s_name having count(s_name)>1;
++-------+--------------+
+| Name  | Total_Salary |
++-------+--------------+
+| Smith |        78000 |
+| Bob   |        90000 |
++-------+--------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from salesmen;
++-----+--------+----------+--------+----------+------------+---------+
+| sid | s_name | city     | salary | product  | target_get | country |
++-----+--------+----------+--------+----------+------------+---------+
+| 101 | Jhon   | London   |  15000 | Mobile   |         45 | UK      |
+| 102 | Smith  | Leeds    |  30000 | TV       |         25 | UK      |
+| 103 | Bob    | New York |  25000 | Laptop   |         30 | USA     |
+| 104 | Rohit  | Rome     |  15000 | AC       |         60 | Itly    |
+| 105 | Pawan  | Noida    |  50000 | Monitor  |         35 | India   |
+| 106 | Ram    | Rome     |  65000 | PenDrive |         80 | Itly    |
+| 107 | Raman  | Noida    |  20000 | Ram      |         45 | India   |
+| 109 | Smith  | Leeds    |  48000 | TV       |         25 | UK      |
+| 110 | Bob    | New York |  65000 | Laptop   |         30 | USA     |
++-----+--------+----------+--------+----------+------------+---------+
+9 rows in set (0.00 sec)
+
+mysql> select s_name as Name,sum(salary) as Total_Salary from salesmen group by s_name having count(s_name)>1;
++-------+--------------+
+| Name  | Total_Salary |
++-------+--------------+
+| Smith |        78000 |
+| Bob   |        90000 |
++-------+--------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from customer;
++-----+--------+----------+-----------+---------+---------+-------+---------+
+| cid | c_name | city     | state     | pincode | product | class | country |
++-----+--------+----------+-----------+---------+---------+-------+---------+
+| 201 | Aman   | Noida    | UP        |  201301 | Mobile  | A     | India   |
+| 202 | Amit   | Delhi    | New Delhi |  110096 | AC      | B     | India   |
+| 203 | Jhon   | Gr.Noida | UP        |  201307 | Laptop  | C     | India   |
+| 204 | Anil   | Gurgoan  | Haryana   |  301305 | Monitor | B     | India   |
+| 205 | Ayush  | Shimla   | H.P       |  171010 | TV      | C     | India   |
++-----+--------+----------+-----------+---------+---------+-------+---------+
+5 rows in set (0.00 sec)
+
+mysql> select c.class as Class, count (distinct o.sid) as Number_of_Salsemen from customer c join orders o on c.cid=o.cid group by c.class;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'distinct o.sid) as Number_of_Salsemen from customer c join orders o on c.cid=o.c' at line 1
+mysql> select c.class as Class, count (distinct o.sid) as Number_of_Salsemen from customer c join orders o on c.cid=o.cid group by c.class;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'distinct o.sid) as Number_of_Salsemen from customer c join orders o on c.cid=o.c' at line 1
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql> SELECT c.class AS Customer_Class, COUNT(DISTINCT o.sid) AS Number_of_Salesmen FROM customer c JOIN orders o ON c.cid = o.cid GROUP BY c.class;
++----------------+--------------------+
+| Customer_Class | Number_of_Salesmen |
++----------------+--------------------+
+| A              |                  1 |
+| B              |                  2 |
+| C              |                  2 |
++----------------+--------------------+
+3 rows in set (0.01 sec)
+
+mysql> select c.class as Class, count (distinct o.sid) as Number_of_Salsemen from customer c join orders o on c.cid = o.cid group by c.class;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'distinct o.sid) as Number_of_Salsemen from customer c join orders o on c.cid = o' at line 1
+mysql> SELECT c.class AS Customer_Class, COUNT(DISTINCT o.sid) AS Number_of_Salesmen FROM customer c JOIN orders o ON c.cid = o.cid GROUP BY c.class;
++----------------+--------------------+
+| Customer_Class | Number_of_Salesmen |
++----------------+--------------------+
+| A              |                  1 |
+| B              |                  2 |
+| C              |                  2 |
++----------------+--------------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT c.class AS Customer_Class, COUNT(DISTINCT o.sid) AS Number_of_Salesmen FROM customer c JOIN orders o ON c.cid = o.cid GROUP BY c.class;
++----------------+--------------------+
+| Customer_Class | Number_of_Salesmen |
++----------------+--------------------+
+| A              |                  1 |
+| B              |                  2 |
+| C              |                  2 |
++----------------+--------------------+
+3 rows in set (0.00 sec)
+
+mysql> ^C
+mysql>
