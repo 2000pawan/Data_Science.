@@ -1,0 +1,188 @@
+mysql> use company;
+Database changed
+mysql> create view v1 as select sid,s_name from salesmen;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from v1;
++-----+------------+
+| sid | s_name     |
++-----+------------+
+| 101 | Jhon       |
+| 102 | Smith      |
+| 103 | Bob        |
+| 104 | Rohit      |
+| 105 | PawanYadav |
+| 106 | Ram        |
+| 107 | Raman      |
+| 108 | Roy        |
+| 109 | Smith      |
+| 110 | Bob        |
++-----+------------+
+10 rows in set (0.02 sec)
+
+mysql> update v1 set s_name='Hari' where sid=101;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from v1;
++-----+------------+
+| sid | s_name     |
++-----+------------+
+| 101 | Hari       |
+| 102 | Smith      |
+| 103 | Bob        |
+| 104 | Rohit      |
+| 105 | PawanYadav |
+| 106 | Ram        |
+| 107 | Raman      |
+| 108 | Roy        |
+| 109 | Smith      |
+| 110 | Bob        |
++-----+------------+
+10 rows in set (0.00 sec)
+
+mysql> create procedure p1() select sid,s_name from salesmen;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> call p1();
++-----+------------+
+| sid | s_name     |
++-----+------------+
+| 101 | Hari       |
+| 102 | Smith      |
+| 103 | Bob        |
+| 104 | Rohit      |
+| 105 | PawanYadav |
+| 106 | Ram        |
+| 107 | Raman      |
+| 108 | Roy        |
+| 109 | Smith      |
+| 110 | Bob        |
++-----+------------+
+10 rows in set (0.01 sec)
+
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> drop procedure p1;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> create trigger t1 before insert on salesmen for each row set new.salary=new.salary*20;
+ERROR 1359 (HY000): Trigger already exists
+mysql> drop trigger t1;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> create trigger t1 before insert on salesmen for each row set new.salary=new.salary*20;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> show triggers;
++---------+--------+----------+------------------------------+--------+------------------------+-----------------------------------------------------------------------------------------------------------------------+----------------+----------------------+----------------------+--------------------+
+| Trigger | Event  | Table    | Statement                    | Timing | Created                | sql_mode
+                                                                             | Definer        | character_set_client | collation_connection | Database Collation |
++---------+--------+----------+------------------------------+--------+------------------------+-----------------------------------------------------------------------------------------------------------------------+----------------+----------------------+----------------------+--------------------+
+| t1      | INSERT | salesmen | set new.salary=new.salary*20 | BEFORE | 2024-11-27 19:21:39.94 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | root@localhost | cp850                | cp850_general_ci     | utf8mb4_0900_ai_ci |
+| t2      | UPDATE | salesmen | set new.salary=new.salary*10 | BEFORE | 2024-11-22 10:00:52.28 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | root@localhost | cp850                | cp850_general_ci     | utf8mb4_0900_ai_ci |
++---------+--------+----------+------------------------------+--------+------------------------+-----------------------------------------------------------------------------------------------------------------------+----------------+----------------------+----------------------+--------------------+
+2 rows in set (0.03 sec)
+
+mysql> insert into salesmen values(111,'Head','Perth',500,'Ball',60,'Australia');
+ERROR 1406 (22001): Data too long for column 'country' at row 1
+mysql> insert into salesmen values(111,'Head','Perth',500,'Ball',60,'Aus');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from salesmen;
++-----+------------+----------+--------+----------+------------+---------+
+| sid | s_name     | city     | salary | product  | target_get | country |
++-----+------------+----------+--------+----------+------------+---------+
+| 101 | Hari       | London   | 150000 | Mobile   |         45 | UK      |
+| 102 | Smith      | Leeds    |  30000 | TV       |         25 | UK      |
+| 103 | Bob        | New York |  25000 | Laptop   |         30 | USA     |
+| 104 | Rohit      | Rome     |  15000 | AC       |         60 | Itly    |
+| 105 | PawanYadav | Noida    |  50000 | Monitor  |         35 | India   |
+| 106 | Ram        | Rome     |  65000 | PenDrive |         80 | Itly    |
+| 107 | Raman      | Noida    |  20000 | Ram      |         45 | India   |
+| 108 | Roy        | NewYork  |   2000 | ROM      |         50 | USA     |
+| 109 | Smith      | Leeds    |   2000 | TV       |         25 | UK      |
+| 110 | Bob        | New York |  65000 | Laptop   |         30 | USA     |
+| 111 | Head       | Perth    |  10000 | Ball     |         60 | Aus     |
++-----+------------+----------+--------+----------+------------+---------+
+11 rows in set (0.00 sec)
+
+mysql> drop trigger t2;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> create trigger t2 before insert on salesmen for each row set new.salary=new.salary*20;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> show triggers;
++---------+--------+----------+------------------------------+--------+------------------------+-----------------------------------------------------------------------------------------------------------------------+----------------+----------------------+----------------------+--------------------+
+| Trigger | Event  | Table    | Statement                    | Timing | Created                | sql_mode
+                                                                             | Definer        | character_set_client | collation_connection | Database Collation |
++---------+--------+----------+------------------------------+--------+------------------------+-----------------------------------------------------------------------------------------------------------------------+----------------+----------------------+----------------------+--------------------+
+| t1      | INSERT | salesmen | set new.salary=new.salary*20 | BEFORE | 2024-11-27 19:21:39.94 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | root@localhost | cp850                | cp850_general_ci     | utf8mb4_0900_ai_ci |
+| t2      | INSERT | salesmen | set new.salary=new.salary*20 | BEFORE | 2024-11-27 19:25:07.27 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | root@localhost | cp850                | cp850_general_ci     | utf8mb4_0900_ai_ci |
++---------+--------+----------+------------------------------+--------+------------------------+-----------------------------------------------------------------------------------------------------------------------+----------------+----------------------+----------------------+--------------------+
+2 rows in set (0.00 sec)
+
+mysql> drop trigger t2;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> create trigger t2 before insert on salesmen for each row set new.salary=new.salary*30;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> show triggers;
++---------+--------+----------+------------------------------+--------+------------------------+-----------------------------------------------------------------------------------------------------------------------+----------------+----------------------+----------------------+--------------------+
+| Trigger | Event  | Table    | Statement                    | Timing | Created                | sql_mode
+                                                                             | Definer        | character_set_client | collation_connection | Database Collation |
++---------+--------+----------+------------------------------+--------+------------------------+-----------------------------------------------------------------------------------------------------------------------+----------------+----------------------+----------------------+--------------------+
+| t1      | INSERT | salesmen | set new.salary=new.salary*20 | BEFORE | 2024-11-27 19:21:39.94 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | root@localhost | cp850                | cp850_general_ci     | utf8mb4_0900_ai_ci |
+| t2      | INSERT | salesmen | set new.salary=new.salary*30 | BEFORE | 2024-11-27 19:25:38.93 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | root@localhost | cp850                | cp850_general_ci     | utf8mb4_0900_ai_ci |
++---------+--------+----------+------------------------------+--------+------------------------+-----------------------------------------------------------------------------------------------------------------------+----------------+----------------------+----------------------+--------------------+
+2 rows in set (0.00 sec)
+
+mysql> update salesmen set salary=1000 where sid 108;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '108' at line 1
+mysql> update salesmen set salary=1000 where sid =108;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from salesmen;
++-----+------------+----------+--------+----------+------------+---------+
+| sid | s_name     | city     | salary | product  | target_get | country |
++-----+------------+----------+--------+----------+------------+---------+
+| 101 | Hari       | London   | 150000 | Mobile   |         45 | UK      |
+| 102 | Smith      | Leeds    |  30000 | TV       |         25 | UK      |
+| 103 | Bob        | New York |  25000 | Laptop   |         30 | USA     |
+| 104 | Rohit      | Rome     |  15000 | AC       |         60 | Itly    |
+| 105 | PawanYadav | Noida    |  50000 | Monitor  |         35 | India   |
+| 106 | Ram        | Rome     |  65000 | PenDrive |         80 | Itly    |
+| 107 | Raman      | Noida    |  20000 | Ram      |         45 | India   |
+| 108 | Roy        | NewYork  |   1000 | ROM      |         50 | USA     |
+| 109 | Smith      | Leeds    |   2000 | TV       |         25 | UK      |
+| 110 | Bob        | New York |  65000 | Laptop   |         30 | USA     |
+| 111 | Head       | Perth    |  10000 | Ball     |         60 | Aus     |
++-----+------------+----------+--------+----------+------------+---------+
+11 rows in set (0.00 sec)
+
+mysql> insert into salesmen values(112,'Mexwell','Sydney',1000,'Ball',80,'Aus');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from salesmen;
++-----+------------+----------+--------+----------+------------+---------+
+| sid | s_name     | city     | salary | product  | target_get | country |
++-----+------------+----------+--------+----------+------------+---------+
+| 101 | Hari       | London   | 150000 | Mobile   |         45 | UK      |
+| 102 | Smith      | Leeds    |  30000 | TV       |         25 | UK      |
+| 103 | Bob        | New York |  25000 | Laptop   |         30 | USA     |
+| 104 | Rohit      | Rome     |  15000 | AC       |         60 | Itly    |
+| 105 | PawanYadav | Noida    |  50000 | Monitor  |         35 | India   |
+| 106 | Ram        | Rome     |  65000 | PenDrive |         80 | Itly    |
+| 107 | Raman      | Noida    |  20000 | Ram      |         45 | India   |
+| 108 | Roy        | NewYork  |   1000 | ROM      |         50 | USA     |
+| 109 | Smith      | Leeds    |   2000 | TV       |         25 | UK      |
+| 110 | Bob        | New York |  65000 | Laptop   |         30 | USA     |
+| 111 | Head       | Perth    |  10000 | Ball     |         60 | Aus     |
+| 112 | Mexwell    | Sydney   | 600000 | Ball     |         80 | Aus     |
++-----+------------+----------+--------+----------+------------+---------+
+12 rows in set (0.00 sec)
+
+mysql>
