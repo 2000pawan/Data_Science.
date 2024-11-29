@@ -1,0 +1,509 @@
+mysql> use company;
+Database changed
+mysql> select * from salesmen;
++-----+------------+----------+--------+----------+------------+---------+
+| sid | s_name     | city     | salary | product  | target_get | country |
++-----+------------+----------+--------+----------+------------+---------+
+| 101 | Hari       | London   | 150000 | Mobile   |         45 | UK      |
+| 102 | Smith      | Leeds    |  30000 | TV       |         25 | UK      |
+| 103 | Bob        | New York |  25000 | Laptop   |         30 | USA     |
+| 104 | Rohit      | Rome     |  15000 | AC       |         60 | Itly    |
+| 105 | PawanYadav | Noida    |  50000 | Monitor  |         35 | India   |
+| 106 | Ram        | Rome     |  65000 | PenDrive |         80 | Itly    |
+| 107 | Raman      | Noida    |  20000 | Ram      |         45 | India   |
+| 108 | Roy        | NewYork  |   1000 | ROM      |         50 | USA     |
+| 109 | Smith      | Leeds    |   2000 | TV       |         25 | UK      |
+| 110 | Bob        | New York |  65000 | Laptop   |         30 | USA     |
+| 111 | Head       | Perth    |  10000 | Ball     |         60 | Aus     |
+| 112 | Mexwell    | Sydney   | 600000 | Ball     |         80 | Aus     |
++-----+------------+----------+--------+----------+------------+---------+
+12 rows in set (0.02 sec)
+
+mysql> select * from customer;
++-----+--------+----------+-----------+---------+---------+-------+---------+
+| cid | c_name | city     | state     | pincode | product | class | country |
++-----+--------+----------+-----------+---------+---------+-------+---------+
+| 201 | Aman   | Noida    | UP        |  201301 | Mobile  | A     | India   |
+| 202 | Amit   | Delhi    | New Delhi |  110096 | AC      | B     | India   |
+| 203 | Jhon   | Gr.Noida | UP        |  201307 | Laptop  | C     | India   |
+| 204 | Anil   | Gurgoan  | Haryana   |  301305 | Monitor | B     | India   |
+| 205 | Ayush  | Shimla   | H.P       |  171010 | TV      | C     | India   |
++-----+--------+----------+-----------+---------+---------+-------+---------+
+5 rows in set (0.05 sec)
+
+mysql> select * from orders;
++-----+------+------+---------+------+------------+--------+
+| oid | cid  | sid  | product | qty  | o_date     | amt    |
++-----+------+------+---------+------+------------+--------+
+| 501 | 203  | 102  | Mobile  |   15 | 2024-08-26 |  70000 |
+| 502 | 202  | 101  | TV      |   16 | 0024-05-25 |  90000 |
+| 503 | 201  | 104  | Monitor |   25 | 2024-06-06 |  50000 |
+| 504 | 205  | 103  | AC      |   28 | 2023-09-08 | 155000 |
+| 505 | 204  | 105  | Laptop  |   48 | 2022-10-28 | 400000 |
+| 506 | 203  | 102  | Mobile  |   14 | 2024-07-21 |  50002 |
+| 507 | 205  | 103  | AC      |   22 | 2024-09-30 |  25680 |
++-----+------+------+---------+------+------------+--------+
+7 rows in set (0.01 sec)
+
+mysql> select sum(a.salary) as Total_Salary from salesmen as a join customer b on products group by (a.salary);
+ERROR 1054 (42S22): Unknown column 'products' in 'on clause'
+mysql> select sum(a.salary) as Total_Salary from salesmen as a join customer b on product group by (a.salary);
+ERROR 1052 (23000): Column 'product' in on clause is ambiguous
+mysql> select sum(a.salary) as Total_Salary from salesmen as a join customer b on a.product=b.product group by (a.salary);
++--------------+
+| Total_Salary |
++--------------+
+|       150000 |
+|        30000 |
+|        25000 |
+|        15000 |
+|        50000 |
+|         2000 |
+|        65000 |
++--------------+
+7 rows in set (0.01 sec)
+
+mysql> select a.s_name as name,sum(a.salary) as Total_Salary from salesmen as a join customer b on a.product=b.product group by (a.salary);
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'company.a.s_name' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> select a.s_name as name,sum(a.salary) as Total_Salary from salesmen as a join customer b on a.product=b.product group by (a.s_name);
++------------+--------------+
+| name       | Total_Salary |
++------------+--------------+
+| Hari       |       150000 |
+| Smith      |        32000 |
+| Bob        |        90000 |
+| Rohit      |        15000 |
+| PawanYadav |        50000 |
++------------+--------------+
+5 rows in set (0.00 sec)
+
+mysql> select a.s_name as Name,sum(a.salary) as Total_Salary from salesmen as a join customer b on a.product=b.product group by (a.s_name);
++------------+--------------+
+| Name       | Total_Salary |
++------------+--------------+
+| Hari       |       150000 |
+| Smith      |        32000 |
+| Bob        |        90000 |
+| Rohit      |        15000 |
+| PawanYadav |        50000 |
++------------+--------------+
+5 rows in set (0.00 sec)
+
+mysql> select a.s_name as Name from salesmen as a join customer b on a.product=b.product where b.city='Noida';
++------+
+| Name |
++------+
+| Hari |
++------+
+1 row in set (0.01 sec)
+
+mysql> select a.s_name as Name from salesmen as a join customer b on a.product=b.product where b.city='Gurgaon';
+Empty set (0.00 sec)
+
+mysql> select a.s_name as Name from salesmen as a join customer b on a.product=b.product where b.city='Gurgaon';
+Empty set (0.00 sec)
+
+mysql> select a.s_name as Name from salesmen as a join customer b on a.product=b.product where b.city='gurgoan';
++------------+
+| Name       |
++------------+
+| PawanYadav |
++------------+
+1 row in set (0.00 sec)
+
+mysql> create procedure p1(select a.s_name as Salesmen_Name,b.c_name as Customer_name from salesmen as a,customer as b where like);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'select a.s_name as Salesmen_Name,b.c_name as Customer_name from salesmen as a,cu' at line 1
+mysql> select s_name from salesmen where like(____%n);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'like(____%n)' at line 1
+mysql> select s_name from salesmen where like s_name (____%n);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'like s_name (____%n)' at line 1
+mysql> select s_name from salesmen where s_name like(____%n);
+ERROR 1054 (42S22): Unknown column '____' in 'where clause'
+mysql> select s_name from salesmen where s_name like('____%n');
++--------+
+| s_name |
++--------+
+| Raman  |
++--------+
+1 row in set (0.00 sec)
+
+mysql> create procedure p1(select a.s_name as Salesmen_Name,b.c_name as Customer_name from salesmen as a,customer as b where a.s_name like('___%i') and b.c_name like('___%n');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'select a.s_name as Salesmen_Name,b.c_name as Customer_name from salesmen as a,cu' at line 1
+mysql> create procedure p1(select a.s_name as Salesmen_Name,b.c_name as Customer_name from salesmen as a join customer as b on a.product=b.product where a.s_name like('___%i') and b.c_name like('___%n');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'select a.s_name as Salesmen_Name,b.c_name as Customer_name from salesmen as a jo' at line 1
+mysql> create procedure p1(select a.s_name as Salesmen_Name from salesmen where a.s_name like('___%i'));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'select a.s_name as Salesmen_Name from salesmen where a.s_name like('___%i'))' at line 1
+mysql> create procedure p1 select a.s_name as Salesmen_Name from salesmen where a.s_name like('___%i');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'select a.s_name as Salesmen_Name from salesmen where a.s_name like('___%i')' at line 1
+mysql> create procedure p1() ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql>
+mysql> create procedure p1()  from salesmen;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from salesmen' at line 1
+mysql> create procedure p1() select * from salesmen;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> p1()
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'p1()' at line 1
+mysql> call p1();
++-----+------------+----------+--------+----------+------------+---------+
+| sid | s_name     | city     | salary | product  | target_get | country |
++-----+------------+----------+--------+----------+------------+---------+
+| 101 | Hari       | London   | 150000 | Mobile   |         45 | UK      |
+| 102 | Smith      | Leeds    |  30000 | TV       |         25 | UK      |
+| 103 | Bob        | New York |  25000 | Laptop   |         30 | USA     |
+| 104 | Rohit      | Rome     |  15000 | AC       |         60 | Itly    |
+| 105 | PawanYadav | Noida    |  50000 | Monitor  |         35 | India   |
+| 106 | Ram        | Rome     |  65000 | PenDrive |         80 | Itly    |
+| 107 | Raman      | Noida    |  20000 | Ram      |         45 | India   |
+| 108 | Roy        | NewYork  |   1000 | ROM      |         50 | USA     |
+| 109 | Smith      | Leeds    |   2000 | TV       |         25 | UK      |
+| 110 | Bob        | New York |  65000 | Laptop   |         30 | USA     |
+| 111 | Head       | Perth    |  10000 | Ball     |         60 | Aus     |
+| 112 | Mexwell    | Sydney   | 600000 | Ball     |         80 | Aus     |
++-----+------------+----------+--------+----------+------------+---------+
+12 rows in set (0.01 sec)
+
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> drop p1();
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'p1()' at line 1
+mysql> drop procedure p1();
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '()' at line 1
+mysql> drop procedure p1;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> create procedure p1() select s_name as Name from salesmen where s_name like('___%i');
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call p1();
++------+
+| Name |
++------+
+| Hari |
++------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> drop procedure p1;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> create procedure p1() select s_name as Salesmen_Name from salesmen where s_name like('___%i') and select c_name as Customer_name from customer where c_name like('___%n');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'select c_name as Customer_name from customer where c_name like('___%n')' at line 1
+mysql> create procedure p1() select a.s_name as Salesmen_Name,b.c_name as Customer_Name from salesmen a,customer b where a.s_name like('___%i') and b.c_name like('___%n');
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> call p1();
++---------------+---------------+
+| Salesmen_Name | Customer_Name |
++---------------+---------------+
+| Hari          | Jhon          |
+| Hari          | Aman          |
++---------------+---------------+
+2 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> drop procedure p1;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> create procedure p1() select a.s_name as Salesmen_Name,b.c_name as Customer_Name from salesmen a,customer b where a.s_name like('___%i') and b.c_name like('___%l');
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call p1();
++---------------+---------------+
+| Salesmen_Name | Customer_Name |
++---------------+---------------+
+| Hari          | Anil          |
++---------------+---------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> create trigger salary_increment befor  on salesmen for each row set new.salary=(new.salary*10)/100;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'befor  on salesmen for each row set new.salary=(new.salary*10)/100' at line 1
+mysql> create trigger salary_increment before insert  on salesmen for each row set new.salary=(new.salary*10)/100;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> show trigger;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'trigger' at line 1
+mysql> show triggers;
++------------------+--------+----------+------------------------------------+--------+------------------------+-----------------------------------------------------------------------------------------------------------------------+----------------+----------------------+----------------------+--------------------+
+| Trigger          | Event  | Table    | Statement                          | Timing | Created                | sql_mode
+                     | Definer        | character_set_client | collation_connection | Database Collation |
++------------------+--------+----------+------------------------------------+--------+------------------------+-----------------------------------------------------------------------------------------------------------------------+----------------+----------------------+----------------------+--------------------+
+| t1               | INSERT | salesmen | set new.salary=new.salary*20       | BEFORE | 2024-11-27 19:21:39.94 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | root@localhost | cp850                | cp850_general_ci     | utf8mb4_0900_ai_ci |
+| t2               | INSERT | salesmen | set new.salary=new.salary*30       | BEFORE | 2024-11-27 19:25:38.93 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | root@localhost | cp850                | cp850_general_ci     | utf8mb4_0900_ai_ci |
+| salary_increment | INSERT | salesmen | set new.salary=(new.salary*10)/100 | BEFORE | 2024-11-29 10:38:33.59 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | root@localhost | cp850                | cp850_general_ci     | utf8mb4_0900_ai_ci |
++------------------+--------+----------+------------------------------------+--------+------------------------+-----------------------------------------------------------------------------------------------------------------------+----------------+----------------------+----------------------+--------------------+
+3 rows in set (0.02 sec)
+
+mysql> insert into salesmen values(113,'Ravi',"Lucknow",70000,'Bat',50,'UP');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select * from salesmen;
++-----+------------+----------+---------+----------+------------+---------+
+| sid | s_name     | city     | salary  | product  | target_get | country |
++-----+------------+----------+---------+----------+------------+---------+
+| 101 | Hari       | London   |  150000 | Mobile   |         45 | UK      |
+| 102 | Smith      | Leeds    |   30000 | TV       |         25 | UK      |
+| 103 | Bob        | New York |   25000 | Laptop   |         30 | USA     |
+| 104 | Rohit      | Rome     |   15000 | AC       |         60 | Itly    |
+| 105 | PawanYadav | Noida    |   50000 | Monitor  |         35 | India   |
+| 106 | Ram        | Rome     |   65000 | PenDrive |         80 | Itly    |
+| 107 | Raman      | Noida    |   20000 | Ram      |         45 | India   |
+| 108 | Roy        | NewYork  |    1000 | ROM      |         50 | USA     |
+| 109 | Smith      | Leeds    |    2000 | TV       |         25 | UK      |
+| 110 | Bob        | New York |   65000 | Laptop   |         30 | USA     |
+| 111 | Head       | Perth    |   10000 | Ball     |         60 | Aus     |
+| 112 | Mexwell    | Sydney   |  600000 | Ball     |         80 | Aus     |
+| 113 | Ravi       | Lucknow  | 4200000 | Bat      |         50 | UP      |
++-----+------------+----------+---------+----------+------------+---------+
+13 rows in set (0.00 sec)
+
+mysql> drop trigger salary_increment;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> create trigger salary_increment before insert  on salesmen for each row set new.salary=(new.salary*10)/100+new.salary;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into salesmen values(113,'Ravi',"Lucknow",7000,'Bat',50,'UP');
+ERROR 1062 (23000): Duplicate entry '113' for key 'salesmen.PRIMARY'
+mysql> insert into salesmen values(114,'Ravi',"Lucknow",7000,'Bat',50,'UP');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from salesmen where sid=114;
++-----+--------+---------+---------+---------+------------+---------+
+| sid | s_name | city    | salary  | product | target_get | country |
++-----+--------+---------+---------+---------+------------+---------+
+| 114 | Ravi   | Lucknow | 4620000 | Bat     |         50 | UP      |
++-----+--------+---------+---------+---------+------------+---------+
+1 row in set (0.00 sec)
+
+mysql> drop trigger salary_increment;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> create trigger salary_increment before insert  on salesmen for each row set new.salary=new.salary*0.1;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> delete from salesmen where sid=114 and sid=113;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> insert into salesmen values(113,'Ravi',"Lucknow",1000,'Bat',50,'UP');
+ERROR 1062 (23000): Duplicate entry '113' for key 'salesmen.PRIMARY'
+mysql> select * from salesmen ;
++-----+------------+----------+---------+----------+------------+---------+
+| sid | s_name     | city     | salary  | product  | target_get | country |
++-----+------------+----------+---------+----------+------------+---------+
+| 101 | Hari       | London   |  150000 | Mobile   |         45 | UK      |
+| 102 | Smith      | Leeds    |   30000 | TV       |         25 | UK      |
+| 103 | Bob        | New York |   25000 | Laptop   |         30 | USA     |
+| 104 | Rohit      | Rome     |   15000 | AC       |         60 | Itly    |
+| 105 | PawanYadav | Noida    |   50000 | Monitor  |         35 | India   |
+| 106 | Ram        | Rome     |   65000 | PenDrive |         80 | Itly    |
+| 107 | Raman      | Noida    |   20000 | Ram      |         45 | India   |
+| 108 | Roy        | NewYork  |    1000 | ROM      |         50 | USA     |
+| 109 | Smith      | Leeds    |    2000 | TV       |         25 | UK      |
+| 110 | Bob        | New York |   65000 | Laptop   |         30 | USA     |
+| 111 | Head       | Perth    |   10000 | Ball     |         60 | Aus     |
+| 112 | Mexwell    | Sydney   |  600000 | Ball     |         80 | Aus     |
+| 113 | Ravi       | Lucknow  | 4200000 | Bat      |         50 | UP      |
+| 114 | Ravi       | Lucknow  | 4620000 | Bat      |         50 | UP      |
++-----+------------+----------+---------+----------+------------+---------+
+14 rows in set (0.00 sec)
+
+mysql> delete from salesmen where sid=114 and sid=113;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from salesmen ;
++-----+------------+----------+---------+----------+------------+---------+
+| sid | s_name     | city     | salary  | product  | target_get | country |
++-----+------------+----------+---------+----------+------------+---------+
+| 101 | Hari       | London   |  150000 | Mobile   |         45 | UK      |
+| 102 | Smith      | Leeds    |   30000 | TV       |         25 | UK      |
+| 103 | Bob        | New York |   25000 | Laptop   |         30 | USA     |
+| 104 | Rohit      | Rome     |   15000 | AC       |         60 | Itly    |
+| 105 | PawanYadav | Noida    |   50000 | Monitor  |         35 | India   |
+| 106 | Ram        | Rome     |   65000 | PenDrive |         80 | Itly    |
+| 107 | Raman      | Noida    |   20000 | Ram      |         45 | India   |
+| 108 | Roy        | NewYork  |    1000 | ROM      |         50 | USA     |
+| 109 | Smith      | Leeds    |    2000 | TV       |         25 | UK      |
+| 110 | Bob        | New York |   65000 | Laptop   |         30 | USA     |
+| 111 | Head       | Perth    |   10000 | Ball     |         60 | Aus     |
+| 112 | Mexwell    | Sydney   |  600000 | Ball     |         80 | Aus     |
+| 113 | Ravi       | Lucknow  | 4200000 | Bat      |         50 | UP      |
+| 114 | Ravi       | Lucknow  | 4620000 | Bat      |         50 | UP      |
++-----+------------+----------+---------+----------+------------+---------+
+14 rows in set (0.00 sec)
+
+mysql> delete from salesmen where sid=114;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from salesmen ;
++-----+------------+----------+---------+----------+------------+---------+
+| sid | s_name     | city     | salary  | product  | target_get | country |
++-----+------------+----------+---------+----------+------------+---------+
+| 101 | Hari       | London   |  150000 | Mobile   |         45 | UK      |
+| 102 | Smith      | Leeds    |   30000 | TV       |         25 | UK      |
+| 103 | Bob        | New York |   25000 | Laptop   |         30 | USA     |
+| 104 | Rohit      | Rome     |   15000 | AC       |         60 | Itly    |
+| 105 | PawanYadav | Noida    |   50000 | Monitor  |         35 | India   |
+| 106 | Ram        | Rome     |   65000 | PenDrive |         80 | Itly    |
+| 107 | Raman      | Noida    |   20000 | Ram      |         45 | India   |
+| 108 | Roy        | NewYork  |    1000 | ROM      |         50 | USA     |
+| 109 | Smith      | Leeds    |    2000 | TV       |         25 | UK      |
+| 110 | Bob        | New York |   65000 | Laptop   |         30 | USA     |
+| 111 | Head       | Perth    |   10000 | Ball     |         60 | Aus     |
+| 112 | Mexwell    | Sydney   |  600000 | Ball     |         80 | Aus     |
+| 113 | Ravi       | Lucknow  | 4200000 | Bat      |         50 | UP      |
++-----+------------+----------+---------+----------+------------+---------+
+13 rows in set (0.00 sec)
+
+mysql> delete from salesmen where sid=113;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from salesmen ;
++-----+------------+----------+--------+----------+------------+---------+
+| sid | s_name     | city     | salary | product  | target_get | country |
++-----+------------+----------+--------+----------+------------+---------+
+| 101 | Hari       | London   | 150000 | Mobile   |         45 | UK      |
+| 102 | Smith      | Leeds    |  30000 | TV       |         25 | UK      |
+| 103 | Bob        | New York |  25000 | Laptop   |         30 | USA     |
+| 104 | Rohit      | Rome     |  15000 | AC       |         60 | Itly    |
+| 105 | PawanYadav | Noida    |  50000 | Monitor  |         35 | India   |
+| 106 | Ram        | Rome     |  65000 | PenDrive |         80 | Itly    |
+| 107 | Raman      | Noida    |  20000 | Ram      |         45 | India   |
+| 108 | Roy        | NewYork  |   1000 | ROM      |         50 | USA     |
+| 109 | Smith      | Leeds    |   2000 | TV       |         25 | UK      |
+| 110 | Bob        | New York |  65000 | Laptop   |         30 | USA     |
+| 111 | Head       | Perth    |  10000 | Ball     |         60 | Aus     |
+| 112 | Mexwell    | Sydney   | 600000 | Ball     |         80 | Aus     |
++-----+------------+----------+--------+----------+------------+---------+
+12 rows in set (0.00 sec)
+
+mysql> insert into salesmen values(113,'Ravi',"Lucknow",1000,'Bat',50,'UP');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from salesmen where sid=113;
++-----+--------+---------+--------+---------+------------+---------+
+| sid | s_name | city    | salary | product | target_get | country |
++-----+--------+---------+--------+---------+------------+---------+
+| 113 | Ravi   | Lucknow |  60000 | Bat     |         50 | UP      |
++-----+--------+---------+--------+---------+------------+---------+
+1 row in set (0.00 sec)
+
+mysql> create view v1 from salesmen where max(salary);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from salesmen where max(salary)' at line 1
+mysql> show salesmen;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'salesmen' at line 1
+mysql> describe salesmen;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| sid        | varchar(5)  | NO   | PRI | NULL    |       |
+| s_name     | varchar(10) | NO   |     | NULL    |       |
+| city       | varchar(15) | NO   |     | NULL    |       |
+| salary     | int         | YES  |     | NULL    |       |
+| product    | varchar(20) | YES  |     | NULL    |       |
+| target_get | int         | YES  |     | NULL    |       |
+| country    | varchar(5)  | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+7 rows in set (0.03 sec)
+
+mysql> create view v1 select max(salary) from salesmen;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'select max(salary) from salesmen' at line 1
+mysql> create view v1 select max(salary) from salesmen group by (salary);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'select max(salary) from salesmen group by (salary)' at line 1
+mysql> select max(salary) from salesmen limit;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> select max(salary) from salesmen limit 4;
++-------------+
+| max(salary) |
++-------------+
+|      600000 |
++-------------+
+1 row in set (0.01 sec)
+
+mysql> select salary from salesmen order by salary desc limit 4;
++--------+
+| salary |
++--------+
+| 600000 |
+| 150000 |
+|  65000 |
+|  65000 |
++--------+
+4 rows in set (0.00 sec)
+
+mysql> create view v1 select min salary from (select salary from salesmen order by salary desc limit 4);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'select min salary from (select salary from salesmen order by salary desc limit 4' at line 1
+mysql> select min(salary) from (select salary from salesmen order by salary desc limit 4);
+ERROR 1248 (42000): Every derived table must have its own alias
+mysql> select min(salary) from sales (select salary from salesmen order by salary desc limit 4) as sales;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(select salary from salesmen order by salary desc limit 4) as sales' at line 1
+mysql> create view v1 select salary from salesmen order by salary desc limit 4;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'select salary from salesmen order by salary desc limit 4' at line 1
+mysql> create view v1 at select salary from salesmen order by salary desc limit 4;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'at select salary from salesmen order by salary desc limit 4' at line 1
+mysql> create view v1 as select salary from salesmen order by salary desc limit 4;
+ERROR 1050 (42S01): Table 'v1' already exists
+mysql> create view max_salary as select salary from salesmen order by salary desc limit 4;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> select min(salary) from max_salary;
++-------------+
+| min(salary) |
++-------------+
+|       65000 |
++-------------+
+1 row in set (0.01 sec)
+
+mysql> update from salesmen  set on salary =68000 where sid =106;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from salesmen  set on salary =68000 where sid =106' at line 1
+mysql> update  set on salary =68000 from salesmen  where sid =106;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'set on salary =68000 from salesmen  where sid =106' at line 1
+mysql> update salesmen set on salary =68000 where sid =106;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'on salary =68000 where sid =106' at line 1
+mysql> update salesmen set salary =68000 where sid =106;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from salesmen;
++-----+------------+----------+--------+----------+------------+---------+
+| sid | s_name     | city     | salary | product  | target_get | country |
++-----+------------+----------+--------+----------+------------+---------+
+| 101 | Hari       | London   | 150000 | Mobile   |         45 | UK      |
+| 102 | Smith      | Leeds    |  30000 | TV       |         25 | UK      |
+| 103 | Bob        | New York |  25000 | Laptop   |         30 | USA     |
+| 104 | Rohit      | Rome     |  15000 | AC       |         60 | Itly    |
+| 105 | PawanYadav | Noida    |  50000 | Monitor  |         35 | India   |
+| 106 | Ram        | Rome     |  68000 | PenDrive |         80 | Itly    |
+| 107 | Raman      | Noida    |  20000 | Ram      |         45 | India   |
+| 108 | Roy        | NewYork  |   1000 | ROM      |         50 | USA     |
+| 109 | Smith      | Leeds    |   2000 | TV       |         25 | UK      |
+| 110 | Bob        | New York |  65000 | Laptop   |         30 | USA     |
+| 111 | Head       | Perth    |  10000 | Ball     |         60 | Aus     |
+| 112 | Mexwell    | Sydney   | 600000 | Ball     |         80 | Aus     |
+| 113 | Ravi       | Lucknow  |  60000 | Bat      |         50 | UP      |
++-----+------------+----------+--------+----------+------------+---------+
+13 rows in set (0.00 sec)
+
+mysql> drop max_salary;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'max_salary' at line 1
+mysql> drop view max_salary;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> create view max_salary as select salary from salesmen order by salary desc limit 4;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select min(salary) from max_salary;
++-------------+
+| min(salary) |
++-------------+
+|       65000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql>
