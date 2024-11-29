@@ -11,7 +11,7 @@ mysql> select * from salesmen;
 | 105 | PawanYadav | Noida    |  50000 | Monitor  |         35 | India   |
 | 106 | Ram        | Rome     |  65000 | PenDrive |         80 | Itly    |
 | 107 | Raman      | Noida    |  20000 | Ram      |         45 | India   |
-| 108 | Roy        | NewYork  |   1000 | ROM      |         50 | USA     |
+| 108 | Roy        | NewYork  |   1000 | ROM      |         50 | USA     |   
 | 109 | Smith      | Leeds    |   2000 | TV       |         25 | UK      |
 | 110 | Bob        | New York |  65000 | Laptop   |         30 | USA     |
 | 111 | Head       | Perth    |  10000 | Ball     |         60 | Aus     |
