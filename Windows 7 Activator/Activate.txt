@@ -1,0 +1,5 @@
+Before running Activate.exe you should close ALL programs!
+
+It will restart your computer after installing.
+
+Virus Scanners will show false positive as its a hack tool.
