@@ -4,3 +4,4 @@ SQL
 NLP
 Power BI
 Computer Vision
+C,C++
