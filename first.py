@@ -1,7 +1,9 @@
-class test:
-    def add(a=35,b=95):
-        return a+b
-
+class test():
+    def __init__(self):
+        pass
+    def add(self,a=35,b=95):
+        c=a+b
+        return c
 z=test()
-r=z.add(25,65)
+r=z.add(30,70)  
 print(r)
