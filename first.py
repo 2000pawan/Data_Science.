@@ -3,7 +3,7 @@ class test():
         pass
     def add(self,a=35,b=95):
         c=a+b
-        return c,a
+        return c,a,b
         
 z=test()
 r=z.add(b=30,a=70)  
