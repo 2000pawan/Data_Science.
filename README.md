@@ -9,3 +9,4 @@ llm
 langchain
 LangGraph 
 Langsmith 
+MISTRAL 
