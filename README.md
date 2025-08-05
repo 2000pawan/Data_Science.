@@ -10,3 +10,4 @@ langchain
 LangGraph 
 Langsmith 
 MISTRAL 
+Llama 3b
