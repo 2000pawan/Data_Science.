@@ -13,3 +13,4 @@ MISTRAL
 Llama 3b
 gemni
 LLM
+MCP
