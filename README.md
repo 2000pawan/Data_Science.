@@ -14,3 +14,4 @@ Llama 3b
 gemni
 LLM
 MCP
+Python
