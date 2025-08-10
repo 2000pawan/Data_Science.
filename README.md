@@ -15,3 +15,4 @@ gemni
 LLM
 MCP
 Python
+java
