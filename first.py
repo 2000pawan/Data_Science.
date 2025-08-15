@@ -7,4 +7,6 @@ class test():
         
 z=test()
 r=z.add(b=30,a=70)  
+
 print(r)
+
