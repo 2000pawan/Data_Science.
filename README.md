@@ -7,6 +7,7 @@ Power BI
 Computer Vision
 C,C++
 llm
+
 langchain
 LangGraph 
 Langsmith 
